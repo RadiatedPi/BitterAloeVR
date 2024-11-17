@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 64cecb873c544a94e923f75bffbdb295
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103788
+  packageName: Better Streaming Assets
+  packageVersion: 1.7.1
+  assetPath: Packages/com.gwiazdorrr.betterstreamingassets/Tests/Editor/BetterStreamingAssets-Editor.asmdef
+  uploadId: 697068

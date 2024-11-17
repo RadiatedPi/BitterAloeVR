@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 34f6b4de9962c114299b3b9bfdd590d5
+timeCreated: 1506546248
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103788
+  packageName: Better Streaming Assets
+  packageVersion: 1.7.1
+  assetPath: Packages/com.gwiazdorrr.betterstreamingassets/Runtime/BSA_PathUtil.cs
+  uploadId: 697068

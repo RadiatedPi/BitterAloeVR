@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 08dafaa194a7143109cbe1c6403a2ec5
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103788
+  packageName: Better Streaming Assets
+  packageVersion: 1.7.1
+  assetPath: Packages/com.gwiazdorrr.betterstreamingassets/package.json
+  uploadId: 697068

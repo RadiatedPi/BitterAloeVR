@@ -1,0 +1,5 @@
+D:/Unity/Projects/BitterAloeRevamp/.utmp/Debug/1j3h1t6l/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/Unity/Projects/BitterAloeRevamp/.utmp/Debug/1j3h1t6l/arm64-v8a/CMakeFiles/rebuild_cache.dir
+D:/Unity/Projects/BitterAloeRevamp/.utmp/Debug/1j3h1t6l/arm64-v8a/GameActivity/CMakeFiles/game.dir
+D:/Unity/Projects/BitterAloeRevamp/.utmp/Debug/1j3h1t6l/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+D:/Unity/Projects/BitterAloeRevamp/.utmp/Debug/1j3h1t6l/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir

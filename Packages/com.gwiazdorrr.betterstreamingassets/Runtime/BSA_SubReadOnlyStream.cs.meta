@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 23985058976064b4aa47f955e25b32fb
+timeCreated: 1506207467
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103788
+  packageName: Better Streaming Assets
+  packageVersion: 1.7.1
+  assetPath: Packages/com.gwiazdorrr.betterstreamingassets/Runtime/BSA_SubReadOnlyStream.cs
+  uploadId: 697068

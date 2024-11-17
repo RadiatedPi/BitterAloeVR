@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.Data.Analysis</id>
+    <version>0.21.1</version>
+    <authors>Microsoft</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>mlnetlogo.png</icon>
+    <projectUrl>https://dot.net/ml</projectUrl>
+    <description>This package contains easy-to-use and high-performance libraries for data analysis and transformation.</description>
+    <releaseNotes>Initial preview of robust and extensible types and algorithms for manipulating structured data that supports aggregations, statistical funtions, sorting, grouping, joins, merges, handling missing values and more.</releaseNotes>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <tags>ML.NET ML Machine Learning Data Science DataFrame Preparation DataView Analytics Exploration</tags>
+    <serviceable>true</serviceable>
+    <repository type="git" url="https://github.com/dotnet/machinelearning" commit="9e500a5b893f878e1e05d28b8a73127bbd7ab1f0" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.ML.DataView" version="3.0.1" exclude="Build,Analyzers" />
+        <dependency id="Apache.Arrow" version="11.0.0" include="All" />
+        <dependency id="System.Buffers" version="4.5.1" include="All" />
+        <dependency id="System.Memory" version="4.5.5" include="All" />
+        <dependency id="System.Runtime.CompilerServices.Unsafe" version="6.0.0" include="All" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>
