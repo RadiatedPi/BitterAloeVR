@@ -7,16 +7,16 @@ public class TerrainController : MonoBehaviour {
     [SerializeField]
     private GameObject terrainTilePrefab = null;
     [SerializeField]
-    private Vector3 terrainSize = new Vector3(20, 1, 20);
-    public Vector3 TerrainSize { get { return terrainSize; } }
+    private Vector3 tileResolution = new Vector3(10, 1, 10);
+    public Vector3 TerrainSize { get { return tileResolution; } }
     /*
     [SerializeField]
     private Gradient gradient;
     */
     [SerializeField]
-    private float noiseScale = 3, cellSize = 1;
+    private float noiseScale = 2, cellSize = 2;
     [SerializeField]
-    private int radiusToRender = 5;
+    private int radiusToRender = 4;
     [SerializeField]
     private Transform[] gameTransforms;
     [SerializeField]
@@ -39,7 +39,7 @@ public class TerrainController : MonoBehaviour {
     public int MinObjectsPerTile { get { return minObjectsPerTile; } }
     public int MaxObjectsPerTile { get { return maxObjectsPerTile; } }
     [SerializeField]
-    private float destroyDistance = 1000;
+    private float destroyDistance = 200;
     [SerializeField]
     private bool usePerlinNoise = true;
     [SerializeField]
@@ -151,13 +151,14 @@ public class TerrainController : MonoBehaviour {
             Level
         );
         //had to move outside of instantiate because it's a local position
-        terrain.transform.localPosition = new Vector3(terrainSize.x * xIndex, terrainSize.y, terrainSize.z * yIndex);
+        //terrain.transform.localPosition = new Vector3(tileResolution.x * xIndex, tileResolution.y, tileResolution.z * yIndex);
+        terrain.transform.localPosition = new Vector3(tileResolution.x * xIndex, 0, tileResolution.z * yIndex);
         terrain.name = TrimEnd(terrain.name, "(Clone)") + " [" + xIndex + " , " + yIndex + "]";
 
         terrainTiles.Add(new Vector2(xIndex, yIndex), terrain);
 
         GenerateMesh gm = terrain.GetComponent<GenerateMesh>();
-        gm.TerrainSize = terrainSize;
+        gm.TerrainSize = tileResolution;
         //gm.Gradient = gradient;
         gm.NoiseScale = noiseScale;
         gm.CellSize = cellSize;
@@ -189,7 +190,7 @@ public class TerrainController : MonoBehaviour {
     }
 
     private Vector2 TileFromPosition(Vector3 position) {
-        return new Vector2(Mathf.FloorToInt(position.x / terrainSize.x + .5f), Mathf.FloorToInt(position.z / terrainSize.z + .5f));
+        return new Vector2(Mathf.FloorToInt(position.x / tileResolution.x + .5f), Mathf.FloorToInt(position.z / tileResolution.z + .5f));
     }
 
     private void RandomizeInitState() {

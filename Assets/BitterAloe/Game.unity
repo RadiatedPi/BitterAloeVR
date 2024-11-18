@@ -262,7 +262,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.25
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 500317849}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b54d47a94426f12429255fd494d3b6b5, type: 3}
   m_Name: 
@@ -456,6 +456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textGUI: {fileID: 1506039315}
+  fileName: trctestimonies.parquet
 --- !u!4 &516927488
 Transform:
   m_ObjectHideFlags: 0
@@ -536,7 +537,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1249617918
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -900,7 +901,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1636357914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -914,10 +915,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrainTilePrefab: {fileID: 1458032746511054, guid: c7e0a26319bad724cb97fc7a3e11565e, type: 3}
-  terrainSize: {x: 20, y: 1, z: 20}
-  noiseScale: 3
-  cellSize: 1
-  radiusToRender: 5
+  tileResolution: {x: 32, y: 8, z: 32}
+  noiseScale: 1
+  cellSize: 8
+  radiusToRender: 2
   gameTransforms: []
   playerTransform: {fileID: 441087507}
   seed: 0
@@ -925,7 +926,7 @@ MonoBehaviour:
   placeableObjectSizes: []
   minObjectsPerTile: 0
   maxObjectsPerTile: 20
-  destroyDistance: 1000
+  destroyDistance: 300
   usePerlinNoise: 1
   noise: {fileID: 0}
 --- !u!4 &1636357915
@@ -1037,7 +1038,7 @@ SceneRoots:
   - {fileID: 756192408}
   - {fileID: 2092139010}
   - {fileID: 516927488}
-  - {fileID: 441087506}
+  - {fileID: 1636357915}
   - {fileID: 1506039317}
   - {fileID: 1249617921}
-  - {fileID: 1636357915}
+  - {fileID: 441087506}

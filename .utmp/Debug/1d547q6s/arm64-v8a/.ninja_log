@@ -1,0 +1,10 @@
+# ninja log v5
+7	1902	7535933048582176	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	86fb285ea07b6a4c
+1	2381	7535933048572119	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	b8a8c822d2a4adeb
+41	2382	7535933051399561	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	e2f601a75317bcef
+20	2382	7535933048572119	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	3ce6540391e1c3b9
+27	2383	7535933051389534	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	7c9942ed025e3900
+13	2384	7535933051434876	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	1570c8ebf3a92194
+52	2384	7535933052649645	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	b96a71cbce9ed65d
+33	2389	7535933051429847	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	e0d4083e1a50d99a
+2865	2961	7535933069529303	D:/GitHubRepos/BitterAloeRevamp/Library/PramData/AndroidApplicationController/Cache/com.unity.template.vr/gradle-project/unityLibrary/build/intermediates/cxx/Debug/1d547q6s/obj/arm64-v8a/libgame.so	da546129eadcb0be
