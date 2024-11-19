@@ -12,7 +12,11 @@ public class DebugScene : MonoBehaviour
 
     IEnumerator StartSceneAfterDelay()
     {
-        yield return new WaitForSeconds(10);
-        SceneManager.LoadScene(1);
+        //yield return new WaitForSeconds(5);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1);
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 }
