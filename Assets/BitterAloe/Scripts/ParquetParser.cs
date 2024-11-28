@@ -1,16 +1,13 @@
 using Microsoft.Data.Analysis;
 using Parquet;
-using Parquet.Data.Analysis;
-using Parquet.Schema;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.IO.Enumeration;
-using System.Net;
 using System.Threading.Tasks;
 using TMPro;
+using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.Networking;
+using static Unity.Collections.AllocatorManager;
 
 public class ParquetParser : MonoBehaviour
 {
@@ -20,15 +17,16 @@ public class ParquetParser : MonoBehaviour
 
     private string filePath;
     public DataFrame df;
-
+    public DataFrame dfFiltered;
+    public NativeArray<Vector3> coordinates;
 
     // Start is called before the first frame update
     void Start()
     {
-        GetParquetDataset(fileName);
+        //GetParquetDataset(fileName);
     }
 
-    public async void GetParquetDataset(string fileName)
+    public async Task<NativeArray<Vector3>> GetParquetDataset(string fileName)
     {
         Debug.Log("Getting parquet");
         string streamingFilePath = Path.Combine(Application.streamingAssetsPath, fileName);
@@ -46,11 +44,13 @@ public class ParquetParser : MonoBehaviour
         // maximum XY values
         Vector2 rangeMax = new Vector2(5.25f, 5.25f);
 
-        DataFrame dfFiltered = await GetCoordinateRange(rangeMin, rangeMax);
+        dfFiltered = await GetCoordinateRange(rangeMin, rangeMax);
         textGUI.SetText($"Columns: {dfFiltered.Rows.Count}");
+        coordinates = await GetCoordinateArray(dfFiltered, Allocator.Persistent);
+        return coordinates;
     }
 
-    public async Task<DataFrame>GetCoordinateRange(Vector2 min, Vector2 max)
+    public async Task<DataFrame> GetCoordinateRange(Vector2 min, Vector2 max)
     {
         Debug.Log("Getting DataFrame filtered by coordinate");
         if (df.Rows.Count <= 0)
@@ -69,6 +69,24 @@ public class ParquetParser : MonoBehaviour
         });
         Debug.Log("Filtering complete, returning DataFrame");
         return dfFiltered;
+    }
+
+    public async Task<NativeArray<Vector3>> GetCoordinateArray(DataFrame df, Allocator allocator)
+    {
+        NativeArray<Vector3> dfArray = new NativeArray<Vector3>((int)df.Rows.Count, allocator);
+        int xIndex = 10;
+        int zIndex = 11;
+
+        await Task.Run(() =>
+        {
+            for (int i = 0; i < df.Rows.Count; i++)
+            {
+                float x = System.Convert.ToSingle(df[i, xIndex]);
+                float z = System.Convert.ToSingle(df[i, zIndex]);
+                dfArray[i] = new Vector3(x * 1000-5000, 0f, z * 1000 - 5000);
+            }
+        });
+        return dfArray;
     }
 
     private async Task ReadParquet()

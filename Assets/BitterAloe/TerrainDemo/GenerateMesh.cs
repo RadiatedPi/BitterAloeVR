@@ -8,6 +8,7 @@ public class GenerateMesh : MonoBehaviour
 {
 
     private MeshFilter meshFilter;
+    private MeshFilter childMeshFilter;
 
     public Vector3 TerrainSize { get; set; }
     public float CellSize { get; set; }
@@ -23,16 +24,23 @@ public class GenerateMesh : MonoBehaviour
     public void Generate()
     {
         meshFilter = GetComponent<MeshFilter>();
+        childMeshFilter = transform.GetChild(0).GetComponent<MeshFilter>();
 
         MeshDraft draft = TerrainDraft(TerrainSize, CellSize, NoiseOffset, NoiseScale/*, Gradient*/);
         draft.Move(Vector3.left * TerrainSize.x / 2 + Vector3.back * TerrainSize.z / 2);
         meshFilter.mesh = draft.ToMesh();
         //meshFilter.mesh = WeldVertices(draft.ToMesh());
         meshFilter.mesh.normals = CalculateNormals(meshFilter.mesh);
+        
+        childMeshFilter.mesh = meshFilter.mesh;
 
         MeshCollider meshCollider = GetComponent<MeshCollider>();
+        MeshCollider childMeshCollider = transform.GetChild(0).GetComponent<MeshCollider>();
+
         if (meshCollider)
             meshCollider.sharedMesh = meshFilter.mesh;
+        if (childMeshCollider)
+            childMeshCollider.sharedMesh = meshFilter.mesh;
     }
 
     private static MeshDraft TerrainDraft(Vector3 terrainSize, float cellSize, Vector2 noiseOffset, float noiseScale/*, Gradient gradient*/)

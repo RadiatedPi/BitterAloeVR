@@ -6,9 +6,14 @@ public class PlaceObjects : MonoBehaviour {
     public TerrainController TerrainController { get; set; }
 
     public void Place() {
+        // TODO: get plants in terrain chunk
+
+        // TODO: replace with amount of plants in terrain chunk
         int numObjects = Random.Range(TerrainController.MinObjectsPerTile, TerrainController.MaxObjectsPerTile);
         for (int i = 0; i < numObjects; i++) {
+            // TODO: replace with single plant mesh
             int prefabType = Random.Range(0, TerrainController.PlaceableObjects.Length);
+            // TODO: replace with plant coordinates
             Vector3 startPoint = RandomPointAboveTerrain();
 
             RaycastHit hit;
