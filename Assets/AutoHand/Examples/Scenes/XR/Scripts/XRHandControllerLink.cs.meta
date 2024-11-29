@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 245bee9b113e7144cb3549484bae2a0c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Scenes/XR/Scripts/XRHandControllerLink.cs
+  uploadId: 705589

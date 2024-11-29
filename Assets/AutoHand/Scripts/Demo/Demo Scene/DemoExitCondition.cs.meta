@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5b27bab7ee6c6804abfd2d9685544d01
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Demo/Demo Scene/DemoExitCondition.cs
+  uploadId: 705589

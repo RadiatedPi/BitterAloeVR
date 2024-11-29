@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: ac82bc3766612f34da61b06da6008fa9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 9e5ddae6cdf805f418500df42b49b793, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Grabbable/GrabbablePoseCombiner.cs
+  uploadId: 705589

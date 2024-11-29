@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 64c4d73713283994280506c6a4738703
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Prefabs/Gadgets/Cabinet.prefab
+  uploadId: 705589

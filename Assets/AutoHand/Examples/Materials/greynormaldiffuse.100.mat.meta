@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9841db134a9f34845babaa6996226534
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Materials/greynormaldiffuse.100.mat
+  uploadId: 705589

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 61eb7df20390f15409feba60c95784dd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Demo/Text Demo/TextFieldInspector.cs
+  uploadId: 705589

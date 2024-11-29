@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: fdc3ba53f4e81a040b0471bbbafbb10a
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Prefabs/Attachments/Auto Hand Player.prefab
+  uploadId: 705589

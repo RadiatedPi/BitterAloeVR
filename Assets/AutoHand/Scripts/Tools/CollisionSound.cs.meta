@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1c498b8ff53f43d43bb5f3b6001c2364
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Tools/CollisionSound.cs
+  uploadId: 705589

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 70e29e7b77154c442af27d6cc7993121
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Prefabs/Gadgets/Wheel.prefab
+  uploadId: 705589

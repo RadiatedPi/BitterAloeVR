@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 62d72f32b05f0d64bae54ab684c65e3b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Movement/HeadPhysicsFollower.cs
+  uploadId: 705589

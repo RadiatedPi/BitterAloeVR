@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9c22cd5290acd8641b99c59749f36280
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Materials/Shiny Metal.mat
+  uploadId: 705589

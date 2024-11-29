@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 935aaf7da50abf94697c8d70a7a71efe
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Grabbable/DistanceGrabbable.cs
+  uploadId: 705589

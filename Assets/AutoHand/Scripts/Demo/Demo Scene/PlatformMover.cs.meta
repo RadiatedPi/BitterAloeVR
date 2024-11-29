@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c683db686df4f834bb6ad25857a3b7de
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Demo/Demo Scene/PlatformMover.cs
+  uploadId: 705589

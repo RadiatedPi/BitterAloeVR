@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 491b245f34306b947a8ddbbae7138f51
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Prefabs/Gadgets/OldSwitch2.prefab
+  uploadId: 705589

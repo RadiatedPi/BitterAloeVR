@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2edf49143273dea439abe29d8016883c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Mesh/Chest/Materials/chest_lambert1_BaseColor.mat
+  uploadId: 705589

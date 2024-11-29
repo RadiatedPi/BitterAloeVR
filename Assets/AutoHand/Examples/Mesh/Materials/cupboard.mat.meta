@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 82afc7b0a7cb7444b85937e4691182fd
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Mesh/Materials/cupboard.mat
+  uploadId: 705589

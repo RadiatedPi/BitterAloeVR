@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7da16899c8affe242a71499d8d365865
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Prefabs/Kitchen/SmashTomato.prefab
+  uploadId: 705589

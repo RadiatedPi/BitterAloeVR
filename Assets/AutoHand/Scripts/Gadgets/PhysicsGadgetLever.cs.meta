@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: ca4a171938232714ea376c9d195c0c73
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Gadgets/PhysicsGadgetLever.cs
+  uploadId: 705589

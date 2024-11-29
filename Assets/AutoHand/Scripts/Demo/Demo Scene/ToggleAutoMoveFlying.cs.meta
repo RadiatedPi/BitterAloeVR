@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: b5e2349f27d04b74c8c691ab00cbcd1a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Demo/Demo Scene/ToggleAutoMoveFlying.cs
+  uploadId: 705589

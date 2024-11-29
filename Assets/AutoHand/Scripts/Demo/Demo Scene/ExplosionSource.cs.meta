@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 4757631d9b63da44ba986db68e9cd6d5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Demo/Demo Scene/ExplosionSource.cs
+  uploadId: 705589

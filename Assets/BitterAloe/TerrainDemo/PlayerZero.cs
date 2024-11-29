@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ProceduralToolkit;
+using UnityEngine;
 
 public class PlayerZero : MonoBehaviour {
 
@@ -10,7 +11,7 @@ public class PlayerZero : MonoBehaviour {
 
     private void Update() {
         if (Vector2.Distance(Vector2.zero, new Vector2(transform.position.x,transform.position.z)) > distance) {
-            terrainController.Level.position -= transform.position;
+            terrainController.Level.position -= transform.position.OnlyXZ();
             transform.position = new Vector3(0,transform.position.y,0);//only necessary if player isn't a child of the level
         }
     }

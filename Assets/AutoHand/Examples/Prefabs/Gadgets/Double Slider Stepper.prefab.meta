@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8d447b25c326eb940b6967957e64879b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Prefabs/Gadgets/Double Slider Stepper.prefab
+  uploadId: 705589

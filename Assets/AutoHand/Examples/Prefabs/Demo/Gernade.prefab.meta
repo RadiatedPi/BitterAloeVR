@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8bac68e308772e241af2e8533e851b40
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Prefabs/Demo/Gernade.prefab
+  uploadId: 705589

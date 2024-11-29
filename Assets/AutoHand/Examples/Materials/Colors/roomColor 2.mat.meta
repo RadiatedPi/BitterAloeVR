@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 394b60938881a5248b610dbba332d6a0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Materials/Colors/roomColor 2.mat
+  uploadId: 705589

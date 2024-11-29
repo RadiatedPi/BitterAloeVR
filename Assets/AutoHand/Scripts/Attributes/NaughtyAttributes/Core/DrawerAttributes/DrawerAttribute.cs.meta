@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9df37fdebccf65c4da5b0a14f6dad5f5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Attributes/NaughtyAttributes/Core/DrawerAttributes/DrawerAttribute.cs
+  uploadId: 705589

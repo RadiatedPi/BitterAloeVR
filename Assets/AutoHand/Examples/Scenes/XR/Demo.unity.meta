@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9935fff7a54383d4a8ca954c1411c833
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Scenes/XR/Demo.unity
+  uploadId: 705589

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b29920a68027afb4481921378a31c018
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Materials/Colors/lightBlue.mat
+  uploadId: 705589

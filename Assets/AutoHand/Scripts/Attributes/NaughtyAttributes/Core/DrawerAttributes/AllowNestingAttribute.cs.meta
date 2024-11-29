@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 95b49d3abe880c044adbe7faf6b7b4ec
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Attributes/NaughtyAttributes/Core/DrawerAttributes/AllowNestingAttribute.cs
+  uploadId: 705589

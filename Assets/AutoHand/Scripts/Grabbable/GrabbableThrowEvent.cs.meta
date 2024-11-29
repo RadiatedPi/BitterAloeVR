@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 94010c3364a7d0a43a5e49e48d078a08
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Grabbable/GrabbableThrowEvent.cs
+  uploadId: 705589

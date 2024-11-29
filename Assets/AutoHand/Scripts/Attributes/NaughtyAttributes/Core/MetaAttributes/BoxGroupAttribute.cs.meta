@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 07da8af1e3be52c4789678bf4138ae11
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Attributes/NaughtyAttributes/Core/MetaAttributes/BoxGroupAttribute.cs
+  uploadId: 705589

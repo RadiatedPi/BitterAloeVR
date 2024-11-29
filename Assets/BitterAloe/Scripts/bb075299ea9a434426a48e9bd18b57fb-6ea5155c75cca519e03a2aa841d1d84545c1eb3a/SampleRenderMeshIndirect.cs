@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -23,17 +24,15 @@ public class SampleRenderMeshIndirect : MonoBehaviour
 
     private async void StartRender()
     {
-        //var maxPosition = transform.position + transform.localScale / 2;
-        //var minPosition = transform.position - transform.localScale / 2;
+        NativeArray<Vector3> rawCoordinates = await parquetParser.GetParquetDataset(parquetParser.fileName);
 
-        //Debug.Log($"maxPosition is {maxPosition}, minPosition is {minPosition}");
+        NativeArray<Vector3> coordinates = DoubleInstanceCount(GetYCoordinates(rawCoordinates));
 
-        NativeArray<Vector3> coordinates = await parquetParser.GetParquetDataset(parquetParser.fileName);
+        Debug.Log(coordinates.Length);
 
         _drawArgsBuffer = CreateDrawArgsBufferForRenderMeshIndirect(_mesh, coordinates.Length);
         _dataBuffer = CreateDataBuffer<Matrix4x4>(coordinates.Length);
 
-        //var transformMatrixArray = TransformMatrixArrayFactory.Create(_count, maxPosition, minPosition);
         var transformMatrixArray = TransformMatrixArrayFactory.Create(coordinates);
         _dataBuffer.SetData(transformMatrixArray);
 
@@ -93,5 +92,32 @@ public class SampleRenderMeshIndirect : MonoBehaviour
             GraphicsBuffer.Target.Structured, instanceCount,
             Marshal.SizeOf(typeof(T))
         );
+    }
+
+    private NativeArray<Vector3> GetYCoordinates(NativeArray<Vector3> array)
+    {
+        NativeArray<Vector3> newArray = new NativeArray<Vector3>(array.Length, Allocator.Persistent);
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            Physics.Raycast(new Vector3(array[i].x, 20, array[i].z), -transform.up, out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Terrain Interact"), QueryTriggerInteraction.Ignore);
+            newArray[i] = new Vector3(array[i].x, hit.point.y - 0.43f, array[i].z);
+        }
+
+        return newArray;
+    }
+
+
+    private NativeArray<Vector3> DoubleInstanceCount(NativeArray<Vector3> array)
+    {
+        NativeArray<Vector3> doubledArray = new NativeArray<Vector3>(array.Length * 2, Allocator.Persistent);
+
+        for (int i = 0; i < array.Length * 2; i += 2)
+        {
+            doubledArray[i] = array[i / 2];
+            doubledArray[i + 1] = array[i / 2];
+        }
+
+        return doubledArray;
     }
 }

@@ -15,10 +15,10 @@ TagManager:
   - UI
   - Terrain Interact
   - Player
-  - 
-  - 
-  - 
-  - 
+  - Grabbing
+  - Grabbable
+  - Hand
+  - HandPlayer
   - 
   - 
   - 

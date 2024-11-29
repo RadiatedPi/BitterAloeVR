@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2a1a137465ddfaa44853567b084782d7
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Prefabs/Demo/PinchCube.prefab
+  uploadId: 705589

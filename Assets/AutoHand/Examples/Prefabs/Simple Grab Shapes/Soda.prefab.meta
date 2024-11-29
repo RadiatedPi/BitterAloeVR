@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bb9ea98df702eb740890ff558059bc14
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Prefabs/Simple Grab Shapes/Soda.prefab
+  uploadId: 705589

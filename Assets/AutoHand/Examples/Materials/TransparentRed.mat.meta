@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5132d99bd6d5f1149879370eaf1b058c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Materials/TransparentRed.mat
+  uploadId: 705589

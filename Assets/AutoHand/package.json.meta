@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8ecf2923398c77242a50a93b4781c0d0
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/package.json
+  uploadId: 705589

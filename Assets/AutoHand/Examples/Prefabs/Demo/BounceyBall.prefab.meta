@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a18b647ece002404089338702cc8556c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Prefabs/Demo/BounceyBall.prefab
+  uploadId: 705589

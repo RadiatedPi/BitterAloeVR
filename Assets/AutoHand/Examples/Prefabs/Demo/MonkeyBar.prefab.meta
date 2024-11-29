@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bd835e44f502bf540b6cc7ea7a7a7c00
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Prefabs/Demo/MonkeyBar.prefab
+  uploadId: 705589

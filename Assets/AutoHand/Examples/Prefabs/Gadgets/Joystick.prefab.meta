@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a19f570ba7aa04b488cf52bd256ba1b5
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Prefabs/Gadgets/Joystick.prefab
+  uploadId: 705589

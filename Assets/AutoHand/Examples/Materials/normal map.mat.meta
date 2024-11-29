@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 92ad111281af22045aa3c67ef0e610bf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Materials/normal map.mat
+  uploadId: 705589

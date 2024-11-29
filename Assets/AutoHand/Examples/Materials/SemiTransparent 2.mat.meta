@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9d94b81de4a33734d93e490033348a51
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Materials/SemiTransparent 2.mat
+  uploadId: 705589

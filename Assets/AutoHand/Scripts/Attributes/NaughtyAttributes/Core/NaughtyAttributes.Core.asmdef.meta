@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 776d03a35f1b52c4a9aed9f56d7b4229
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Scripts/Attributes/NaughtyAttributes/Core/NaughtyAttributes.Core.asmdef
+  uploadId: 705589

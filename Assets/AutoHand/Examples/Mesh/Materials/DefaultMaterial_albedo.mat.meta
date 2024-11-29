@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bbd8ae56a37443248bc9d90eacfa1f18
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Mesh/Materials/DefaultMaterial_albedo.mat
+  uploadId: 705589

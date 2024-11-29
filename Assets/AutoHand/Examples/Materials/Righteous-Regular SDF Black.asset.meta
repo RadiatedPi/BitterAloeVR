@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 58debf685de78d64398a594761c7a148
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Materials/Righteous-Regular SDF Black.asset
+  uploadId: 705589

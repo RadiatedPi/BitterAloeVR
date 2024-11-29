@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d672e009cdc74814fbd45c23353d303e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Scenes/XR/Scripts/Editor/XRAutoHandFingerBenderEditor.cs
+  uploadId: 705589

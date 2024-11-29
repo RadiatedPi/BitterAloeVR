@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 176866fa306ba414c8d1d0232d5e0cc3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165323
+  packageName: Auto Hand - VR Interaction
+  packageVersion: 4.0.1
+  assetPath: Assets/AutoHand/Examples/Materials/InformationIcon.mat
+  uploadId: 705589
