@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Microsoft.Data.Analysis;
 using System;
 using Unity.Burst;
@@ -43,7 +44,7 @@ public static class TransformMatrixArrayFactory
         }
     }
 
-    public static NativeArray<Matrix4x4> Create(NativeArray<Vector3> coordinates)
+    public static async UniTask<NativeArray<Matrix4x4>> Create(NativeArray<Vector3> coordinates)
     {
         var transformMatrixArray = new NativeArray<Matrix4x4>(coordinates.Length, Allocator.Persistent);
         var job = new InitializeDataFrameMatrixJob

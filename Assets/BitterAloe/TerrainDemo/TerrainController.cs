@@ -6,6 +6,9 @@ public class TerrainController : MonoBehaviour {
 
     [SerializeField]
     private GameObject terrainTilePrefab = null;
+    public Material material;
+    [SerializeField]
+    private ParquetParser parquetParser = null;
     [SerializeField]
     private Vector3 tileResolution = new Vector3(10, 1, 10);
     public Vector3 TerrainSize { get { return tileResolution; } }
@@ -150,6 +153,7 @@ public class TerrainController : MonoBehaviour {
             Quaternion.identity,
             Level
         );
+        
         //had to move outside of instantiate because it's a local position
         //terrain.transform.localPosition = new Vector3(tileResolution.x * xIndex, tileResolution.y, tileResolution.z * yIndex);
         terrain.transform.localPosition = new Vector3(tileResolution.x * xIndex, 0, tileResolution.z * yIndex);
@@ -172,6 +176,11 @@ public class TerrainController : MonoBehaviour {
         po.Place();
         */
         RandomizeInitState();
+
+        terrain.GetComponent<SampleRenderMeshIndirect>().parquetParser = parquetParser;
+        terrain.GetComponent<SampleRenderMeshIndirect>().chunkIndex = new Vector2(xIndex, yIndex);
+        terrain.GetComponent<SampleRenderMeshIndirect>()._material = new Material(material);
+        terrain.GetComponent<SampleRenderMeshIndirect>().GetChunkPlantData();
 
         return terrain;
     }

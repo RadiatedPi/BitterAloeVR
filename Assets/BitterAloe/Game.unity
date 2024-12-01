@@ -2643,7 +2643,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textGUI: {fileID: 1506039315}
   fileName: trctestimonies.parquet
-  coordinateRange: {x: 0, y: 10}
 --- !u!1 &446709510
 GameObject:
   m_ObjectHideFlags: 0
@@ -3570,7 +3569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &562154457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3584,6 +3583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parquetParser: {fileID: 443207839}
+  chunkIndex: {x: 0, y: 0}
   _count: 10
   _mesh: {fileID: -4309618305056503772, guid: a4c235f409299624796676d2e3bed6da, type: 3}
   _material: {fileID: 2100000, guid: fa4641efdcc6aa441a3d36c714e5240b, type: 2}
@@ -23601,6 +23601,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrainTilePrefab: {fileID: 1458032746511054, guid: c7e0a26319bad724cb97fc7a3e11565e, type: 3}
+  material: {fileID: 2100000, guid: fa4641efdcc6aa441a3d36c714e5240b, type: 2}
+  parquetParser: {fileID: 443207839}
   tileResolution: {x: 32, y: 8, z: 32}
   noiseScale: 1
   cellSize: 8

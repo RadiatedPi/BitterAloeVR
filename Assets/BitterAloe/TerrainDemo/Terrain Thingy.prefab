@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 33828089937414050}
   - component: {fileID: 23455885283343956}
   - component: {fileID: 64511578900453130}
+  - component: {fileID: 5634475024674458487}
   m_Layer: 0
   m_Name: Terrain Thingy
   m_TagString: Terrain
@@ -123,6 +124,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &5634475024674458487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458032746511054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d83a2d29c34222b4289e5fbe03fcc6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parquetParser: {fileID: 0}
+  chunkIndex: {x: 0, y: 0}
+  _count: 0
+  _mesh: {fileID: -4309618305056503772, guid: a4c235f409299624796676d2e3bed6da, type: 3}
+  _material: {fileID: 2100000, guid: fa4641efdcc6aa441a3d36c714e5240b, type: 2}
+  _shadowCastingMode: 0
+  _receiveShadows: 0
 --- !u!1 &7304401015029165443
 GameObject:
   m_ObjectHideFlags: 0
