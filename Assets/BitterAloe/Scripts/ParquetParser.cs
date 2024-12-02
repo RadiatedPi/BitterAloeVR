@@ -24,6 +24,9 @@ public class ParquetParser : MonoBehaviour
     private string filePath;
     public DataFrame df = null;
     public DataFrame dfFiltered;
+    public KDTree kdTree;
+    public Vector2 plantMapCenterOffset = new(5f, 5f);
+    public float plantMapScale = 0.05f;
     //public NativeArray<Vector3> coordinates;
 
     // Start is called before the first frame update
@@ -44,8 +47,37 @@ public class ParquetParser : MonoBehaviour
         filePath = await CopyParquetToPersistentPath(streamingFilePath);
 #endif
         df = await ReadParquet(filePath);
+        df = await AddIndexColumnToDataFrame(df);
+        //Debug.Log(df);
+        kdTree = await CreateKDTree(df);
         Debug.Log($"Parquet successfully read into DataFrame. DataFrame length: {df.Rows.Count}");
         //textGUI.SetText($"Columns: {dfFiltered.Rows.Count}");
+    }
+
+    private async UniTask<KDTree> CreateKDTree(DataFrame df)
+    {
+        var coordinateNativeArray = await GetCoordinatesAsNativeArray(df);
+        for (int i = 0; i < coordinateNativeArray.Length; i++)
+        {
+            var x = coordinateNativeArray[i].x / plantMapScale;
+            var z = coordinateNativeArray[i].z / plantMapScale;
+            coordinateNativeArray[i] = new Vector3(x, coordinateNativeArray[i].y, z);
+        }
+        var kdTree = KDTree.MakeFromPoints(coordinateNativeArray.ToArray());
+        return kdTree;
+    }
+
+    private async UniTask<DataFrame> AddIndexColumnToDataFrame(DataFrame df)
+    {
+        DataFrame newDf = df;
+        int[] indexes = new int[newDf.Rows.Count];
+
+        for (int i = 0; i < indexes.Length; i++)
+            indexes[i] = i;
+
+        PrimitiveDataFrameColumn<int> indexCol = new("index", indexes);
+        newDf.Columns.Add(indexCol);
+        return newDf;
     }
 
     private async UniTask<string> CopyParquetToPersistentPath(string streamingFilePath)
@@ -91,19 +123,19 @@ public class ParquetParser : MonoBehaviour
         return df;
     }
 
-    public async UniTask<Vector2> GetCoordinateBoundMin(Vector2 chunkIndex, float plantDistributionScale)
+    public async UniTask<Vector2> GetCoordinateBoundMin(Vector2 chunkIndex, float plantMapScale)
     {
-        var xMin = (chunkIndex.x * plantDistributionScale) - (plantDistributionScale / 2);
-        var yMin = (chunkIndex.y * plantDistributionScale) - (plantDistributionScale / 2);
-        Vector2 rangeMin = new Vector2(xMin+5, yMin+5);
+        var xMin = (chunkIndex.x * plantMapScale) - (plantMapScale / 2);
+        var yMin = (chunkIndex.y * plantMapScale) - (plantMapScale / 2);
+        Vector2 rangeMin = new Vector2(xMin, yMin) + plantMapCenterOffset;
         return rangeMin;
     }
 
-    public async UniTask<Vector2> GetCoordinateBoundMax(Vector2 chunkIndex, float plantDistributionScale)
+    public async UniTask<Vector2> GetCoordinateBoundMax(Vector2 chunkIndex, float plantMapScale)
     {
-        var xMax = (chunkIndex.x * plantDistributionScale) + (plantDistributionScale / 2);
-        var yMax = (chunkIndex.y * plantDistributionScale) + (plantDistributionScale / 2);
-        Vector2 rangeMin = new Vector2(xMax+5, yMax+5);
+        var xMax = (chunkIndex.x * plantMapScale) + (plantMapScale / 2);
+        var yMax = (chunkIndex.y * plantMapScale) + (plantMapScale / 2);
+        Vector2 rangeMin = new Vector2(xMax, yMax) + plantMapCenterOffset;
         return rangeMin;
     }
 
@@ -148,7 +180,7 @@ public class ParquetParser : MonoBehaviour
         return array;
     }
 
-    public async UniTask<NativeArray<Vector3>> LocalizeCoordinateArray(Vector2 chunkIndex, NativeArray<Vector3> array, Vector2 min, Vector2 max, float chunkScale)
+    public async UniTask<NativeArray<Vector3>> LocalizeCoordinateArray(Vector2 chunkIndex, NativeArray<Vector3> array, Vector2 min, Vector2 max, Vector3 chunkScale)
     {
         Debug.Log("Converting NativeArray of coordinates to local terrain chunk space");
         NativeArray<Vector3> newArray = new NativeArray<Vector3>(array.Length, Allocator.Persistent);
@@ -159,7 +191,7 @@ public class ParquetParser : MonoBehaviour
             {
                 var xNorm = (array[i].x - min.x) / (max.x - min.x);
                 var zNorm = (array[i].z - min.y) / (max.y - min.y);
-                newArray[i] = new Vector3((xNorm - 0.5f + chunkIndex.x) * chunkScale, array[i].y, (zNorm - 0.5f + chunkIndex.y) * chunkScale);
+                newArray[i] = new Vector3((xNorm - 0.5f + chunkIndex.x) * chunkScale.x, array[i].y, (zNorm - 0.5f + chunkIndex.y) * chunkScale.z);
             }
         });
         //Debug.Log($"Returning NativeArray of localized coordinates of length {newArray.Length}");

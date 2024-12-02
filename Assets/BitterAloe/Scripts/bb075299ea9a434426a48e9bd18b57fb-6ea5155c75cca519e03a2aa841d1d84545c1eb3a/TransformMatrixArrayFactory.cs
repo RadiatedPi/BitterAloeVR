@@ -68,7 +68,7 @@ public static class TransformMatrixArrayFactory
 
         public void Execute(int index)
         {
-            Debug.Log(_coordinates[index]);
+            //Debug.Log(_coordinates[index]);
             var random = new Unity.Mathematics.Random((uint)index + 1);
             _transformMatrixArray[index] = Matrix4x4.TRS(_coordinates[index], Quaternion.Euler(0, random.NextFloat(0, 360), 0), Vector3.one /** random.NextFloat(0.9f, 1.1f)*/);
         }

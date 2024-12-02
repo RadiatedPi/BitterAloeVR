@@ -180,6 +180,7 @@ public class TerrainController : MonoBehaviour {
         terrain.GetComponent<SampleRenderMeshIndirect>().parquetParser = parquetParser;
         terrain.GetComponent<SampleRenderMeshIndirect>().chunkIndex = new Vector2(xIndex, yIndex);
         terrain.GetComponent<SampleRenderMeshIndirect>()._material = new Material(material);
+        terrain.GetComponent<SampleRenderMeshIndirect>().chunkScale = tileResolution;
         terrain.GetComponent<SampleRenderMeshIndirect>().GetChunkPlantData();
 
         return terrain;

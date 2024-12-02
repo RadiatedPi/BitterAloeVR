@@ -14,8 +14,10 @@ public class SampleRenderMeshIndirect : MonoBehaviour
 {
     public ParquetParser parquetParser;
     public Vector2 chunkIndex;
+    public Vector3 chunkScale;
     private DataFrame df;
-    NativeArray<Vector3> coordinates;
+    NativeArray<Vector3> coordinatesForRendering;
+    private KDTree kdTree;
 
     [SerializeField] private int _count;
     [SerializeField] private Mesh _mesh;
@@ -37,20 +39,45 @@ public class SampleRenderMeshIndirect : MonoBehaviour
         }
         //Debug.Log("Getting plant DataFrame and Array for terrain chunk");
         //yield return new WaitUntil(() => parquetParser.df != null);
-        var plantDistributionScale = 0.125f;
-        Vector2 rangeMin = await parquetParser.GetCoordinateBoundMin(chunkIndex, plantDistributionScale);
-        Vector2 rangeMax = await parquetParser.GetCoordinateBoundMax(chunkIndex, plantDistributionScale);
+        Vector2 rangeMin = await parquetParser.GetCoordinateBoundMin(chunkIndex, parquetParser.plantMapScale);
+        Vector2 rangeMax = await parquetParser.GetCoordinateBoundMax(chunkIndex, parquetParser.plantMapScale);
         df = await parquetParser.GetTerrainChunkDataFrame(rangeMin, rangeMax);
         if (df.Rows.Count >= 1)
         {
             NativeArray<Vector3> rawCoordinates = await parquetParser.GetCoordinatesAsNativeArray(df);
-            rawCoordinates = await parquetParser.LocalizeCoordinateArray(chunkIndex, rawCoordinates, rangeMin, rangeMax, 32);
-
+            rawCoordinates = await parquetParser.LocalizeCoordinateArray(chunkIndex, rawCoordinates, rangeMin, rangeMax, chunkScale);
+            rawCoordinates = await GetYCoordinates(rawCoordinates);
             //coordinates = DoubleInstanceCount(rawCoordinates);
-            coordinates = await DoubleInstanceCount(await GetYCoordinates(rawCoordinates));
+            kdTree = await MakeChunkKDTree(rawCoordinates);
+            coordinatesForRendering = await DoubleInstanceCount(rawCoordinates);
             //Debug.Log(coordinates.Length);
+
             UniTask.Void(StartRender);
         }
+    }
+
+    private async UniTask<KDTree> MakeChunkKDTree(NativeArray<Vector3> coordinates)
+    {
+        var kdTree = KDTree.MakeFromPoints(coordinates.ToArray());
+        return kdTree;
+    }
+
+    public async UniTask<DataFrameRow> GetDatapointUsingKDTree(Vector3 coordinates)
+    {
+        Debug.Log($"Input coordinates: {coordinates}");
+        var chunkPlantIndex = kdTree.FindNearest(coordinates);
+        //Debug.Log($"chunkPlantIndex: {chunkPlantIndex}");
+        //Debug.Log(df.Rows.Count);
+        var datasetIndex = df.Rows[chunkPlantIndex]["index"];
+        //Debug.Log($"datasetIndex: {datasetIndex}");
+
+        Debug.Log($"Coordinates of plant in df: (" +
+            $"{(System.Convert.ToSingle(df[chunkPlantIndex, 10]) - 5) * chunkScale.x / parquetParser.plantMapScale}, " +
+            $"{(System.Convert.ToSingle(df[chunkPlantIndex, 11]) - 5) * chunkScale.z / parquetParser.plantMapScale})");
+        
+        Debug.Log(df.Rows[chunkPlantIndex]);
+
+        return df.Rows[chunkPlantIndex];
     }
 
     private async UniTask<NativeArray<Vector3>> GetYCoordinates(NativeArray<Vector3> array)
@@ -73,7 +100,7 @@ public class SampleRenderMeshIndirect : MonoBehaviour
             Debug.Log("Raycast success");
             //foreach (var hit in results)
             //{
-                //newArray[i] = new Vector3(array[i].x, hit.point.y - 0.43f, array[i].z);
+            //newArray[i] = new Vector3(array[i].x, hit.point.y - 0.43f, array[i].z);
             //}
             //results.Dispose();
             //commands.Dispose();
@@ -102,10 +129,10 @@ public class SampleRenderMeshIndirect : MonoBehaviour
     {
         Debug.Log("Starting terrain chunk plant rendering");
 
-        _drawArgsBuffer = await CreateDrawArgsBufferForRenderMeshIndirect(_mesh, coordinates.Length);
-        _dataBuffer = await CreateDataBuffer<Matrix4x4>(coordinates.Length);
+        _drawArgsBuffer = await CreateDrawArgsBufferForRenderMeshIndirect(_mesh, coordinatesForRendering.Length);
+        _dataBuffer = await CreateDataBuffer<Matrix4x4>(coordinatesForRendering.Length);
 
-        var transformMatrixArray = await TransformMatrixArrayFactory.Create(coordinates);
+        var transformMatrixArray = await TransformMatrixArrayFactory.Create(coordinatesForRendering);
         _dataBuffer.SetData(transformMatrixArray);
 
         _material.SetBuffer("_TransformMatrixArray", _dataBuffer);
@@ -122,7 +149,7 @@ public class SampleRenderMeshIndirect : MonoBehaviour
         {
             receiveShadows = _receiveShadows,
             shadowCastingMode = _shadowCastingMode,
-            worldBounds = new Bounds(transform.position, transform.localScale)
+            worldBounds = new Bounds(transform.position, chunkScale * 1.25f)
         };
 
         Graphics.RenderMeshIndirect(
