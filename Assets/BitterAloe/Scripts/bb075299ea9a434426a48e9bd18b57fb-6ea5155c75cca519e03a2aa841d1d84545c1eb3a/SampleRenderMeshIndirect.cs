@@ -17,7 +17,8 @@ public class SampleRenderMeshIndirect : MonoBehaviour
     public Vector3 chunkScale;
     private DataFrame df;
     NativeArray<Vector3> coordinatesForRendering;
-    private KDTree kdTree;
+    public NativeArray<Vector3> rawCoordinates;
+    public KDTree kdTree;
 
     [SerializeField] private int _count;
     [SerializeField] private Mesh _mesh;
@@ -44,11 +45,11 @@ public class SampleRenderMeshIndirect : MonoBehaviour
         df = await parquetParser.GetTerrainChunkDataFrame(rangeMin, rangeMax);
         if (df.Rows.Count >= 1)
         {
-            NativeArray<Vector3> rawCoordinates = await parquetParser.GetCoordinatesAsNativeArray(df);
+            rawCoordinates = await parquetParser.GetCoordinatesAsNativeArray(df);
             rawCoordinates = await parquetParser.LocalizeCoordinateArray(chunkIndex, rawCoordinates, rangeMin, rangeMax, chunkScale);
             rawCoordinates = await GetYCoordinates(rawCoordinates);
-            //coordinates = DoubleInstanceCount(rawCoordinates);
             kdTree = await MakeChunkKDTree(rawCoordinates);
+
             coordinatesForRendering = await DoubleInstanceCount(rawCoordinates);
             //Debug.Log(coordinates.Length);
 

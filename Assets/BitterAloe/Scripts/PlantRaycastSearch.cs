@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public class PlantRaycastSearch : MonoBehaviour
 {
     public ParquetParser parquetParser;
+    public PlantUIManager plantUIManager;
     public Transform aimer;
     public float aimerSmoothingSpeed = 5f;
     public LayerMask layer;
@@ -140,11 +141,12 @@ public class PlantRaycastSearch : MonoBehaviour
 
         if (hitting)
         {
+            var terrainChunk = aimHit.transform.gameObject
+                .GetComponentInParent<SampleRenderMeshIndirect>();
 
-            var datapoint = await aimHit.transform.gameObject
-                .GetComponentInParent<SampleRenderMeshIndirect>()
-                .GetDatapointUsingKDTree(aimHit.point);
+            var datapoint = terrainChunk.GetDatapointUsingKDTree(aimHit.point);
             
+            plantUIManager.SpawnPlantUI(terrainChunk.rawCoordinates[terrainChunk.kdTree.FindNearest(aimHit.point)]);
 
             //Debug.Log($"DF index 0: ({parquetParser.df[0, 10]}, {parquetParser.df[0, 11]})");
             //Debug.Log($": ({parquetParser.df[0, 10]}, {parquetParser.df[0, 11]})");
