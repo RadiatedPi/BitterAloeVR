@@ -144,8 +144,10 @@ public class PlantRaycastSearch : MonoBehaviour
             var terrainChunk = aimHit.transform.gameObject
                 .GetComponentInParent<SampleRenderMeshIndirect>();
 
-            var datapoint = terrainChunk.GetDatapointUsingKDTree(aimHit.point);
-            
+            var datapoint = await terrainChunk.GetDatapointUsingKDTree(aimHit.point);
+            Debug.Log(datapoint[8]);
+            plantUIManager.GetTranscript(Convert.ToInt32(datapoint[8]));
+            plantUIManager.DisplayTranscriptPage(0);
             plantUIManager.SpawnPlantUI(terrainChunk.rawCoordinates[terrainChunk.kdTree.FindNearest(aimHit.point)]);
 
             //Debug.Log($"DF index 0: ({parquetParser.df[0, 10]}, {parquetParser.df[0, 11]})");

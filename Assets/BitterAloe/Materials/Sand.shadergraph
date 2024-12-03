@@ -110,6 +110,9 @@
         },
         {
             "m_Id": "e5bbbf46854c4df1b7c906bab133f65d"
+        },
+        {
+            "m_Id": "32fb45f92ac34872bce7fd2a3e72f35d"
         }
     ],
     "m_GroupDatas": [],
@@ -800,6 +803,42 @@
         "z": 0.0
     },
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "32fb45f92ac34872bce7fd2a3e72f35d",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -1220.0,
+            "y": -136.0,
+            "width": 113.0,
+            "height": 33.9998779296875
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "72fe448a357147519c32a27441d3ee34"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "9861826abfa740c58c1f7ebb569aa2d2"
+    }
 }
 
 {
@@ -1682,6 +1721,18 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.GradientMaterialSlot",
+    "m_ObjectId": "72fe448a357147519c32a27441d3ee34",
+    "m_Id": 0,
+    "m_DisplayName": "Gradient",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.PositionMaterialSlot",
     "m_ObjectId": "7a9c2422c7ba4209819cb95b873cba33",
     "m_Id": 3,
@@ -1963,21 +2014,21 @@
     "m_Value": {
         "serializedVersion": "2",
         "key0": {
-            "r": 0.4528301954269409,
-            "g": 0.33218246698379519,
-            "b": 0.12602350115776063,
+            "r": 0.24705882370471955,
+            "g": 0.13205237686634065,
+            "b": 0.04313725233078003,
             "a": 1.0
         },
         "key1": {
-            "r": 0.8301886916160584,
-            "g": 0.6482406854629517,
-            "b": 0.23887501657009126,
+            "r": 0.8117647171020508,
+            "g": 0.3181019425392151,
+            "b": 0.13333334028720857,
             "a": 1.0
         },
         "key2": {
             "r": 0.0,
             "g": 0.0,
-            "b": 1.0,
+            "b": 0.0,
             "a": 0.0
         },
         "key3": {
@@ -2012,7 +2063,7 @@
         },
         "ctime0": 0,
         "ctime1": 65535,
-        "ctime2": 65535,
+        "ctime2": 0,
         "ctime3": 0,
         "ctime4": 0,
         "ctime5": 0,
