@@ -138,11 +138,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parquetParser: {fileID: 0}
   chunkIndex: {x: 0, y: 0}
+  chunkScale: {x: 0, y: 0, z: 0}
   _count: 0
   _mesh: {fileID: -4309618305056503772, guid: a4c235f409299624796676d2e3bed6da, type: 3}
   _material: {fileID: 2100000, guid: fa4641efdcc6aa441a3d36c714e5240b, type: 2}
-  _shadowCastingMode: 0
-  _receiveShadows: 0
+  _shadowCastingMode: 1
+  _receiveShadows: 1
 --- !u!1 &7304401015029165443
 GameObject:
   m_ObjectHideFlags: 0
