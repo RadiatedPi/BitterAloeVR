@@ -2,6 +2,7 @@
 using UnityEngine;
 using ProceduralToolkit;
 using System;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(MeshFilter))]
 public class GenerateMesh : MonoBehaviour
@@ -333,8 +334,10 @@ public class GenerateMesh : MonoBehaviour
 
     private static float GetHeight(int x, int z, int xSegments, int zSegments, Vector2 noiseOffset, float noiseScale)
     {
+        //Debug.Log($"{x}, {z}, {noiseOffset}");
         float noiseX = noiseScale * x / xSegments + noiseOffset.x;
         float noiseZ = noiseScale * z / zSegments + noiseOffset.y;
+        Debug.Log($"{x}, {z}, {noiseOffset}, {Mathf.PerlinNoise(noiseX,noiseZ)}");
         if (usePerlinNoise)
             return Mathf.PerlinNoise(noiseX, noiseZ);
         else

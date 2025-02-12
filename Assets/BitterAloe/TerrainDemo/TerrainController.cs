@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.CompilerServices;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -88,6 +90,12 @@ public class TerrainController : MonoBehaviour {
     }
 
     private void Update() {
+        if (parquetParser.df != null)
+            LoadTileLoop().Forget();
+    }
+
+    private async UniTaskVoid LoadTileLoop()
+    {
         //save the tile the player is on
         Vector2 playerTile = TileFromPosition(playerTransform.localPosition);
         //save the tiles of all tracked objects in gameTransforms (including the player)
@@ -97,15 +105,20 @@ public class TerrainController : MonoBehaviour {
             centerTiles.Add(TileFromPosition(t.localPosition));
 
         //if no tiles exist yet or tiles should change
-        if (previousCenterTiles == null || HaveTilesChanged(centerTiles)) {
+        if (previousCenterTiles == null || HaveTilesChanged(centerTiles))
+        {
             List<GameObject> tileObjects = new List<GameObject>();
             //activate new tiles
-            foreach (Vector2 tile in centerTiles) {
+            foreach (Vector2 tile in centerTiles)
+            {
                 bool isPlayerTile = tile == playerTile;
                 int radius = isPlayerTile ? radiusToRender : 1;
                 for (int i = -radius; i <= radius; i++)
                     for (int j = -radius; j <= radius; j++)
-                        ActivateOrCreateTile((int)tile.x + i, (int)tile.y + j, tileObjects);
+                    {
+                        ActivateOrCreateTile((int)tile.x + i, (int)tile.y + j, tileObjects).Forget();
+                        await UniTask.Yield();
+                    }
                 /*
                 if (isPlayerTile)
                     water.localPosition = new Vector3(tile.x * terrainSize.x, water.localPosition.y, tile.y * terrainSize.z);
@@ -118,8 +131,10 @@ public class TerrainController : MonoBehaviour {
 
             //destroy inactive tiles if they're too far away
             List<Vector2> keysToRemove = new List<Vector2>();//can't remove item when inside a foreach loop
-            foreach (KeyValuePair<Vector2, GameObject> kv in terrainTiles) {
-                if (Vector3.Distance(playerTransform.position, kv.Value.transform.position) > destroyDistance && !kv.Value.activeSelf) {
+            foreach (KeyValuePair<Vector2, GameObject> kv in terrainTiles)
+            {
+                if (Vector3.Distance(playerTransform.position, kv.Value.transform.position) > destroyDistance && !kv.Value.activeSelf)
+                {
                     keysToRemove.Add(kv.Key);
                     Destroy(kv.Value);
                 }
@@ -133,11 +148,12 @@ public class TerrainController : MonoBehaviour {
         previousCenterTiles = centerTiles.ToArray();
     }
 
+
     //Helper methods below
 
-    private void ActivateOrCreateTile(int xIndex, int yIndex, List<GameObject> tileObjects) {
+    private async UniTaskVoid ActivateOrCreateTile(int xIndex, int yIndex, List<GameObject> tileObjects) {
         if (!terrainTiles.ContainsKey(new Vector2(xIndex, yIndex))) {
-            tileObjects.Add(CreateTile(xIndex, yIndex));
+            tileObjects.Add(await CreateTile(xIndex, yIndex));
         } else {
             GameObject t = terrainTiles[new Vector2(xIndex, yIndex)];
             tileObjects.Add(t);
@@ -146,7 +162,7 @@ public class TerrainController : MonoBehaviour {
         }
     }
 
-    private GameObject CreateTile(int xIndex, int yIndex) {
+    private async UniTask<GameObject> CreateTile(int xIndex, int yIndex) {
         GameObject terrain = Instantiate(
             terrainTilePrefab,
             Vector3.zero,
@@ -181,12 +197,12 @@ public class TerrainController : MonoBehaviour {
         terrain.GetComponent<SampleRenderMeshIndirect>().chunkIndex = new Vector2(xIndex, yIndex);
         terrain.GetComponent<SampleRenderMeshIndirect>()._material = new Material(material);
         terrain.GetComponent<SampleRenderMeshIndirect>().chunkScale = tileResolution;
-        terrain.GetComponent<SampleRenderMeshIndirect>().GetChunkPlantData();
+        terrain.GetComponent<SampleRenderMeshIndirect>().GetChunkPlantData().Forget();
 
         return terrain;
     }
 
-    private Vector2 NoiseOffset(int xIndex, int yIndex) {
+    public Vector2 NoiseOffset(int xIndex, int yIndex) {
         Vector2 noiseOffset = new Vector2(
             (xIndex * noiseScale + startOffset.x) % noiseRange.x,
             (yIndex * noiseScale + startOffset.y) % noiseRange.y

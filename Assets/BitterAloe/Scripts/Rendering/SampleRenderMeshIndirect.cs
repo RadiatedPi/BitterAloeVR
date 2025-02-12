@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Microsoft.Data.Analysis;
+using ProceduralToolkit;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using UnityEngine.Rendering;
 public class SampleRenderMeshIndirect : MonoBehaviour
 {
     public ParquetParser parquetParser;
+    public GenerateMesh gm;
     public Vector2 chunkIndex;
     public Vector3 chunkScale;
     private DataFrame df;
@@ -29,10 +31,15 @@ public class SampleRenderMeshIndirect : MonoBehaviour
     private GraphicsBuffer _drawArgsBuffer;
     private GraphicsBuffer _dataBuffer;
 
+    public void Start()
+    {
+        gm = GetComponent<GenerateMesh>();
+    }
+
     public async UniTaskVoid GetChunkPlantData()
     {
         //Debug.Log("Waiting for DataFrame to exist before getting plant DataFrame and Array for terrain chunk");
-        while (parquetParser.df == null)
+        while (parquetParser.kdTree == null)
         {
             //Debug.Log("Waiting...");
             await UniTask.Yield();
@@ -40,8 +47,8 @@ public class SampleRenderMeshIndirect : MonoBehaviour
         }
         //Debug.Log("Getting plant DataFrame and Array for terrain chunk");
         //yield return new WaitUntil(() => parquetParser.df != null);
-        Vector2 rangeMin = await parquetParser.GetCoordinateBoundMin(chunkIndex, parquetParser.plantMapScale);
-        Vector2 rangeMax = await parquetParser.GetCoordinateBoundMax(chunkIndex, parquetParser.plantMapScale);
+        Vector2 rangeMin = await parquetParser.GetCoordinateBoundMin(chunkIndex, parquetParser.plantMapSampleScale);
+        Vector2 rangeMax = await parquetParser.GetCoordinateBoundMax(chunkIndex, parquetParser.plantMapSampleScale);
         df = await parquetParser.GetTerrainChunkDataFrame(rangeMin, rangeMax);
         if (df.Rows.Count >= 1)
         {
@@ -73,8 +80,8 @@ public class SampleRenderMeshIndirect : MonoBehaviour
         //Debug.Log($"datasetIndex: {datasetIndex}");
 
         Debug.Log($"Coordinates of plant in df: (" +
-            $"{(System.Convert.ToSingle(df[chunkPlantIndex, 10]) - 5) * chunkScale.x / parquetParser.plantMapScale}, " +
-            $"{(System.Convert.ToSingle(df[chunkPlantIndex, 11]) - 5) * chunkScale.z / parquetParser.plantMapScale})");
+            $"{(System.Convert.ToSingle(df[chunkPlantIndex, 10]) - 5) * chunkScale.x / parquetParser.plantMapSampleScale}, " +
+            $"{(System.Convert.ToSingle(df[chunkPlantIndex, 11]) - 5) * chunkScale.z / parquetParser.plantMapSampleScale})");
         
         Debug.Log(df.Rows[chunkPlantIndex]);
 
@@ -90,21 +97,15 @@ public class SampleRenderMeshIndirect : MonoBehaviour
 
         for (int i = 0; i < array.Length; i++)
         {
-            //var results = new NativeArray<RaycastHit>(2, Allocator.TempJob);
-            //var commands = new NativeArray<RaycastCommand>(1, Allocator.TempJob);
-            //commands[0] = new RaycastCommand(new Vector3(array[i].x, 20, array[i].z), -transform.up, queryParameters);
-            Debug.Log("Attempting raycast...");
-            //JobHandle handle = RaycastCommand.ScheduleBatch(commands, results, 1, 2, default(JobHandle));
-            Physics.Raycast(new Vector3(array[i].x, 20, array[i].z), -transform.up, out RaycastHit hit, 200f, LayerMask.GetMask("Terrain Interact"), QueryTriggerInteraction.Ignore);
-            newArray[i] = new Vector3(array[i].x, hit.point.y - 0.43f, array[i].z);
-            //handle.Complete();
-            Debug.Log("Raycast success");
-            //foreach (var hit in results)
-            //{
+            //Debug.Log("Attempting raycast...");
+            //Physics.Raycast(new Vector3(array[i].x, 20, array[i].z), -transform.up, out RaycastHit hit, 200f, LayerMask.GetMask("Terrain Interact"), QueryTriggerInteraction.Ignore);
             //newArray[i] = new Vector3(array[i].x, hit.point.y - 0.43f, array[i].z);
-            //}
-            //results.Dispose();
-            //commands.Dispose();
+            //Debug.Log("Raycast success");
+
+            //newArray[i] = new Vector3(array[i].x, GetHeight(array[i].x, array[i].z, gm) - 0.43f, array[i].z);
+            newArray[i] = new Vector3(array[i].x, 0, array[i].z);
+
+            //await UniTask.Yield();
         }
 
 
@@ -195,4 +196,21 @@ public class SampleRenderMeshIndirect : MonoBehaviour
         );
     }
 
+    private static float GetHeight(float x, float z, GenerateMesh gm)
+    {
+        //private static MeshDraft TerrainDraft(Vector3 terrainSize, float cellSize, Vector2 noiseOffset, float noiseScale)
+        //{
+        //    int xSegments = Mathf.FloorToInt(terrainSize.x / cellSize);
+
+        Vector3 terrainSize = new Vector3(32, 8, 32);
+        float cellSize = 8;
+        float noiseScale = 1;
+
+        int xSegments = Mathf.FloorToInt(terrainSize.x / cellSize);
+        int zSegments = Mathf.FloorToInt(terrainSize.z / cellSize);
+
+        float noiseX = gm.NoiseOffset.x + x/xSegments;
+        float noiseZ = gm.NoiseOffset.x + z/zSegments;
+        return Mathf.PerlinNoise(noiseX, noiseZ) * terrainSize.y;
+    }
 }

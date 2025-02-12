@@ -19,15 +19,13 @@ public class ParquetParser : MonoBehaviour
 {
     public TextMeshPro textGUI;
     public string fileName = "trctestimonies.parquet";
-    //public Vector2 coordinateRange = new Vector2(0f, 10f);
 
     private string filePath;
     public DataFrame df = null;
     public DataFrame dfFiltered;
     public KDTree kdTree;
     public Vector2 plantMapCenterOffset = new(5f, 5f);
-    public float plantMapScale = 0.05f;
-    //public NativeArray<Vector3> coordinates;
+    public float plantMapSampleScale = 0.05f;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +35,7 @@ public class ParquetParser : MonoBehaviour
 
     public async void GetParquetAsDataFrame(string fileName)
     {
-        Debug.Log("Getting parquet");
+        Debug.Log("Fetching parquet file");
         string streamingFilePath = Path.Combine(Application.streamingAssetsPath, fileName);
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
         Debug.Log("Detected platform: Windows/Editor");
@@ -46,40 +44,13 @@ public class ParquetParser : MonoBehaviour
         Debug.Log("Detected platform: Android");
         filePath = await CopyParquetToPersistentPath(streamingFilePath);
 #endif
-        df = await ReadParquet(filePath);
+        df = await ReadParquetIntoDataFrame(filePath);
         df = await AddIndexColumnToDataFrame(df);
-        //Debug.Log(df);
         kdTree = await CreateKDTree(df);
-        Debug.Log($"Parquet successfully read into DataFrame. DataFrame length: {df.Rows.Count}");
-        //textGUI.SetText($"Columns: {dfFiltered.Rows.Count}");
+        Debug.Log($"Parquet successfully read into DataFrame");
     }
 
-    private async UniTask<KDTree> CreateKDTree(DataFrame df)
-    {
-        var coordinateNativeArray = await GetCoordinatesAsNativeArray(df);
-        for (int i = 0; i < coordinateNativeArray.Length; i++)
-        {
-            var x = coordinateNativeArray[i].x / plantMapScale;
-            var z = coordinateNativeArray[i].z / plantMapScale;
-            coordinateNativeArray[i] = new Vector3(x, coordinateNativeArray[i].y, z);
-        }
-        var kdTree = KDTree.MakeFromPoints(coordinateNativeArray.ToArray());
-        return kdTree;
-    }
-
-    private async UniTask<DataFrame> AddIndexColumnToDataFrame(DataFrame df)
-    {
-        DataFrame newDf = df;
-        int[] indexes = new int[newDf.Rows.Count];
-
-        for (int i = 0; i < indexes.Length; i++)
-            indexes[i] = i;
-
-        PrimitiveDataFrameColumn<int> indexCol = new("index", indexes);
-        newDf.Columns.Add(indexCol);
-        return newDf;
-    }
-
+    // this function is only used if running on android (meta quest)
     private async UniTask<string> CopyParquetToPersistentPath(string streamingFilePath)
     {
         Debug.Log("Getting persistent asset path location for parquet");
@@ -108,21 +79,83 @@ public class ParquetParser : MonoBehaviour
         return persistentFilePath;
     }
 
-    private async UniTask<DataFrame> ReadParquet(string filePath)
+    // this makes the dataset workable
+    private async UniTask<DataFrame> ReadParquetIntoDataFrame(string filePath)
     {
-        Debug.Log($"Reading parquet from {filePath}");
+        Debug.Log($"Opening parquet file from {filePath}");
 
         DataFrame df = new DataFrame();
-        await Task.Run(async () =>
+        await UniTask.RunOnThreadPool(async () =>
         {
             using (var stream = File.OpenRead(filePath))
             {
+                Debug.Log($"Parquet file successfully opened. Converting parquet to DataFrame");
                 df = await stream.ReadParquetAsDataFrameAsync();
             }
         });
+        Debug.Log($"Parquet successfully made from DataFrame");
         return df;
     }
 
+    // this allows you to know the index of the results of KDTree queries
+    private async UniTask<DataFrame> AddIndexColumnToDataFrame(DataFrame df)
+    {
+        int[] indexes = new int[df.Rows.Count];
+
+        for (int i = 0; i < indexes.Length; i++)
+            indexes[i] = i;
+
+        PrimitiveDataFrameColumn<int> indexCol = new("index", indexes);
+        df.Columns.Add(indexCol);
+
+        Debug.Log($"Added index column to DataFrame");
+
+        return df;
+    }
+
+    // meant to reduce loading time for plant selection
+    private async UniTask<KDTree> CreateKDTree(DataFrame df)
+    {
+        // for some reason the KDTree algorithm only accepts Vector3[] inputs
+        var coordinateNativeArray = await GetCoordinatesAsNativeArray(df);
+        // rescales coordinates so plant density isn't too high, scale value can be changed on the ParquetParser component
+        for (int i = 0; i < coordinateNativeArray.Length; i++)
+        {
+            var x = coordinateNativeArray[i].x / plantMapSampleScale;
+            var z = coordinateNativeArray[i].z / plantMapSampleScale;
+            coordinateNativeArray[i] = new Vector3(x, coordinateNativeArray[i].y, z);
+        }
+        var kdTree = KDTree.MakeFromPoints(coordinateNativeArray.ToArray());
+        return kdTree;
+    }
+
+    public async UniTask<NativeArray<Vector3>> GetCoordinatesAsNativeArray(DataFrame df)
+    {
+        Debug.Log("Converting coordinates from DataFrame into NativeArray");
+        NativeArray<Vector3> array = new NativeArray<Vector3>((int)df.Rows.Count, Allocator.Persistent);
+        // these index values are specific to the trctestimonies.parquet dataset
+        // TODO: make these values less arbitrary somehow
+        int xColumnIndex = 10;
+        int zColumnIndex = 11;
+
+        for (int i = 0; i < df.Rows.Count; i++)
+        {
+            // System.Convert.ToSingle firmly tells unity that this var is in fact a float so it doesn't panic
+            float x = System.Convert.ToSingle(df[i, xColumnIndex]);
+            float z = System.Convert.ToSingle(df[i, zColumnIndex]);
+            // "0f" is a placeholder for the y axis coordinate, which is calculated later
+            array[i] = new Vector3(x, 0f, z);
+        }
+
+        Debug.Log($"Returning NativeArray of XYZ coordinates (y is still 0)");
+        return array;
+    }
+
+
+    // TODO: everything from here down is only used in SampleRenderMeshIndirect.cs, should maybe be relocated
+
+
+    // finds min bounds of a given chunk, used for making chunk-specific DataFrame
     public async UniTask<Vector2> GetCoordinateBoundMin(Vector2 chunkIndex, float plantMapScale)
     {
         var xMin = (chunkIndex.x * plantMapScale) - (plantMapScale / 2);
@@ -131,6 +164,7 @@ public class ParquetParser : MonoBehaviour
         return rangeMin;
     }
 
+    // finds min bounds of a given chunk, used for making chunk-specific DataFrame
     public async UniTask<Vector2> GetCoordinateBoundMax(Vector2 chunkIndex, float plantMapScale)
     {
         var xMax = (chunkIndex.x * plantMapScale) + (plantMapScale / 2);
@@ -139,62 +173,53 @@ public class ParquetParser : MonoBehaviour
         return rangeMin;
     }
 
+    // filters DataFrame by given bounds to determine which plants are on a chunk
     public async UniTask<DataFrame> GetTerrainChunkDataFrame(Vector2 min, Vector2 max)
     {
-        //Debug.Log("Getting DataFrame filtered by coordinate");
+        Debug.Log($"Creating chunk-specific DataFrame");
+
         if (df.Rows.Count <= 0)
         {
-            //Debug.LogError("DataFrame is empty, returning null");
+            Debug.LogError("DataFrame is empty (no plants are on this chunk), returning null");
             return null;
         }
 
+        // TODO: There's gotta be a faster way to do this
         DataFrame chunkDf = df;
-        await Task.Run(() =>
+        await UniTask.RunOnThreadPool(() =>
         {
             chunkDf = chunkDf[chunkDf["umap_x"].ElementwiseGreaterThan(min.x)];
+            UniTask.Yield();
             chunkDf = chunkDf[chunkDf["umap_x"].ElementwiseLessThan(max.x)];
+            UniTask.Yield();
             chunkDf = chunkDf[chunkDf["umap_y"].ElementwiseGreaterThan(min.y)];
+            UniTask.Yield();
             chunkDf = chunkDf[chunkDf["umap_y"].ElementwiseLessThan(max.y)];
+            UniTask.Yield();
         });
-        //Debug.Log("Filtering complete, returning DataFrame");
+
+        Debug.Log("Chunk-specific DataFrame created");
         return chunkDf;
     }
 
-    public async UniTask<NativeArray<Vector3>> GetCoordinatesAsNativeArray(DataFrame df)
-    {
-        //Debug.Log("Converting coordinates from DataFrame into NativeArray");
-        NativeArray<Vector3> array = new NativeArray<Vector3>((int)df.Rows.Count, Allocator.Persistent);
-        int xIndex = 10;
-        int zIndex = 11;
-
-        await Task.Run(() =>
-        {
-            for (int i = 0; i < df.Rows.Count; i++)
-            {
-                float x = System.Convert.ToSingle(df[i, xIndex]);
-                float z = System.Convert.ToSingle(df[i, zIndex]);
-                array[i] = new Vector3(x, 0f, z);
-            }
-        });
-        //Debug.Log($"Returning new NativeArray of length {array.Length}");
-        return array;
-    }
-
+    // converts coordinates from global to local relative to a given chunk
     public async UniTask<NativeArray<Vector3>> LocalizeCoordinateArray(Vector2 chunkIndex, NativeArray<Vector3> array, Vector2 min, Vector2 max, Vector3 chunkScale)
     {
         Debug.Log("Converting NativeArray of coordinates to local terrain chunk space");
         NativeArray<Vector3> newArray = new NativeArray<Vector3>(array.Length, Allocator.Persistent);
 
-        await Task.Run(() =>
+        await UniTask.RunOnThreadPool(() =>
         {
             for (int i = 0; i < array.Length; i++)
             {
+                // normalizes coordinates from 0 to 1
                 var xNorm = (array[i].x - min.x) / (max.x - min.x);
                 var zNorm = (array[i].z - min.y) / (max.y - min.y);
+                // scales up coordinates to match the size of the chunk
                 newArray[i] = new Vector3((xNorm - 0.5f + chunkIndex.x) * chunkScale.x, array[i].y, (zNorm - 0.5f + chunkIndex.y) * chunkScale.z);
             }
         });
-        //Debug.Log($"Returning NativeArray of localized coordinates of length {newArray.Length}");
+        Debug.Log($"NativeArray coordinates localized");
         return newArray;
     }
 }
