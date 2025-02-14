@@ -19,6 +19,8 @@ public class GenerateMesh : MonoBehaviour
 
     public Vector2 NoiseOffset { get; set; }
 
+    public Vector2 TileIndex { get; set; }
+
     private static bool usePerlinNoise = true;
     public static bool UsePerlinNoise { get { return usePerlinNoise; } set { usePerlinNoise = value; } }
 
@@ -44,7 +46,7 @@ public class GenerateMesh : MonoBehaviour
             childMeshCollider.sharedMesh = meshFilter.mesh;
     }
 
-    private static MeshDraft TerrainDraft(Vector3 terrainSize, float cellSize, Vector2 noiseOffset, float noiseScale/*, Gradient gradient*/)
+    private MeshDraft TerrainDraft(Vector3 terrainSize, float cellSize, Vector2 noiseOffset, float noiseScale/*, Gradient gradient*/)
     {
         int xSegments = Mathf.FloorToInt(terrainSize.x / cellSize);
         int zSegments = Mathf.FloorToInt(terrainSize.z / cellSize);
@@ -332,12 +334,12 @@ public class GenerateMesh : MonoBehaviour
     }
 
 
-    private static float GetHeight(int x, int z, int xSegments, int zSegments, Vector2 noiseOffset, float noiseScale)
+    private float GetHeight(int x, int z, int xSegments, int zSegments, Vector2 noiseOffset, float noiseScale)
     {
         //Debug.Log($"{x}, {z}, {noiseOffset}");
         float noiseX = noiseScale * x / xSegments + noiseOffset.x;
         float noiseZ = noiseScale * z / zSegments + noiseOffset.y;
-        Debug.Log($"{x}, {z}, {noiseOffset}, {Mathf.PerlinNoise(noiseX,noiseZ)}");
+        Debug.Log($"For mesh, tile is {TileIndex.x}, {TileIndex.y}, noise is {noiseX}, {noiseZ}");
         if (usePerlinNoise)
             return Mathf.PerlinNoise(noiseX, noiseZ);
         else

@@ -4,12 +4,14 @@ using ProceduralToolkit;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Rendering;
+using static UnityEngine.Rendering.HableCurve;
 
 public class SampleRenderMeshIndirect : MonoBehaviour
 {
@@ -53,8 +55,8 @@ public class SampleRenderMeshIndirect : MonoBehaviour
         if (df.Rows.Count >= 1)
         {
             rawCoordinates = await parquetParser.GetCoordinatesAsNativeArray(df);
-            rawCoordinates = await parquetParser.LocalizeCoordinateArray(chunkIndex, rawCoordinates, rangeMin, rangeMax, chunkScale);
-            rawCoordinates = await GetYCoordinates(rawCoordinates);
+            rawCoordinates = await parquetParser.ScaleCoordinateArray(chunkIndex, rawCoordinates, rangeMin, rangeMax, chunkScale);
+            rawCoordinates = await GetPlantHeights(chunkIndex, rawCoordinates);
             kdTree = await MakeChunkKDTree(rawCoordinates);
 
             coordinatesForRendering = await DoubleInstanceCount(rawCoordinates);
@@ -88,30 +90,70 @@ public class SampleRenderMeshIndirect : MonoBehaviour
         return df.Rows[chunkPlantIndex];
     }
 
-    private async UniTask<NativeArray<Vector3>> GetYCoordinates(NativeArray<Vector3> array)
+    private async UniTask<NativeArray<Vector3>> GetPlantHeights(Vector2 tileIndex, NativeArray<Vector3> coordinateArray)
     {
-        QueryParameters queryParameters = new QueryParameters(LayerMask.GetMask("Terrain Interact"), false, QueryTriggerInteraction.Ignore);
+        // TODO: Grab the actual values for these variables to make sure changes to terrain generation parameters don't
+        // mess this function up
+        Vector3 terrainSize = new Vector3(32, 8, 32);
 
-        Debug.Log("Using raycasts to find appropriate Y-axis value of each plant");
-        NativeArray<Vector3> newArray = new NativeArray<Vector3>(array.Length, Allocator.Persistent);
+        float cellSize = 8;
 
-        for (int i = 0; i < array.Length; i++)
+        Vector2 startOffset = new Vector2(0, 0);
+
+        Vector2 noiseRange = Vector2.one * 256;
+        
+        int xSegments = Mathf.FloorToInt(terrainSize.x / cellSize);
+        int zSegments = Mathf.FloorToInt(terrainSize.z / cellSize);
+
+        float xStep = terrainSize.x / xSegments;
+        float zStep = terrainSize.z / zSegments;
+
+        for (int i = 0; i < coordinateArray.Length; i++)
         {
-            //Debug.Log("Attempting raycast...");
-            //Physics.Raycast(new Vector3(array[i].x, 20, array[i].z), -transform.up, out RaycastHit hit, 200f, LayerMask.GetMask("Terrain Interact"), QueryTriggerInteraction.Ignore);
-            //newArray[i] = new Vector3(array[i].x, hit.point.y - 0.43f, array[i].z);
-            //Debug.Log("Raycast success");
+            float noiseX = coordinateArray[i].x / xStep / xSegments + 0.5f + startOffset.x / xStep;
+            float noiseZ = coordinateArray[i].z / zStep / zSegments + 0.5f + startOffset.y / zStep;
 
-            //newArray[i] = new Vector3(array[i].x, GetHeight(array[i].x, array[i].z, gm) - 0.43f, array[i].z);
-            newArray[i] = new Vector3(array[i].x, 0, array[i].z);
+            noiseX = (noiseX) % noiseRange.x;
+            noiseZ = (noiseZ) % noiseRange.y;
+            
+            //account for negatives (ex. -1 % 256 = -1, needs to loop around to 255)
+            if (noiseX < 0)
+                noiseX = noiseX + noiseRange.x;
+            if (noiseZ < 0)
+                noiseZ = noiseZ + noiseRange.y;
 
-            //await UniTask.Yield();
+            float height = Mathf.PerlinNoise(noiseX, noiseZ);
+            Debug.Log($"For render, tile is {chunkIndex.x}, {chunkIndex.y}, noise is {noiseX}, {noiseZ}");
+            coordinateArray[i] = new Vector3(coordinateArray[i].x, height * terrainSize.y, coordinateArray[i].z);
         }
 
-
-        Debug.Log($"Returning NativeArray of coordinates with appropriate Y-axis values of length {newArray.Length}");
-        return newArray;
+        return coordinateArray;
     }
+
+    //private async UniTask<NativeArray<Vector3>> GetYCoordinates(NativeArray<Vector3> array)
+    //{
+    //    QueryParameters queryParameters = new QueryParameters(LayerMask.GetMask("Terrain Interact"), false, QueryTriggerInteraction.Ignore);
+
+    //    Debug.Log("Using raycasts to find appropriate Y-axis value of each plant");
+    //    NativeArray<Vector3> newArray = new NativeArray<Vector3>(array.Length, Allocator.Persistent);
+
+    //    for (int i = 0; i < array.Length; i++)
+    //    {
+    //        //Debug.Log("Attempting raycast...");
+    //        //Physics.Raycast(new Vector3(array[i].x, 20, array[i].z), -transform.up, out RaycastHit hit, 200f, LayerMask.GetMask("Terrain Interact"), QueryTriggerInteraction.Ignore);
+    //        //newArray[i] = new Vector3(array[i].x, hit.point.y - 0.43f, array[i].z);
+    //        //Debug.Log("Raycast success");
+
+    //        //newArray[i] = new Vector3(array[i].x, GetHeight(array[i].x, array[i].z, gm) - 0.43f, array[i].z);
+    //        newArray[i] = new Vector3(array[i].x, 0, array[i].z);
+
+    //        //await UniTask.Yield();
+    //    }
+
+
+    //    Debug.Log($"Returning NativeArray of coordinates with appropriate Y-axis values of length {newArray.Length}");
+    //    return newArray;
+    //}
 
     private async UniTask<NativeArray<Vector3>> DoubleInstanceCount(NativeArray<Vector3> array)
     {

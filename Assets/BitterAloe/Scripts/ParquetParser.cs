@@ -203,9 +203,9 @@ public class ParquetParser : MonoBehaviour
     }
 
     // converts coordinates from global to local relative to a given chunk
-    public async UniTask<NativeArray<Vector3>> LocalizeCoordinateArray(Vector2 chunkIndex, NativeArray<Vector3> array, Vector2 min, Vector2 max, Vector3 chunkScale)
+    public async UniTask<NativeArray<Vector3>> ScaleCoordinateArray(Vector2 chunkIndex, NativeArray<Vector3> array, Vector2 min, Vector2 max, Vector3 chunkScale)
     {
-        Debug.Log("Converting NativeArray of coordinates to local terrain chunk space");
+        //Debug.Log("Converting NativeArray of coordinates to local terrain chunk space");
         NativeArray<Vector3> newArray = new NativeArray<Vector3>(array.Length, Allocator.Persistent);
 
         await UniTask.RunOnThreadPool(() =>
@@ -215,11 +215,12 @@ public class ParquetParser : MonoBehaviour
                 // normalizes coordinates from 0 to 1
                 var xNorm = (array[i].x - min.x) / (max.x - min.x);
                 var zNorm = (array[i].z - min.y) / (max.y - min.y);
-                // scales up coordinates to match the size of the chunk
+                // scales up coordinates to match the size and position of the chunk
                 newArray[i] = new Vector3((xNorm - 0.5f + chunkIndex.x) * chunkScale.x, array[i].y, (zNorm - 0.5f + chunkIndex.y) * chunkScale.z);
+                //Debug.Log($"{newArray[i]}");
             }
         });
-        Debug.Log($"NativeArray coordinates localized");
+        //Debug.Log($"NativeArray coordinates localized");
         return newArray;
     }
 }

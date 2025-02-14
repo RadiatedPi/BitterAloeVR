@@ -85,7 +85,8 @@ public class TerrainController : MonoBehaviour {
 
         Random.InitState(seed);
         //choose a random place on perlin noise
-        startOffset = new Vector2(Random.Range(0f, noiseRange.x), Random.Range(0f, noiseRange.y));
+        //startOffset = new Vector2(Random.Range(0f, noiseRange.x), Random.Range(0f, noiseRange.y));
+        startOffset = new Vector2(0, 0);
         RandomizeInitState();
     }
 
@@ -183,6 +184,7 @@ public class TerrainController : MonoBehaviour {
         gm.NoiseScale = noiseScale;
         gm.CellSize = cellSize;
         gm.NoiseOffset = NoiseOffset(xIndex, yIndex);
+        gm.TileIndex = new Vector2(xIndex, yIndex);
         gm.Generate();
 
         Random.InitState((int)(seed + (long)xIndex * 100 + yIndex));//so it doesn't form a (noticable) pattern of similar tiles
