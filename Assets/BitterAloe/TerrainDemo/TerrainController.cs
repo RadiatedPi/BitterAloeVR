@@ -5,8 +5,9 @@ using System.Linq;
 using UnityEngine;
 
 public class TerrainController : MonoBehaviour {
-    private GlobalReferences global;
-
+    private GlobalReferences globalRef;
+    [SerializeField]
+    private ParquetParser parquetParser = null;
     [SerializeField]
     private GameObject terrainTilePrefab = null;
     public Material material;
@@ -37,8 +38,9 @@ public class TerrainController : MonoBehaviour {
     [SerializeField]
     private Texture2D noise;
     public static float[][] noisePixels;
-
+    [HideInInspector]
     public Vector2 startOffset;
+    [HideInInspector]
     public Vector2 noiseRange;
 
     private Dictionary<Vector2, GameObject> terrainTiles = new Dictionary<Vector2, GameObject>();
@@ -52,14 +54,16 @@ public class TerrainController : MonoBehaviour {
             noisePixels = GetGrayScalePixels(noise);
         GenerateMesh.UsePerlinNoise = usePerlinNoise;
         noiseRange = usePerlinNoise ? Vector2.one * 256 : new Vector2(noisePixels.Length, noisePixels[0].Length);
+        startOffset = new Vector2(256, 256);
     }
 
     private void Start() {
-        global = GameObject.FindWithTag("Reference").GetComponent<GlobalReferences>();
         InitialLoad();
     }
 
     public void InitialLoad() {
+        globalRef = GameObject.FindWithTag("Reference").GetComponent<GlobalReferences>();
+        Debug.Log($"{globalRef}");
         DestroyTerrain();
 
         Level = new GameObject("Level").transform;
@@ -74,12 +78,11 @@ public class TerrainController : MonoBehaviour {
         Random.InitState(seed);
         //choose a random place on perlin noise
         //startOffset = new Vector2(Random.Range(0f, noiseRange.x), Random.Range(0f, noiseRange.y));
-        startOffset = new Vector2(0, 0);
         RandomizeInitState();
     }
 
     private void Update() {
-        if (global.parq.df != null)
+        if (parquetParser.df != null)
             LoadTileLoop().Forget();
     }
 
@@ -183,6 +186,8 @@ public class TerrainController : MonoBehaviour {
         */
         RandomizeInitState();
 
+        terrain.GetComponent<SampleRenderMeshIndirect>().parq = parquetParser;
+        terrain.GetComponent<SampleRenderMeshIndirect>().tc = GetComponent<TerrainController>();
         terrain.GetComponent<SampleRenderMeshIndirect>().chunkIndex = new Vector2(xIndex, yIndex);
         terrain.GetComponent<SampleRenderMeshIndirect>()._material = new Material(material);
         terrain.GetComponent<SampleRenderMeshIndirect>().chunkScale = tileResolution;

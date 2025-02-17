@@ -15,7 +15,9 @@ using static UnityEngine.Rendering.HableCurve;
 
 public class SampleRenderMeshIndirect : MonoBehaviour
 {
-    private GlobalReferences global;
+    //private GlobalReferences globalRef;
+    public ParquetParser parq;
+    public TerrainController tc;
     public GenerateMesh gm;
     public Vector2 chunkIndex;
     public Vector3 chunkScale;
@@ -35,33 +37,27 @@ public class SampleRenderMeshIndirect : MonoBehaviour
 
     public void Start()
     {
-        global = GameObject.FindWithTag("Reference").GetComponent<GlobalReferences>();
+        //globalRef = GameObject.FindWithTag("Reference").GetComponent<GlobalReferences>();
         gm = GetComponent<GenerateMesh>();
     }
 
     public async UniTaskVoid GetChunkPlantData()
     {
-        //Debug.Log("Waiting for DataFrame to exist before getting plant DataFrame and Array for terrain chunk");
-        while (global.parq.kdTree == null)
+        while (parq.kdTree == null)
         {
-            //Debug.Log("Waiting...");
             await UniTask.Yield();
-            //yield return null;
         }
-        //Debug.Log("Getting plant DataFrame and Array for terrain chunk");
-        //yield return new WaitUntil(() => parquetParser.df != null);
-        Vector2 rangeMin = await global.parq.GetCoordinateBoundMin(chunkIndex, global.parq.plantMapSampleScale);
-        Vector2 rangeMax = await global.parq.GetCoordinateBoundMax(chunkIndex, global.parq.plantMapSampleScale);
-        df = await global.parq.GetTerrainChunkDataFrame(rangeMin, rangeMax);
+        Vector2 rangeMin = await parq.GetCoordinateBoundMin(chunkIndex, parq.plantMapSampleScale);
+        Vector2 rangeMax = await parq.GetCoordinateBoundMax(chunkIndex, parq.plantMapSampleScale);
+        df = await parq.GetTerrainChunkDataFrame(rangeMin, rangeMax);
         if (df.Rows.Count >= 1)
         {
-            rawCoordinates = await global.parq.GetCoordinatesAsNativeArray(df);
-            rawCoordinates = await global.parq.ScaleCoordinateArray(chunkIndex, rawCoordinates, rangeMin, rangeMax, chunkScale);
+            rawCoordinates = await parq.GetCoordinatesAsNativeArray(df);
+            rawCoordinates = await parq.ScaleCoordinateArray(chunkIndex, rawCoordinates, rangeMin, rangeMax, chunkScale);
             rawCoordinates = await GetPlantHeights(rawCoordinates);
             kdTree = await MakeChunkKDTree(rawCoordinates);
 
             coordinatesForRendering = await DoubleInstanceCount(rawCoordinates);
-            //Debug.Log(coordinates.Length);
 
             UniTask.Void(StartRender);
         }
@@ -75,28 +71,17 @@ public class SampleRenderMeshIndirect : MonoBehaviour
 
     public async UniTask<DataFrameRow> GetDatapointUsingKDTree(Vector3 coordinates)
     {
-        Debug.Log($"Input coordinates: {coordinates}");
         var chunkPlantIndex = kdTree.FindNearest(coordinates);
-        //Debug.Log($"chunkPlantIndex: {chunkPlantIndex}");
-        //Debug.Log(df.Rows.Count);
         var datasetIndex = df.Rows[chunkPlantIndex]["index"];
-        //Debug.Log($"datasetIndex: {datasetIndex}");
-
-        Debug.Log($"Coordinates of plant in df: (" +
-            $"{(System.Convert.ToSingle(df[chunkPlantIndex, 10]) - 5) * chunkScale.x / global.parq.plantMapSampleScale}, " +
-            $"{(System.Convert.ToSingle(df[chunkPlantIndex, 11]) - 5) * chunkScale.z / global.parq.plantMapSampleScale})");
-        
-        Debug.Log(df.Rows[chunkPlantIndex]);
-
         return df.Rows[chunkPlantIndex];
     }
 
     private async UniTask<NativeArray<Vector3>> GetPlantHeights(NativeArray<Vector3> coordinateArray)
     {
-        Vector3 terrainSize = global.tc.TerrainSize;
-        Vector2 startOffset = global.tc.startOffset;
-        Vector2 noiseRange = global.tc.noiseRange;
-        float cellSize = global.tc.cellSize;
+        Vector3 terrainSize = tc.TerrainSize;
+        Vector2 startOffset = tc.startOffset;
+        Vector2 noiseRange = tc.noiseRange;
+        float cellSize = tc.cellSize;
 
         int xSegments = Mathf.FloorToInt(terrainSize.x / cellSize);
         int zSegments = Mathf.FloorToInt(terrainSize.z / cellSize);
@@ -106,8 +91,8 @@ public class SampleRenderMeshIndirect : MonoBehaviour
 
         for (int i = 0; i < coordinateArray.Length; i++)
         {
-            float noiseX = coordinateArray[i].x / xStep / xSegments + 0.5f + startOffset.x / xStep;
-            float noiseZ = coordinateArray[i].z / zStep / zSegments + 0.5f + startOffset.y / zStep;
+            float noiseX = coordinateArray[i].x / xStep / xSegments + 0.5f + startOffset.x;
+            float noiseZ = coordinateArray[i].z / zStep / zSegments + 0.5f + startOffset.y;
 
             noiseX = (noiseX) % noiseRange.x;
             noiseZ = (noiseZ) % noiseRange.y;
