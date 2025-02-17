@@ -5,32 +5,19 @@ using System.Linq;
 using UnityEngine;
 
 public class TerrainController : MonoBehaviour {
+    private GlobalReferences global;
 
     [SerializeField]
     private GameObject terrainTilePrefab = null;
     public Material material;
-    [SerializeField]
-    private ParquetParser parquetParser = null;
-    [SerializeField]
-    private Vector3 tileResolution = new Vector3(10, 1, 10);
+    public Vector3 tileResolution = new Vector3(32, 8, 32);
     public Vector3 TerrainSize { get { return tileResolution; } }
-    /*
-    [SerializeField]
-    private Gradient gradient;
-    */
-    [SerializeField]
-    private float noiseScale = 2, cellSize = 2;
-    [SerializeField]
-    private int radiusToRender = 4;
+    public float noiseScale = 1, cellSize = 4;
+    public int radiusToRender = 2;
     [SerializeField]
     private Transform[] gameTransforms;
     [SerializeField]
     private Transform playerTransform;
-    /*
-    [SerializeField]
-    private Transform water;
-    public Transform Water { get { return water; } }
-    */
     [SerializeField]
     private int seed;
     [SerializeField]
@@ -51,14 +38,14 @@ public class TerrainController : MonoBehaviour {
     private Texture2D noise;
     public static float[][] noisePixels;
 
-    private Vector2 startOffset;
+    public Vector2 startOffset;
+    public Vector2 noiseRange;
 
     private Dictionary<Vector2, GameObject> terrainTiles = new Dictionary<Vector2, GameObject>();
 
     private Vector2[] previousCenterTiles;
     private List<GameObject> previousTileObjects = new List<GameObject>();
     public Transform Level { get; set; }
-    private Vector2 noiseRange;
 
     private void Awake() {
         if (noise)
@@ -68,6 +55,7 @@ public class TerrainController : MonoBehaviour {
     }
 
     private void Start() {
+        global = GameObject.FindWithTag("Reference").GetComponent<GlobalReferences>();
         InitialLoad();
     }
 
@@ -91,7 +79,7 @@ public class TerrainController : MonoBehaviour {
     }
 
     private void Update() {
-        if (parquetParser.df != null)
+        if (global.parq.df != null)
             LoadTileLoop().Forget();
     }
 
@@ -195,7 +183,6 @@ public class TerrainController : MonoBehaviour {
         */
         RandomizeInitState();
 
-        terrain.GetComponent<SampleRenderMeshIndirect>().parquetParser = parquetParser;
         terrain.GetComponent<SampleRenderMeshIndirect>().chunkIndex = new Vector2(xIndex, yIndex);
         terrain.GetComponent<SampleRenderMeshIndirect>()._material = new Material(material);
         terrain.GetComponent<SampleRenderMeshIndirect>().chunkScale = tileResolution;

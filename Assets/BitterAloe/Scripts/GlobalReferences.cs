@@ -2,6 +2,6 @@ using UnityEngine;
 
 public class GlobalReferences : MonoBehaviour
 {
-    public TerrainController terrainController;
-    public ParquetParser parquetParser;
+    public TerrainController tc;
+    public ParquetParser parq;
 }

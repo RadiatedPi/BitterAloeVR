@@ -186,17 +186,16 @@ public class ParquetParser : MonoBehaviour
 
         // TODO: There's gotta be a faster way to do this
         DataFrame chunkDf = df;
-        await UniTask.RunOnThreadPool(() =>
-        {
+
             chunkDf = chunkDf[chunkDf["umap_x"].ElementwiseGreaterThan(min.x)];
-            UniTask.Yield();
+            await UniTask.Yield();
             chunkDf = chunkDf[chunkDf["umap_x"].ElementwiseLessThan(max.x)];
-            UniTask.Yield();
+            await UniTask.Yield();
             chunkDf = chunkDf[chunkDf["umap_y"].ElementwiseGreaterThan(min.y)];
-            UniTask.Yield();
+            await UniTask.Yield();
             chunkDf = chunkDf[chunkDf["umap_y"].ElementwiseLessThan(max.y)];
-            UniTask.Yield();
-        });
+            await UniTask.Yield();
+
 
         Debug.Log("Chunk-specific DataFrame created");
         return chunkDf;

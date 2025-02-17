@@ -15,7 +15,7 @@ using static UnityEngine.Rendering.HableCurve;
 
 public class SampleRenderMeshIndirect : MonoBehaviour
 {
-    public ParquetParser parquetParser;
+    private GlobalReferences global;
     public GenerateMesh gm;
     public Vector2 chunkIndex;
     public Vector3 chunkScale;
@@ -35,13 +35,14 @@ public class SampleRenderMeshIndirect : MonoBehaviour
 
     public void Start()
     {
+        global = GameObject.FindWithTag("Reference").GetComponent<GlobalReferences>();
         gm = GetComponent<GenerateMesh>();
     }
 
     public async UniTaskVoid GetChunkPlantData()
     {
         //Debug.Log("Waiting for DataFrame to exist before getting plant DataFrame and Array for terrain chunk");
-        while (parquetParser.kdTree == null)
+        while (global.parq.kdTree == null)
         {
             //Debug.Log("Waiting...");
             await UniTask.Yield();
@@ -49,14 +50,14 @@ public class SampleRenderMeshIndirect : MonoBehaviour
         }
         //Debug.Log("Getting plant DataFrame and Array for terrain chunk");
         //yield return new WaitUntil(() => parquetParser.df != null);
-        Vector2 rangeMin = await parquetParser.GetCoordinateBoundMin(chunkIndex, parquetParser.plantMapSampleScale);
-        Vector2 rangeMax = await parquetParser.GetCoordinateBoundMax(chunkIndex, parquetParser.plantMapSampleScale);
-        df = await parquetParser.GetTerrainChunkDataFrame(rangeMin, rangeMax);
+        Vector2 rangeMin = await global.parq.GetCoordinateBoundMin(chunkIndex, global.parq.plantMapSampleScale);
+        Vector2 rangeMax = await global.parq.GetCoordinateBoundMax(chunkIndex, global.parq.plantMapSampleScale);
+        df = await global.parq.GetTerrainChunkDataFrame(rangeMin, rangeMax);
         if (df.Rows.Count >= 1)
         {
-            rawCoordinates = await parquetParser.GetCoordinatesAsNativeArray(df);
-            rawCoordinates = await parquetParser.ScaleCoordinateArray(chunkIndex, rawCoordinates, rangeMin, rangeMax, chunkScale);
-            rawCoordinates = await GetPlantHeights(chunkIndex, rawCoordinates);
+            rawCoordinates = await global.parq.GetCoordinatesAsNativeArray(df);
+            rawCoordinates = await global.parq.ScaleCoordinateArray(chunkIndex, rawCoordinates, rangeMin, rangeMax, chunkScale);
+            rawCoordinates = await GetPlantHeights(rawCoordinates);
             kdTree = await MakeChunkKDTree(rawCoordinates);
 
             coordinatesForRendering = await DoubleInstanceCount(rawCoordinates);
@@ -82,26 +83,21 @@ public class SampleRenderMeshIndirect : MonoBehaviour
         //Debug.Log($"datasetIndex: {datasetIndex}");
 
         Debug.Log($"Coordinates of plant in df: (" +
-            $"{(System.Convert.ToSingle(df[chunkPlantIndex, 10]) - 5) * chunkScale.x / parquetParser.plantMapSampleScale}, " +
-            $"{(System.Convert.ToSingle(df[chunkPlantIndex, 11]) - 5) * chunkScale.z / parquetParser.plantMapSampleScale})");
+            $"{(System.Convert.ToSingle(df[chunkPlantIndex, 10]) - 5) * chunkScale.x / global.parq.plantMapSampleScale}, " +
+            $"{(System.Convert.ToSingle(df[chunkPlantIndex, 11]) - 5) * chunkScale.z / global.parq.plantMapSampleScale})");
         
         Debug.Log(df.Rows[chunkPlantIndex]);
 
         return df.Rows[chunkPlantIndex];
     }
 
-    private async UniTask<NativeArray<Vector3>> GetPlantHeights(Vector2 tileIndex, NativeArray<Vector3> coordinateArray)
+    private async UniTask<NativeArray<Vector3>> GetPlantHeights(NativeArray<Vector3> coordinateArray)
     {
-        // TODO: Grab the actual values for these variables to make sure changes to terrain generation parameters don't
-        // mess this function up
-        Vector3 terrainSize = new Vector3(32, 8, 32);
+        Vector3 terrainSize = global.tc.TerrainSize;
+        Vector2 startOffset = global.tc.startOffset;
+        Vector2 noiseRange = global.tc.noiseRange;
+        float cellSize = global.tc.cellSize;
 
-        float cellSize = 8;
-
-        Vector2 startOffset = new Vector2(0, 0);
-
-        Vector2 noiseRange = Vector2.one * 256;
-        
         int xSegments = Mathf.FloorToInt(terrainSize.x / cellSize);
         int zSegments = Mathf.FloorToInt(terrainSize.z / cellSize);
 
@@ -129,31 +125,6 @@ public class SampleRenderMeshIndirect : MonoBehaviour
 
         return coordinateArray;
     }
-
-    //private async UniTask<NativeArray<Vector3>> GetYCoordinates(NativeArray<Vector3> array)
-    //{
-    //    QueryParameters queryParameters = new QueryParameters(LayerMask.GetMask("Terrain Interact"), false, QueryTriggerInteraction.Ignore);
-
-    //    Debug.Log("Using raycasts to find appropriate Y-axis value of each plant");
-    //    NativeArray<Vector3> newArray = new NativeArray<Vector3>(array.Length, Allocator.Persistent);
-
-    //    for (int i = 0; i < array.Length; i++)
-    //    {
-    //        //Debug.Log("Attempting raycast...");
-    //        //Physics.Raycast(new Vector3(array[i].x, 20, array[i].z), -transform.up, out RaycastHit hit, 200f, LayerMask.GetMask("Terrain Interact"), QueryTriggerInteraction.Ignore);
-    //        //newArray[i] = new Vector3(array[i].x, hit.point.y - 0.43f, array[i].z);
-    //        //Debug.Log("Raycast success");
-
-    //        //newArray[i] = new Vector3(array[i].x, GetHeight(array[i].x, array[i].z, gm) - 0.43f, array[i].z);
-    //        newArray[i] = new Vector3(array[i].x, 0, array[i].z);
-
-    //        //await UniTask.Yield();
-    //    }
-
-
-    //    Debug.Log($"Returning NativeArray of coordinates with appropriate Y-axis values of length {newArray.Length}");
-    //    return newArray;
-    //}
 
     private async UniTask<NativeArray<Vector3>> DoubleInstanceCount(NativeArray<Vector3> array)
     {
@@ -236,23 +207,5 @@ public class SampleRenderMeshIndirect : MonoBehaviour
             GraphicsBuffer.Target.Structured, instanceCount,
             Marshal.SizeOf(typeof(T))
         );
-    }
-
-    private static float GetHeight(float x, float z, GenerateMesh gm)
-    {
-        //private static MeshDraft TerrainDraft(Vector3 terrainSize, float cellSize, Vector2 noiseOffset, float noiseScale)
-        //{
-        //    int xSegments = Mathf.FloorToInt(terrainSize.x / cellSize);
-
-        Vector3 terrainSize = new Vector3(32, 8, 32);
-        float cellSize = 8;
-        float noiseScale = 1;
-
-        int xSegments = Mathf.FloorToInt(terrainSize.x / cellSize);
-        int zSegments = Mathf.FloorToInt(terrainSize.z / cellSize);
-
-        float noiseX = gm.NoiseOffset.x + x/xSegments;
-        float noiseZ = gm.NoiseOffset.x + z/zSegments;
-        return Mathf.PerlinNoise(noiseX, noiseZ) * terrainSize.y;
     }
 }
