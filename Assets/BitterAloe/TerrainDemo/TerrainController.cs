@@ -1,7 +1,11 @@
 ﻿using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.CompilerServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst;
+using Unity.Jobs;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class TerrainController : MonoBehaviour {
@@ -49,6 +53,9 @@ public class TerrainController : MonoBehaviour {
     private List<GameObject> previousTileObjects = new List<GameObject>();
     public Transform Level { get; set; }
 
+    DateTime startTime;
+    float frameBudget = 0.01f; // max amount of time to do work per frame
+
     private void Awake() {
         if (noise)
             noisePixels = GetGrayScalePixels(noise);
@@ -58,6 +65,7 @@ public class TerrainController : MonoBehaviour {
     }
 
     private void Start() {
+        startTime = DateTime.Now;
         InitialLoad();
     }
 
@@ -75,7 +83,7 @@ public class TerrainController : MonoBehaviour {
         float waterSideLength = radiusToRender * 2 + 1;
         //water.localScale = new Vector3(terrainSize.x / 10 * waterSideLength, 1, terrainSize.z / 10 * waterSideLength);
 
-        Random.InitState(seed);
+        UnityEngine.Random.InitState(seed);
         //choose a random place on perlin noise
         //startOffset = new Vector2(Random.Range(0f, noiseRange.x), Random.Range(0f, noiseRange.y));
         RandomizeInitState();
@@ -85,6 +93,7 @@ public class TerrainController : MonoBehaviour {
         if (parquetParser.df != null)
             LoadTileLoop().Forget();
     }
+
 
     private async UniTaskVoid LoadTileLoop()
     {
@@ -111,10 +120,6 @@ public class TerrainController : MonoBehaviour {
                         ActivateOrCreateTile((int)tile.x + i, (int)tile.y + j, tileObjects).Forget();
                         await UniTask.Yield();
                     }
-                /*
-                if (isPlayerTile)
-                    water.localPosition = new Vector3(tile.x * terrainSize.x, water.localPosition.y, tile.y * terrainSize.z);
-                */
             }
             //deactivate old tiles
             foreach (GameObject g in previousTileObjects)
@@ -171,14 +176,13 @@ public class TerrainController : MonoBehaviour {
 
         GenerateMesh gm = terrain.GetComponent<GenerateMesh>();
         gm.TerrainSize = tileResolution;
-        //gm.Gradient = gradient;
         gm.NoiseScale = noiseScale;
         gm.CellSize = cellSize;
         gm.NoiseOffset = NoiseOffset(xIndex, yIndex);
         gm.TileIndex = new Vector2(xIndex, yIndex);
         gm.Generate();
 
-        Random.InitState((int)(seed + (long)xIndex * 100 + yIndex));//so it doesn't form a (noticable) pattern of similar tiles
+        UnityEngine.Random.InitState((int)(seed + (long)xIndex * 100 + yIndex));//so it doesn't form a (noticable) pattern of similar tiles
         /*
         PlaceObjects po = gm.GetComponent<PlaceObjects>();
         po.TerrainController = this;
@@ -214,7 +218,7 @@ public class TerrainController : MonoBehaviour {
     }
 
     private void RandomizeInitState() {
-        Random.InitState((int)System.DateTime.UtcNow.Ticks);//casting a long to an int "loops" it (like modulo)
+        UnityEngine.Random.InitState((int)System.DateTime.UtcNow.Ticks);//casting a long to an int "loops" it (like modulo)
     }
 
     private bool HaveTilesChanged(List<Vector2> centerTiles) {

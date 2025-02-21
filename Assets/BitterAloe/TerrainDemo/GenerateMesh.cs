@@ -15,8 +15,6 @@ public class GenerateMesh : MonoBehaviour
     public float CellSize { get; set; }
     public float NoiseScale { get; set; }
 
-    //public Gradient Gradient { get; set; }
-
     public Vector2 NoiseOffset { get; set; }
 
     public Vector2 TileIndex { get; set; }
@@ -29,7 +27,7 @@ public class GenerateMesh : MonoBehaviour
         meshFilter = GetComponent<MeshFilter>();
         childMeshFilter = transform.GetChild(0).GetComponent<MeshFilter>();
 
-        MeshDraft draft = TerrainDraft(TerrainSize, CellSize, NoiseOffset, NoiseScale/*, Gradient*/);
+        MeshDraft draft = TerrainDraft(TerrainSize, CellSize, NoiseOffset, NoiseScale);
         draft.Move(Vector3.left * TerrainSize.x / 2 + Vector3.back * TerrainSize.z / 2);
         meshFilter.mesh = draft.ToMesh();
         //meshFilter.mesh = WeldVertices(draft.ToMesh());
@@ -46,7 +44,7 @@ public class GenerateMesh : MonoBehaviour
             childMeshCollider.sharedMesh = meshFilter.mesh;
     }
 
-    private MeshDraft TerrainDraft(Vector3 terrainSize, float cellSize, Vector2 noiseOffset, float noiseScale/*, Gradient gradient*/)
+    private MeshDraft TerrainDraft(Vector3 terrainSize, float cellSize, Vector2 noiseOffset, float noiseScale)
     {
         int xSegments = Mathf.FloorToInt(terrainSize.x / cellSize);
         int zSegments = Mathf.FloorToInt(terrainSize.z / cellSize);
@@ -60,8 +58,7 @@ public class GenerateMesh : MonoBehaviour
             vertices = new List<Vector3>(vertexCount),
             triangles = new List<int>(vertexCount),
             uv = new List<Vector2>(vertexCount),
-            normals = new List<Vector3>(vertexCount)//,
-            //colors = new List<Color>(vertexCount)
+            normals = new List<Vector3>(vertexCount)
         };
 
         for (int i = 0; i < vertexCount; i++)
@@ -70,7 +67,6 @@ public class GenerateMesh : MonoBehaviour
             draft.triangles.Add(0);
             draft.uv.Add(Vector2.zero);
             draft.normals.Add(Vector3.zero);
-            //draft.colors.Add(Color.black);
         }
 
         //int i = 0;
@@ -339,7 +335,7 @@ public class GenerateMesh : MonoBehaviour
         //Debug.Log($"{x}, {z}, {noiseOffset}");
         float noiseX = noiseScale * x / xSegments + noiseOffset.x;
         float noiseZ = noiseScale * z / zSegments + noiseOffset.y;
-        Debug.Log($"For mesh, tile is {TileIndex.x}, {TileIndex.y}, noise is {noiseX}, {noiseZ}");
+        //Debug.Log($"For mesh, tile is {TileIndex.x}, {TileIndex.y}, noise is {noiseX}, {noiseZ}");
         if (usePerlinNoise)
             return Mathf.PerlinNoise(noiseX, noiseZ);
         else

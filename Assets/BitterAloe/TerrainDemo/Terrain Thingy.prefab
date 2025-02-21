@@ -136,7 +136,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d83a2d29c34222b4289e5fbe03fcc6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parquetParser: {fileID: 0}
+  parq: {fileID: 0}
+  tc: {fileID: 0}
+  gm: {fileID: 0}
   chunkIndex: {x: 0, y: 0}
   chunkScale: {x: 0, y: 0, z: 0}
   _count: 0

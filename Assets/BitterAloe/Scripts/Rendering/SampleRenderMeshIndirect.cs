@@ -104,7 +104,7 @@ public class SampleRenderMeshIndirect : MonoBehaviour
                 noiseZ = noiseZ + noiseRange.y;
 
             float height = Mathf.PerlinNoise(noiseX, noiseZ);
-            Debug.Log($"For render, tile is {chunkIndex.x}, {chunkIndex.y}, noise is {noiseX}, {noiseZ}");
+            //Debug.Log($"For render, tile is {chunkIndex.x}, {chunkIndex.y}, noise is {noiseX}, {noiseZ}");
             coordinateArray[i] = new Vector3(coordinateArray[i].x, height * terrainSize.y, coordinateArray[i].z);
         }
 
@@ -114,7 +114,7 @@ public class SampleRenderMeshIndirect : MonoBehaviour
     private async UniTask<NativeArray<Vector3>> DoubleInstanceCount(NativeArray<Vector3> array)
     {
         Debug.Log("Doubling the instance count of the coordinate array to render in both eyes in VR");
-        NativeArray<Vector3> doubledArray = new NativeArray<Vector3>(array.Length * 2, Allocator.Persistent);
+        NativeArray<Vector3> doubledArray = new NativeArray<Vector3>(array.Length * 2, Allocator.TempJob);
 
         for (int i = 0; i < array.Length * 2; i += 2)
         {
@@ -145,18 +145,21 @@ public class SampleRenderMeshIndirect : MonoBehaviour
 
     private void Update()
     {
-        var renderParams = new RenderParams(_material)
+        if (df != null)
         {
-            receiveShadows = _receiveShadows,
-            shadowCastingMode = _shadowCastingMode,
-            worldBounds = new Bounds(transform.position, chunkScale * 1.25f)
-        };
+            var renderParams = new RenderParams(_material)
+            {
+                receiveShadows = _receiveShadows,
+                shadowCastingMode = _shadowCastingMode,
+                worldBounds = new Bounds(transform.position, chunkScale * 1.25f)
+            };
 
-        Graphics.RenderMeshIndirect(
-            renderParams,
-            _mesh,
-            _drawArgsBuffer
-        );
+            Graphics.RenderMeshIndirect(
+                renderParams,
+                _mesh,
+                _drawArgsBuffer
+            );
+        }
     }
 
     private void OnDestroy()

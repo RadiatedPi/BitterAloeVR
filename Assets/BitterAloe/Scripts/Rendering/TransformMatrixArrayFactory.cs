@@ -12,7 +12,7 @@ public static class TransformMatrixArrayFactory
 {
     public static NativeArray<Matrix4x4> Create(int count, float3 maxPosition, float3 minPosition)
     {
-        var transformMatrixArray = new NativeArray<Matrix4x4>(count, Allocator.Persistent);
+        var transformMatrixArray = new NativeArray<Matrix4x4>(count, Allocator.TempJob);
         var job = new InitializeMatrixJob
         {
             _transformMatrixArray = transformMatrixArray,
@@ -46,7 +46,7 @@ public static class TransformMatrixArrayFactory
 
     public static async UniTask<NativeArray<Matrix4x4>> Create(NativeArray<Vector3> coordinates)
     {
-        var transformMatrixArray = new NativeArray<Matrix4x4>(coordinates.Length, Allocator.Persistent);
+        var transformMatrixArray = new NativeArray<Matrix4x4>(coordinates.Length, Allocator.TempJob);
         var job = new InitializeDataFrameMatrixJob
         {
             _transformMatrixArray = transformMatrixArray,
