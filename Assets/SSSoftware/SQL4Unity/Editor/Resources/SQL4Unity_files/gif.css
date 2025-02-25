@@ -1,0 +1,269 @@
+﻿.fsm {
+    height: 150px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #f5f5f5;
+    font-size: 1.5rem;
+    border-radius: 0;
+    transition: 1s;
+    cursor: pointer;
+    background-size: cover;
+    background-position: right;
+}
+
+    .fsm.f1 {
+        background-image: url("ScreenShot_001.png");
+    }
+    .fsm.f2 {
+        background-image: url("ScreenShot_002.png");
+    }
+	.fsm.f2A {
+		background-image: url("ScreenShot_002A.png");
+	}
+    .fsm.f3 {
+        background-image: url("ScreenShot_003.png");
+    }
+	.fsm.f4 {
+		background-image: url("ScreenShot_004.png");
+	}
+    .fsm.f5 {
+        background-image: url("ScreenShot_005.png");
+    }
+    .fsm.f5A {
+        background-image: url("ScreenShot_005A.png");
+    }
+    .fsm.f6 {
+        background-image: url("ScreenShot_006.png");
+    }
+	.fsm.f7 {
+		background-image: url("ScreenShot_007.png");
+	}
+    .fsm.f8 {
+        background-image: url("ScreenShot_008.png");
+    }
+    .fsm.f9 {
+        background-image: url("ScreenShot_009.png");
+    }
+	.fsm.f10 {
+		background-image: url("ScreenShot_010.png");
+	}
+    .fsm.f11 {
+        background-image: url("ScreenShot_011.png");
+    }
+    .fsm.f11A {
+        background-image: url("ScreenShot_011A.png");
+    }
+    .fsm.f12 {
+        background-image: url("ScreenShot_012.png");
+    }
+	.fsm.f13 {
+		background-image: url("ScreenShot_013.png");
+	}
+    .fsm.f14 {
+        background-image: url("ScreenShot_014.png");
+    }
+	.fsm.f14A {
+		background-image: url("ScreenShot_014A.png");
+	}
+    .fsm.f15 {
+        background-image: url("ScreenShot_015.png");
+    }
+	.fsm.f16 {
+		background-image: url("ScreenShot_016.png");
+	}
+	.fsm.f17 {
+		background-image: url("ScreenShot_017.png");
+	}
+	.fsm.f18 {
+		background-image: url("ScreenShot_018.png");
+	}
+    .fsm.f19 {
+        background-image: url("ScreenShot_019.png");
+    }
+    .fsm.f20 {
+        background-image: url("ScreenShot_020.png");
+    }
+    .fsm.f21 {
+        background-image: url("ScreenShot_021.png");
+    }
+    .fsm.f22 {
+        background-image: url("ScreenShot_022.png");
+    }
+	.fsm.f23 {
+		background-image: url("ScreenShot_023.png");
+	}
+    .fsm.f24 {
+        background-image: url("ScreenShot_024.png");
+    }
+    .fsm.f25 {
+        background-image: url("ScreenShot_025.png");
+    }
+	.fsm.f26 {
+		background-image: url("ScreenShot_026.png");
+	}
+    .fsm.f27 {
+        background-image: url("ScreenShot_027.png");
+    }
+    .fsm.f28 {
+        background-image: url("ScreenShot_028.png");
+    }
+	.fsm.f29 {
+		background-image: url("ScreenShot_029.png");
+	}
+	.fsm.f30 {
+		background-image: url("ScreenShot_030.png");
+	}
+	.fsm.f31 {
+		background-image: url("ScreenShot_031.png");
+	}
+	.fsm.f32 {
+		background-image: url("ScreenShot_032.png");
+	}
+	.fsm.f33 {
+		background-image: url("ScreenShot_033.png");
+	}
+	.fsm.f33A {
+		background-image: url("ScreenShot_033A.png");
+	}
+	.fsm.f33B {
+		background-image: url("ScreenShot_033B.png");
+	}
+	.fsm.f34 {
+		background-image: url("ScreenShot_034.png");
+	}
+	.fsm.f34A {
+		background-image: url("ScreenShot_034A.png");
+	}
+	.fsm.f35 {
+		background-image: url("ScreenShot_035.png");
+	}
+	.fsm.f36 {
+		background-image: url("ScreenShot_036.png");
+	}
+	.fsm.f37 {
+		background-image: url("ScreenShot_037.png");
+	}
+	.fsm.f38 {
+		background-image: url("ScreenShot_038.png");
+	}
+	.fsm.f39 {
+		background-image: url("ScreenShot_039.png");
+	}
+	.fsm.f40 {
+		background-image: url("ScreenShot_040.png");
+	}
+	.fsm.f41 {
+		background-image: url("ScreenShot_041.png");
+	}
+	.fsm.f42 {
+		background-image: url("ScreenShot_042.png");
+	}
+	.fsm.f43 {
+		background-image: url("ScreenShot_043.png");
+	}
+	.fsm.f44 {
+		background-image: url("ScreenShot_044.png");
+	}
+	.fsm.f45 {
+		background-image: url("ScreenShot_045.png");
+	}
+	.fsm.f46 {
+		background-image: url("ScreenShot_046.png");
+	}
+	.fsm.f47 {
+		background-image: url("ScreenShot_047.png");
+	}
+	.fsm.f48 {
+		background-image: url("ScreenShot_048.png");
+	}
+	.fsm.f49 {
+		background-image: url("ScreenShot_049.png");
+	}
+	.fsm.f50 {
+		background-image: url("ScreenShot_050.png");
+	}
+	.fsm.f51 {
+		background-image: url("ScreenShot_051.png");
+	}
+	.fsm.f52 {
+		background-image: url("ScreenShot_052.png");
+	}
+	.fsm.f53 {
+		background-image: url("ScreenShot_053.png");
+	}
+	.fsm.f54 {
+		background-image: url("ScreenShot_054.png");
+	}
+	.fsm.f55 {
+		background-image: url("ScreenShot_055.png");
+	}
+	.fsm.f56 {
+		background-image: url("ScreenShot_056.png");
+	}
+	.fsm.f57 {
+		background-image: url("ScreenShot_057.png");
+	}
+	.fsm.f58 {
+		background-image: url("ScreenShot_058.png");
+	}
+	.fsm.f59 {
+		background-image: url("ScreenShot_059.png");
+	}
+	.fsm.f60 {
+		background-image: url("ScreenShot_060.png");
+	}
+	.fsm.f61 {
+		background-image: url("ScreenShot_061.png");
+	}
+
+	.fsm.f62 {
+		background-image: url("ScreenShot_062.png");
+	}
+
+	.fsm.f63 {
+		background-image: url("ScreenShot_063.png");
+	}
+
+	.fsm.f64 {
+		background-image: url("ScreenShot_064.png");
+	}
+
+	.fsm.f65 {
+		background-image: url("ScreenShot_065.png");
+	}
+
+	.fsm.f66 {
+		background-image: url("ScreenShot_066.png");
+	}
+
+	.fsm.f67 {
+		background-image: url("ScreenShot_067.png");
+	}
+
+	.fsm.f68 {
+		background-image: url("ScreenShot_068.png");
+	}
+
+	.fsm.f69 {
+		background-image: url("ScreenShot_069.png");
+	}
+
+    .fsm.full-screen {
+        z-index: 100;
+        border-radius: 0;
+        background-size: contain;
+        background-repeat:no-repeat;
+    }
+
+/* <a href="#f"><i>Figure 8.</i></a>  */
+
+.fsm-container {
+    display: flex;
+    margin: 0 auto;
+    width: 250px;
+    justify-content: center;
+    box-sizing: border-box;
+}

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: aecb269d7f9b4034497151b320978ee4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 115308
+  packageName: SQL for Unity Database
+  packageVersion: 1.0.7
+  assetPath: Assets/SSSoftware/SQL4Unity/Example/Resources/Schema.asset
+  uploadId: 708763

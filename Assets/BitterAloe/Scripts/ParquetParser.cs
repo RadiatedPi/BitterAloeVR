@@ -70,6 +70,14 @@ public class ParquetParser : MonoBehaviour
         filePath = await CopyParquetToPersistentPath(streamingFilePath);
 #endif
         df = await ReadParquetIntoDataFrame(filePath);
+
+        // REMOVE ONCE PERFORMANCE ISSUES ARE FIXED
+        // ---------------------------------------------------------------------------------------
+        Vector2 min = await GetCoordinateBoundMin(new Vector2(-10, -10), plantMapSampleScale);
+        Vector2 max = await GetCoordinateBoundMax(new Vector2(10, 10), plantMapSampleScale);
+        df = await GetDataFrameWithinBounds(min, max);
+        // ---------------------------------------------------------------------------------------
+
         df = await AddIndexColumnToDataFrame(df);
         kdTree = await CreateKDTree(df);
         Debug.Log($"Parquet successfully read into DataFrame");
@@ -228,7 +236,7 @@ public class ParquetParser : MonoBehaviour
     }
 
     // filters DataFrame by given bounds to determine which plants are on a chunk
-    public async UniTask<DataFrame> GetTerrainChunkDataFrame(Vector2 min, Vector2 max)
+    public async UniTask<DataFrame> GetDataFrameWithinBounds(Vector2 min, Vector2 max)
     {
         Debug.Log($"Creating chunk-specific DataFrame");
 
@@ -240,16 +248,16 @@ public class ParquetParser : MonoBehaviour
 
         // TODO: There's gotta be a faster way to do this
         DataFrame chunkDf = df;
+        await UniTask.RunOnThreadPool(() =>
+            { chunkDf = chunkDf[chunkDf["umap_x"].ElementwiseGreaterThan(min.x)]; });
+        await UniTask.RunOnThreadPool(() =>
+            {  chunkDf = chunkDf[chunkDf["umap_x"].ElementwiseLessThan(max.x)]; });
+        await UniTask.RunOnThreadPool(() =>
+            { chunkDf = chunkDf[chunkDf["umap_y"].ElementwiseGreaterThan(min.y)]; });
+        await UniTask.RunOnThreadPool(() =>
+            { chunkDf = chunkDf[chunkDf["umap_y"].ElementwiseLessThan(max.y)]; });
 
-            chunkDf = chunkDf[chunkDf["umap_x"].ElementwiseGreaterThan(min.x)];
-            await UniTask.Yield();
-            chunkDf = chunkDf[chunkDf["umap_x"].ElementwiseLessThan(max.x)];
-            await UniTask.Yield();
-            chunkDf = chunkDf[chunkDf["umap_y"].ElementwiseGreaterThan(min.y)];
-            await UniTask.Yield();
-            chunkDf = chunkDf[chunkDf["umap_y"].ElementwiseLessThan(max.y)];
-            await UniTask.Yield();
-
+        
 
 
         Debug.Log("Chunk-specific DataFrame created");

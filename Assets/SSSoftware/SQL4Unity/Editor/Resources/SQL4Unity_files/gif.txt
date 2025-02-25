@@ -1,0 +1,91 @@
+var fsmActual = document.createElement('DIV');
+fsmActual.setAttribute('id', 'fsm_actual');
+document.getElementById("mainContent").appendChild(fsmActual);
+var $fsm = document.querySelectorAll('.fsm');;
+var $fsmActual = document.querySelector('#fsm_actual');
+$fsmActual.style.position = "absolute";
+
+var position = {};
+var size = {};
+
+var openFSM = function (event) {
+    var $this = event.currentTarget;
+    var clientRect = $this.getBoundingClientRect();
+    position = {
+        top: $this.getBoundingClientRect().top - document.body.getBoundingClientRect().top,
+        left: clientRect.left
+    }
+
+    size = {
+        width: window.getComputedStyle($this).width,
+        height: window.getComputedStyle($this).height
+    }
+
+    $fsmActual.style.position = "fixed";
+    $fsmActual.style.top = '5%';
+    $fsmActual.style.height = size.height;
+    $fsmActual.style.width = size.width;
+    document.body.classList.add('no-scroll');
+
+    setTimeout(function () {
+        $fsmActual.innerHTML = $this.innerHTML;
+        var classes = $this.classList.value.split(' ');
+        for (var i = 0; i < classes.length; i++) {
+            $fsmActual.classList.add(classes[i]);
+        }
+        $fsmActual.classList.add('growing');
+        $fsmActual.style.height = '90vh';
+        $fsmActual.style.width = '65vw';
+        $fsmActual.style.top = '5%';
+    }, 1);
+
+    setTimeout(function () {
+        $fsmActual.classList.remove('growing');
+        $fsmActual.classList.add('full-screen')
+    }, 250);
+};
+
+
+var closeFSM = function (event) {
+    var $this = event.currentTarget;
+
+    $this.style.height = size.height;
+    $this.style.width = size.width;
+    $this.classList.remove('full-screen');
+    $this.classList.add('shrinking');
+
+    setTimeout(function () {
+        while ($this.firstChild) $this.removeChild($this.firstChild);
+        var classList = $this.classList;
+        while (classList.length > 0) {
+            classList.remove(classList.item(0));
+        }
+        $this.style = '';;
+    }, 250);
+};
+
+for (var i = 0; i < $fsm.length; i++) {
+    $fsm[i].addEventListener("click", openFSM);
+}
+$fsmActual.addEventListener("click", closeFSM);
+
+var closeFSM = function (event) {
+    var $this = event.currentTarget;
+    $this.classList.add('growing');
+    $this.style.height = '90vh';
+    $this.style.width = '90vw';
+
+    setTimeout(function () {
+        while ($this.firstChild) $this.removeChild($this.firstChild);
+        var classList = $this.classList;
+        while (classList.length > 0) {
+            classList.remove(classList.item(0));
+        }
+        $this.style = '';
+    }, 10);
+};
+
+for (var i = 0; i < $fsm.length; i++) {
+    $fsm[i].addEventListener("click", openFSM);
+}
+$fsmActual.addEventListener("click", closeFSM);

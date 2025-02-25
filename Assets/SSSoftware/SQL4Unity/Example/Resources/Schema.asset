@@ -1,0 +1,386 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1606341199, guid: ca70c91c197e25b44b7fb3fd1db59b87, type: 3}
+  m_Name: Schema
+  m_EditorClassIdentifier: 
+  schemaName: Default Schema
+  version: V.1.0.1
+  dataBases:
+  - id: 0
+    databaseName: mygamedb
+    displayName: MyGameDB
+    dropped: 0
+    created: 1
+    checksum: 
+    tables: 010000000b00000011000000
+    procedures: 17000000
+    dbKeys: []
+  tables:
+  - id: 1
+    dbId: 0
+    tableName: mygamedb.players
+    displayName: Players
+    hidden: 0
+    columns: 020004000600070008000900
+    indexes: 030005000a00
+    dropped: 0
+    created: 1
+    updated: 0
+    dataTable: 4
+    dataPage: 0
+    bigTab: 0
+  - id: 11
+    dbId: 0
+    tableName: mygamedb.positions
+    displayName: Positions
+    hidden: 0
+    columns: 0c000e001000
+    indexes: 0d000f00
+    dropped: 0
+    created: 1
+    updated: 0
+    dataTable: 8
+    dataPage: 0
+    bigTab: 0
+  - id: 17
+    dbId: 0
+    tableName: mygamedb.playerpos
+    displayName: PlayerPos
+    hidden: 0
+    columns: 120014001600
+    indexes: 13001500
+    dropped: 0
+    created: 1
+    updated: 0
+    dataTable: 11
+    dataPage: 0
+    bigTab: 0
+  columns:
+  - id: 2
+    tabId: 1
+    dbId: 0
+    seq: 0
+    columnName: mygamedb.players.rowid
+    displayName: rowId
+    dataType: ushort
+    dataLength: 0
+    allowNull: 0
+    primaryKey: 1
+    autoIncrement: 1
+    hidden: 1
+    dropped: 0
+    created: 1
+    value: 
+  - id: 4
+    tabId: 1
+    dbId: 0
+    seq: 0
+    columnName: mygamedb.players.id
+    displayName: ID
+    dataType: int
+    dataLength: 0
+    allowNull: 0
+    primaryKey: 1
+    autoIncrement: 0
+    hidden: 0
+    dropped: 0
+    created: 1
+    value: 
+  - id: 6
+    tabId: 1
+    dbId: 0
+    seq: 0
+    columnName: mygamedb.players.title
+    displayName: Title
+    dataType: string
+    dataLength: 0
+    allowNull: 0
+    primaryKey: 0
+    autoIncrement: 0
+    hidden: 0
+    dropped: 0
+    created: 1
+    value: 
+  - id: 7
+    tabId: 1
+    dbId: 0
+    seq: 0
+    columnName: mygamedb.players.active
+    displayName: Active
+    dataType: bool
+    dataLength: 0
+    allowNull: 0
+    primaryKey: 0
+    autoIncrement: 0
+    hidden: 0
+    dropped: 0
+    created: 1
+    value: true
+  - id: 8
+    tabId: 1
+    dbId: 0
+    seq: 0
+    columnName: mygamedb.players.prefab
+    displayName: Prefab
+    dataType: Resource
+    dataLength: 0
+    allowNull: 0
+    primaryKey: 0
+    autoIncrement: 0
+    hidden: 0
+    dropped: 0
+    created: 1
+    value: 
+  - id: 9
+    tabId: 1
+    dbId: 0
+    seq: 0
+    columnName: mygamedb.players.currpos
+    displayName: CurrPos
+    dataType: Vector3
+    dataLength: 0
+    allowNull: 1
+    primaryKey: 0
+    autoIncrement: 0
+    hidden: 0
+    dropped: 0
+    created: 1
+    value: 
+  - id: 12
+    tabId: 11
+    dbId: 0
+    seq: 0
+    columnName: mygamedb.positions.rowid
+    displayName: rowId
+    dataType: ushort
+    dataLength: 0
+    allowNull: 0
+    primaryKey: 1
+    autoIncrement: 1
+    hidden: 1
+    dropped: 0
+    created: 1
+    value: 
+  - id: 14
+    tabId: 11
+    dbId: 0
+    seq: 0
+    columnName: mygamedb.positions.id
+    displayName: ID
+    dataType: int
+    dataLength: 0
+    allowNull: 0
+    primaryKey: 1
+    autoIncrement: 0
+    hidden: 0
+    dropped: 0
+    created: 1
+    value: 
+  - id: 16
+    tabId: 11
+    dbId: 0
+    seq: 0
+    columnName: mygamedb.positions.position
+    displayName: Position
+    dataType: Vector3
+    dataLength: 0
+    allowNull: 0
+    primaryKey: 0
+    autoIncrement: 0
+    hidden: 0
+    dropped: 0
+    created: 1
+    value: 
+  - id: 18
+    tabId: 17
+    dbId: 0
+    seq: 0
+    columnName: mygamedb.playerpos.rowid
+    displayName: rowId
+    dataType: ushort
+    dataLength: 0
+    allowNull: 0
+    primaryKey: 1
+    autoIncrement: 1
+    hidden: 1
+    dropped: 0
+    created: 1
+    value: 
+  - id: 20
+    tabId: 17
+    dbId: 0
+    seq: 0
+    columnName: mygamedb.playerpos.playerid
+    displayName: PlayerID
+    dataType: int
+    dataLength: 0
+    allowNull: 0
+    primaryKey: 1
+    autoIncrement: 0
+    hidden: 0
+    dropped: 0
+    created: 1
+    value: 
+  - id: 22
+    tabId: 17
+    dbId: 0
+    seq: 0
+    columnName: mygamedb.playerpos.posid
+    displayName: PosID
+    dataType: int
+    dataLength: 0
+    allowNull: 0
+    primaryKey: 0
+    autoIncrement: 0
+    hidden: 0
+    dropped: 0
+    created: 1
+    value: 
+  indexes:
+  - id: 3
+    tabId: 1
+    dbId: 0
+    indexName: mygamedb.players.rowidix
+    displayName: rowIdIx
+    type: Dict
+    hidden: 1
+    dropped: 0
+    created: 1
+    columns: 0200
+    dataType: ushort
+    dataIndex: 7
+    dataPage: 0
+    bigTab: 0
+    unique: 1
+  - id: 5
+    tabId: 1
+    dbId: 0
+    indexName: mygamedb.players.idpk
+    displayName: IDPK
+    type: Dict
+    hidden: 1
+    dropped: 0
+    created: 1
+    columns: 0400
+    dataType: int
+    dataIndex: 6
+    dataPage: 0
+    bigTab: 0
+    unique: 1
+  - id: 10
+    tabId: 1
+    dbId: 0
+    indexName: mygamedb.players.tileix
+    displayName: TileIX
+    type: Sorted
+    hidden: 0
+    dropped: 0
+    created: 1
+    columns: 0600
+    dataType: string
+    dataIndex: 5
+    dataPage: 0
+    bigTab: 0
+    unique: 1
+  - id: 13
+    tabId: 11
+    dbId: 0
+    indexName: mygamedb.positions.rowidix
+    displayName: rowIdIx
+    type: Dict
+    hidden: 1
+    dropped: 0
+    created: 1
+    columns: 0c00
+    dataType: ushort
+    dataIndex: 10
+    dataPage: 0
+    bigTab: 0
+    unique: 1
+  - id: 15
+    tabId: 11
+    dbId: 0
+    indexName: mygamedb.positions.idpk
+    displayName: IDPK
+    type: Dict
+    hidden: 1
+    dropped: 0
+    created: 1
+    columns: 0e00
+    dataType: int
+    dataIndex: 9
+    dataPage: 0
+    bigTab: 0
+    unique: 1
+  - id: 19
+    tabId: 17
+    dbId: 0
+    indexName: mygamedb.playerpos.rowidix
+    displayName: rowIdIx
+    type: Dict
+    hidden: 1
+    dropped: 0
+    created: 1
+    columns: 1200
+    dataType: ushort
+    dataIndex: 13
+    dataPage: 0
+    bigTab: 0
+    unique: 1
+  - id: 21
+    tabId: 17
+    dbId: 0
+    indexName: mygamedb.playerpos.playeridpk
+    displayName: PlayerIDPK
+    type: Dict
+    hidden: 1
+    dropped: 0
+    created: 1
+    columns: 1400
+    dataType: int
+    dataIndex: 12
+    dataPage: 0
+    bigTab: 0
+    unique: 1
+  procedures:
+  - id: 23
+    dbId: 0
+    procedureName: mygamedb.updpos
+    displayName: UpdPos
+    hidden: 0
+    dropped: 0
+    created: 1
+    updated: 0
+    isOpen: 1
+    isParsed: 1
+    type: 3
+    sql: Update Players set currpos=%pos% where ID=%id%
+    displaySql: Update Players set currpos=%pos% where ID=%id%
+    databases:
+    - mygamedb
+    tables:
+    - mygamedb.players
+    colKey: 0900
+    colValType:
+    - string
+    colValString:
+    - '%pos%'
+    aliasKey: []
+    aliasVal: []
+    where: []
+    orderKey: 
+    orderVal: []
+    groupby: 0
+    conditions: '#0#'
+    joins: []
+    lastId: 1
+  lastID: 23

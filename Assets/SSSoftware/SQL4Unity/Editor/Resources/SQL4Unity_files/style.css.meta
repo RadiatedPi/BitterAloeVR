@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9175a8d544303104f9bf159495021b43
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 115308
+  packageName: SQL for Unity Database
+  packageVersion: 1.0.7
+  assetPath: Assets/SSSoftware/SQL4Unity/Editor/Resources/SQL4Unity_files/style.css
+  uploadId: 708763

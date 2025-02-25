@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: ec48596ee81abeb4c901436ab7defd4a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 115308
+  packageName: SQL for Unity Database
+  packageVersion: 1.0.7
+  assetPath: Assets/SSSoftware/SQL4Unity/Scripts/mygamedb_positions.cs
+  uploadId: 708763

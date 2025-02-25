@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d6148de37ebc20e48afb0fc4ee7e1d29
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 115308
+  packageName: SQL for Unity Database
+  packageVersion: 1.0.7
+  assetPath: Assets/SSSoftware/SQL4Unity/Example/MyGameDB.sql
+  uploadId: 708763

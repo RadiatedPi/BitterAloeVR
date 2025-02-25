@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c123c817a1b29364db9ba60be57c2a30
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 115308
+  packageName: SQL for Unity Database
+  packageVersion: 1.0.7
+  assetPath: Assets/SSSoftware/SQL4Unity/Editor/External/SQL4UnityCLI.zip
+  uploadId: 708763

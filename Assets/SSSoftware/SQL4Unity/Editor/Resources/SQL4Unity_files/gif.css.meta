@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 013289064483cb54cb8092529a76ef4b
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 115308
+  packageName: SQL for Unity Database
+  packageVersion: 1.0.7
+  assetPath: Assets/SSSoftware/SQL4Unity/Editor/Resources/SQL4Unity_files/gif.css
+  uploadId: 708763

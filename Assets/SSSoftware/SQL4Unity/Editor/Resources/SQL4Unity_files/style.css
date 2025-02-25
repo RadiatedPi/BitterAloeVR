@@ -1,0 +1,303 @@
+﻿:root {
+    /*LAYERS*/
+	/*
+    --layer0: rgba(07, 07, 08, 1);
+    --layer1: rgba(17, 17, 18, 1);
+    --layer2: rgba(27, 27, 28, 1);
+    --layer3: rgba(37, 37, 38, 1);
+		*/
+    --layer4: rgba(47, 47, 48, 1);
+    --layer5: rgba(57, 57, 58, 1);
+    --layer6: rgba(67, 67, 68, 1);
+    /*WHITE*/
+	/*
+    --white00: rgba(255, 255, 255, 0);
+    --white01: rgba(255, 255, 255, 0.1);
+    --white02: rgba(255, 255, 255, 0.2);
+    --white03: rgba(255, 255, 255, 0.3);
+    --white04: rgba(255, 255, 255, 0.4);
+    --white05: rgba(255, 255, 255, 0.5);
+    --white06: rgba(255, 255, 255, 0.6);
+    --white07: rgba(255, 255, 255, 0.7);
+		*/
+    --white08: rgba(255, 255, 255, 0.8);
+    // --white09: rgba(255, 255, 255, 0.9);
+    --white10: rgba(255, 255, 255, 1);
+    /*BLACK*/
+	/*
+    --black00: rgba(0, 0, 0, 0);
+    --black01: rgba(0, 0, 0, 0.1);
+    --black02: rgba(0, 0, 0, 0.2);
+    --black03: rgba(0, 0, 0, 0.3);
+    --black04: rgba(0, 0, 0, 0.4);
+    --black05: rgba(0, 0, 0, 0.5);
+    --black06: rgba(0, 0, 0, 0.6);
+    --black07: rgba(0, 0, 0, 0.7);
+    --black08: rgba(0, 0, 0, 0.8);
+    --black09: rgba(0, 0, 0, 0.9);
+    --black10: rgba(0, 0, 0, 1);
+	*/
+    /*CODE COLOURS*/
+    //--addition: #b870ff;
+    //--doctag: #9cdcfe;
+    //--className: #2475ff;
+    /*OTHER COLOURS*/
+    //--orange: rgba(255, 100, 30, 1);
+    //--scrollColor: rgba(250, 46, 15, 0.75);
+    //--reaction: rgba(59, 255, 75, 0.8);
+    /* === COLOURS END=== */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+a,
+a:visited {
+	color: #07c2f6;
+	text-decoration: none;
+}
+
+	a:hover,
+	a:active {
+		color: #07c2f6;
+		text-decoration: underline;
+	}
+
+html,
+body {
+    height: 100vh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-color: var(--layer4);
+    color: var(--white10);
+    font-family: Inconsolata, monospace;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    background: #03588f;
+    height: 7vh;
+	width:100vw;
+    text-align: center;
+    font-size: 2em;
+    z-index: 10;
+    position: fixed;
+	color:#07c2f6;
+}
+
+h2 {
+    font-size: 1.75em;
+}
+
+.center {
+    flex: auto;
+	padding-top: 15px;
+}
+
+/*
+.homeBtn {
+    justify-self: left;
+}
+*/
+
+a span,
+a:visited span {
+    color: white;
+    text-decoration: none !important;
+}
+
+a:active span {
+    color: lightgrey;
+    text-decoration: underline;
+}
+
+a:hover span {
+    color: lightgrey;
+    text-decoration: underline;
+}
+
+.content {
+    margin: 0 auto;
+	margin-top: 8vh;
+    height: 88vh;
+    width: 60vw;
+    flex: 1 0 auto;
+    padding: 20px;
+    background-color: var(--layer6);
+    border-radius: 0;
+    box-shadow: 0.1em 0.1em 0.5em rgba(0, 0, 0, 0.45);
+}
+
+.subcontent {
+	margin: 0 auto;
+	flex: 1 0 auto;
+	padding: 20px;
+	background-color: var(--layer6);
+	border-radius: 0;
+}
+
+.navigation {
+	margin-top: 8vh;
+    display: flex;
+    height: 88vh;
+    flex-direction: row;
+    position: fixed;
+    background-color: var(--layer5);
+    left: -15px;
+    box-shadow: 0.1em 0.1em 0.5em rgba(0, 0, 0, 0.45);
+    overflow: auto;
+}
+
+nav {
+	margin-top: 40px;
+	line-height: 1.4em;
+	color: #07c2f6;
+	padding-left: 5px;
+	margin-right: 30px;
+}
+
+ul {
+    list-style: circle;
+    color: #07c2f6;
+    text-decoration: none;
+}
+
+li {
+	color:#07c2f6;
+}
+
+ul li {
+    white-space: nowrap;
+}
+
+li > ul {
+    display:none;
+}
+
+ul li a:hover, ul li a:focus {
+	color: #fff;
+	text-decoration: none;
+}
+
+li > i {
+	color: #07c2f6;
+}
+
+.label {
+    color: #07c2f6 !important;
+}
+
+    .label:hover {
+        color: #fff !important;
+    }
+
+.label1 {
+    font-size: 1.35em;
+    color: #07c2f6 !important;
+}
+
+.label2 {
+    font-size: 1.10em;
+    color: #07c2f6 !important;
+}
+
+.navigation2 {
+	margin-top: 8vh;
+	display: flex;
+	height: 88vh;
+	flex-direction: row;
+	position: fixed;
+	right: 0;
+	background-color: var(--layer5);
+	overflow-y: auto;
+	box-shadow: 0.1em 0.1em 0.5em rgba(0, 0, 0, 0.45);
+}
+
+.navigation2 ul {
+    list-style: none;
+    padding-left: 10px;
+    text-decoration: none;
+}
+
+.navigation2 li {
+    background-color: var(--layer4);
+    margin-top: 15px;
+    text-align: center;
+}
+
+.footer {
+	position : fixed;
+	bottom:0;
+	width:100vw;
+    background-color: #035887;
+    text-align: right;
+    padding-right: 1em;
+    padding: 20px;
+    z-index: 10;
+	color: #07c2f6;
+}
+
+section {
+    background-color: var(--layer5);
+    padding: 5px;
+    line-height: 1.5em;
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.45);
+}
+
+.gif {
+    margin: 0 auto;
+    width: 500px;
+    margin-top: 1em;
+}
+
+pre {
+	width: 80%;
+	margin: 0 auto;
+	background-color: var(--white08);
+	border-radius: 0.25em;
+	padding: 0.5em;
+	box-shadow: 0.1em 0.1em 0.5em rgba(0, 0, 0, 0.45);
+	line-height: 1em;
+	overflow:auto;
+	white-space: pre;
+}
+code.prettyprint {
+	color: var(--black09);
+	font-size:1.1em;
+}
+/*
+.accordion {
+    background-color: var(--layer5);
+    color: var(--white10);
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    box-shadow: 0.1em 0.1em 0.5em rgba(0, 0, 0, 0.45);
+}
+*/
+
+    /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+    .active, .accordion:hover {
+    }
+
+/* Style the accordion panel. Note: hidden by default
+.panel {
+    padding: 0 18px;
+    background-color: var(--layer4);
+    display: none;
+    overflow: hidden;
+    box-shadow: 0.1em 0.1em 0.5em rgba(0, 0, 0, 0.45);
+}
+ */

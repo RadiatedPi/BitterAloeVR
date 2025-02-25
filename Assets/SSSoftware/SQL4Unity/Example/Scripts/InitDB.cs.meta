@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: a99a8c2f38aa32d438ed6c2d9547f577
+timeCreated: 1545636389
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 115308
+  packageName: SQL for Unity Database
+  packageVersion: 1.0.7
+  assetPath: Assets/SSSoftware/SQL4Unity/Example/Scripts/InitDB.cs
+  uploadId: 708763

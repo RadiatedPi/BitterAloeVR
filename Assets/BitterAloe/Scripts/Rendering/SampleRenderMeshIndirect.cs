@@ -49,7 +49,7 @@ public class SampleRenderMeshIndirect : MonoBehaviour
         }
         Vector2 rangeMin = await parq.GetCoordinateBoundMin(chunkIndex, parq.plantMapSampleScale);
         Vector2 rangeMax = await parq.GetCoordinateBoundMax(chunkIndex, parq.plantMapSampleScale);
-        df = await parq.GetTerrainChunkDataFrame(rangeMin, rangeMax);
+        df = await parq.GetDataFrameWithinBounds(rangeMin, rangeMax);
         if (df.Rows.Count >= 1)
         {
             rawCoordinates = await parq.GetCoordinatesAsNativeArray(df);

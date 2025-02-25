@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: cb8f4ee38c2dfed48a62ea88e772eeff
+timeCreated: 1545458725
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 115308
+  packageName: SQL for Unity Database
+  packageVersion: 1.0.7
+  assetPath: Assets/SSSoftware/SQL4Unity/Example/Resources/Sphere.prefab
+  uploadId: 708763

@@ -1,0 +1,3426 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>SQL for Unity</title>
+
+	<link href="SQL4Unity_files/css.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="SQL4Unity_files/prettify.css">
+	<script src="SQL4Unity_files/jquery.min.txt"></script>
+	<link rel="stylesheet" href="SQL4Unity_files/style.css">
+	<link rel="stylesheet" href="SQL4Unity_files/gif.css">
+	<script type="text/javascript" src="SQL4Unity_files/site.txt"></script>
+	<script type="text/javascript" src="SQL4Unity_files/gif.txt" defer="defer"></script>
+</head>
+<body onload="PR.prettyPrint()">
+	<header class="header">
+		<span class="center">SQL for Unity Version 1.0.7</span>
+	</header>
+	<div class="navigation" id="menu">
+		<nav>
+			<ul>
+				<li><a href="#section00"><span class="label">Introduction</span></a></li>
+				<li><a href="#section00A"><span class="label">Installation</span></a></li>
+				<li><a href="#section00B"><span class="label">About SQL for Unity</span></a></li>
+				<li>
+					<a href="#section01"><span class="label">SQL Workbench</span></a>
+					<ul>
+						<li><a href="#section01A"><span class="label">Getting Started</span></a></li>
+						<li>
+							<a href="#section01B"><span class="label">Using Schemas</span></a>
+							<ul>
+								<li>Open Schema</li>
+								<li>Rename Schema</li>
+								<li>Compact Schema</li>
+								<li>Import Schema</li>
+								<li>Help</li>
+								<li>About</li>
+								<li>Naming Conventions</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#section01C"><span class="label">Working with Databases</span></a>
+							<ul>
+								<li><a href="#section01C1"><span class="label">Define a Database</span></a></li>
+								<li><a href="#section01C2"><span class="label">Rename a Database</span></a></li>
+								<li><a href="#section01C3"><span class="label">Delete a Database</span></a></li>
+								<li><a href="#section01C4"><span class="label">Create the Database</span></a></li>
+								<li>
+									<a href="#section01C5"><span class="label">Database Options</span></a>
+									<ul>
+										<li><a href="#section01C5A"><span class="label">Export Schema</span></a></li>
+										<li><a href="#section01C5B"><span class="label">Import</span></a></li>
+										<li><a href="#section01C5C"><span class="label">Export</span></a></li>
+										<li><a href="#section01C5D"><span class="label">Compact Database</span></a></li>
+										<li><a href="#section01C5E"><span class="label">Refresh Resources</span></a></li>
+										<li><a href="#section01C5F"><span class="label">Manage Passwords</span></a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#section01D"><span class="label">Working with Tables</span></a>
+							<ul>
+								<li><a href="#section01D1"><span class="label">Define a Table</span></a></li>
+								<li><a href="#section01D2"><span class="label">Rename a Table</span></a></li>
+								<li><a href="#section01D3"><span class="label">Delete a Table</span></a></li>
+								<li><a href="#section01D4"><span class="label">Duplicate a Table</span></a></li>
+								<li><a href="#section01D5"><span class="label">Partioning a Table</span></a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#section01E"><span class="label">Working with Columns</span></a>
+							<ul>
+								<li><a href="#section01E1"><span class="label">Define a Column</span></a></li>
+								<li><a href="#section01E2"><span class="label">Rename a Column</span></a></li>
+								<li><a href="#section01E3"><span class="label">Delete a Column</span></a></li>
+								<li><a href="#section01E4"><span class="label">Moving a Column</span></a></li>
+								<li><a href="#section01E5"><span class="label">Defining Key Constraints</span></a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#section01F"><span class="label">Working with Indexes</span></a>
+							<ul>
+								<li><a href="#section01F1"><span class="label">Define an Index</span></a></li>
+								<li><a href="#section01F2"><span class="label">Rename an Index</span></a></li>
+								<li><a href="#section01F3"><span class="label">Delete an Index</span></a></li>
+							</ul>
+						</li>
+						<li><a href="#section01I"><span class="label">Stored SQL</span></a></li>
+						<li><a href="#section01G"><span class="label">SQL Command</span></a></li>
+						<li><a href="#section01H"><span class="label">Error Messages and SQL Output</span></a></li>
+					</ul>
+				</li>
+				<li><a href="#section02"><span class="label">Table Editor</span></a></li>
+				<li>
+					<a href="#section03"><span class="label">SQL Execute</span></a>
+					<ul>
+						<li><a href="#section03A"><span class="label">Overview</span></a></li>
+						<li><a href="#section03B"><span class="label">Constructors</span></a></li>
+						<li>
+							<a href="#section03C"><span class="label">Methods</span></a>
+							<ul>
+								<li><a href="#section03C1"><span class="label">Command</span></a></li>
+								<li><a href="#section03C2"><span class="label">Open</span></a></li>
+								<li><a href="#section03C3"><span class="label">OpenAsync</span></a></li>
+								<li><a href="#section03C4"><span class="label">Commit</span></a></li>
+								<li><a href="#section03C5"><span class="label">Rollback</span></a></li>
+								<li><a href="#section03C6"><span class="label">Close</span></a></li>
+								<li><a href="#section03C7"><span class="label">AutoCommit</span></a></li>
+								<li><a href="#section03C8"><span class="label">Language</span></a></li>
+								<li><a href="#section03C9"><span class="label">ReplaceIfNewer</span></a></li>
+							</ul>
+						</li>
+						<li><a href="#section03D"><span class="label">Targeting WebGL</span></a></li>
+						<li>
+							<a href="#section03E"><span class="label">Example Code</span></a>
+							<ul>
+								<li><a href="#section03E1"><span class="label">Outer Join</span></a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#section04"><span class="label">SQL Result</span></a>
+					<ul>
+						<li><a href="#section04A"><span class="label">Properties</span></a></li>
+						<li>
+							<a href="#section04B"><span class="label">Methods</span></a>
+							<ul>
+								<li><a href="#section04B1"><span class="label">Clear</span></a></li>
+								<li><a href="#section04B2"><span class="label">Get</span></a></li>
+								<li><a href="#section04B3"><span class="label">GetColumn</span></a></li>
+								<li><a href="#section04B4"><span class="label">GetColumnNames</span></a></li>
+								<li><a href="#section04B5"><span class="label">isNull</span></a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li><a href="#section05"><span class="label">Resources Management</span></a></li>
+				<li><a href="#section06"><span class="label">Windows CLI</span></a></li>
+				<li>
+					<a href="#section07"><span class="label">Client/Server</span></a>
+					<ul>
+						<li>
+							<a href="#section07A"><span class="label">SQL for Unity</span></a>
+							<ul>
+								<li><a href="#section07A1"><span class="label">Package Contents</span></a></li>
+								<li>
+									<a href="#section07A2"><span class="label">Installation</span></a>
+									<ul>
+										<li><a href="#section07A2A"><span class="label">Configuration</span></a></li>
+										<li><a href="#section07A2B"><span class="label">Installing the Service</span></a></li>
+										<li><a href="#section07A2C"><span class="label">Installing Databases</span></a></li>
+										<li><a href="#section07A2D"><span class="label">Logging</span></a></li>
+										<li><a href="#section07A2E"><span class="label">Testing the Service</span></a></li>
+										<li><a href="#section07A2F"><span class="label">Uninstall</span></a></li>
+									</ul>
+								</li>
+								<li>
+									<a href="#section07A3"><span class="label">SQLExecute Extensions</span></a>
+									<ul>
+										<li><a href="#section07A3A"><span class="label">Methods</span></a></li>
+									</ul>
+								</li>
+								<li>
+									<a href="#section07A4"><span class="label">Administration</span></a>
+									<ul>
+										<li><a href="#section07A4A"><span class="label">Web Browser</span></a></li>
+										<li><a href="#section07A4B"><span class="label">Command Line</span></a></li>
+									</ul>
+								</li>
+								<li><a href="#section07A5"><span class="label">Example Code</span></a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#section07B"><span class="label">SQL*Server</span></a>
+							<ul>
+								<li><a href="#section07B1"><span class="label">Constructor</span></a></li>
+								<li><a href="#section07B2"><span class="label">Methods</span></a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#section07C"><span class="label">MySQL</span></a>
+							<ul>
+								<li><a href="#section07C1"><span class="label">Constructor</span></a></li>
+								<li><a href="#section07C2"><span class="label">Methods</span></a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#section09"><span class="label">Data Types</span></a>
+					<ul>
+						<li><a href="#section09A"><span class="label">C# Datatypes</span></a></li>
+						<li><a href="#section09B"><span class="label">Unity Serializable types</span></a></li>
+						<li><a href="#section09C"><span class="label">Unity Objects</span></a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#section10"><span class="label">Reserverd Words</span></a>
+					<ul>
+						<li>SQL Reserved words</li>
+						<li>C# reserved words</li>
+						<li>SQL for Unity reserved words</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#section11"><span class="label">Backup/Restore</span></a>
+					<ul>
+						<li>Git Source Control</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#section12"><span class="label">Additional Information</span></a>
+					<ul>
+						<li><a href="#section12A"><span class="label">Package Contents</span></a></li>
+						<li><a href="#section12B"><span class="label">Distribution</span></a></li>
+						<li><a href="#section12C"><span class="label">Support</span></a></li>
+						<li><a href="#section12D"><span class="label">Change Requests</span></a></li>
+						<li><a href="#section12E"><span class="label">Internationalisation</span></a></li>
+					</ul>
+				</li>
+			</ul>
+			<br><br><br>
+		</nav>
+	</div>
+	<div class="navigation2">
+		<nav>
+			<ul>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f1" class="fsm f1"></div>
+					</div><i>1. SQL for Unity menu options</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f2" class="fsm f2"></div>
+					</div><i>2. SQL Workbench Window</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f2A" class="fsm f2A"></div>
+					</div><i>2A. Default Schema</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f3" class="fsm f3"></div>
+					</div><i>3. Define a Database</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f4" class="fsm f4"></div>
+					</div><i>4. Name a Database</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f5" class="fsm f5"></div>
+					</div><i>5. Database defined</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f5A" class="fsm f5A"></div>
+					</div><i>5A. Database options</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f6" class="fsm f6"></div>
+					</div><i>6. Rename database</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f7" class="fsm f7"></div>
+					</div><i>7. Rename database</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f8" class="fsm f8"></div>
+					</div><i>8. Database renamed</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f9" class="fsm f9"></div>
+					</div><i>9. Define a Table</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f10" class="fsm f10"></div>
+					</div><i>10. Name the table</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f11" class="fsm f11"></div>
+					</div><i>11. Table defined</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f11A" class="fsm f11A"></div>
+					</div><i>11A. Table options</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f12" class="fsm f12"></div>
+					</div><i>12. Define a Column</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f13" class="fsm f13"></div>
+					</div><i>13. Name the column</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f14" class="fsm f14"></div>
+					</div><i>14. Column defined</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f14A" class="fsm f14A"></div>
+					</div><i>14A. Column options</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f14B" class="fsm f14B"></div>
+					</div><i>14B. Edit Key Constraints</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f15" class="fsm f15"></div>
+					</div><i>15. Column datatypes</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f16" class="fsm f16"></div>
+					</div><i>16. Datatype selected</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f17" class="fsm f17"></div>
+					</div><i>17. Autoincrement selected</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f18" class="fsm f18"></div>
+					</div><i>18. Primary key selected</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f19" class="fsm f19"></div>
+					</div><i>19. Move column</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f20" class="fsm f20"></div>
+					</div><i>20. Default value</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f21" class="fsm f21"></div>
+					</div><i>21. Default value set</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f22" class="fsm f22"></div>
+					</div><i>22. Define Index</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f23" class="fsm f23"></div>
+					</div><i>23. Index name</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f24" class="fsm f24"></div>
+					</div><i>24. Index defined</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f25" class="fsm f25"></div>
+					</div><i>25. Set index type</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f26" class="fsm f26"></div>
+					</div><i>26. Index type selected</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f27" class="fsm f27"></div>
+					</div><i>27. Choose Index columns</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f28" class="fsm f28"></div>
+					</div><i>28. Index options</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f29" class="fsm f29"></div>
+					</div><i>29. Players table</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f30" class="fsm f30"></div>
+					</div><i>30. Positions table</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f31" class="fsm f31"></div>
+					</div><i>31. Player Position table</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f32" class="fsm f32"></div>
+					</div><i>32. Creating the database</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f33" class="fsm f33"></div>
+					</div><i>33. Database created</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f33A" class="fsm f33A"></div>
+					</div><i>33A. Database file</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f33B" class="fsm f33B"></div>
+					</div><i>33B. Database table scripts</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f34" class="fsm f34"></div>
+					</div><i>34. Recreate database</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f34A" class="fsm f34A"></div>
+					</div><i>34A. Additional database options</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f35" class="fsm f35"></div>
+					</div><i>35. Additional table options</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f36" class="fsm f36"></div>
+					</div><i>36. Default Insert</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f37" class="fsm f37"></div>
+					</div><i>37. Default Select</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f38" class="fsm f38"></div>
+					</div><i>38. Default Update</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f39" class="fsm f39"></div>
+					</div><i>39. Default Delete</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f40" class="fsm f40"></div>
+					</div><i>40. Execute Select</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f41" class="fsm f41"></div>
+					</div><i>41. Players data</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f42" class="fsm f42"></div>
+					</div><i>42. Positions data</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f43" class="fsm f43"></div>
+					</div><i>43. Player Position data</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f44" class="fsm f44"></div>
+					</div><i>44. Table Editor window</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f45" class="fsm f45"></div>
+					</div><i>45. Opened database</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f46" class="fsm f46"></div>
+					</div><i>46. Edit table data</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f47" class="fsm f47"></div>
+					</div><i>47. Table options</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f48" class="fsm f48"></div>
+					</div><i>48. Filter columns</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f49" class="fsm f49"></div>
+					</div><i>49. Add row to table</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f50" class="fsm f50"></div>
+					</div><i>50. Row options</i>
+				</li>
+				<!--
+	<li>
+		<div id="fsm_container" class="fsm-container">
+			<div id="f51" class="fsm f51"></div>
+		</div><i>Caption</i>
+	</li>
+	<li>
+		<div id="fsm_container" class="fsm-container">
+			<div id="f52" class="fsm f52"></div>
+		</div><i>Caption</i>
+	</li>
+	-->
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f53" class="fsm f53"></div>
+					</div><i>53. Open Multiple tables</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f54" class="fsm f54"></div>
+					</div><i>54. Reposition windows</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f55" class="fsm f55"></div>
+					</div><i>55. Column options</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f56" class="fsm f56"></div>
+					</div><i>56. Filter Column</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f57" class="fsm f57"></div>
+					</div><i>57. Service Installation</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f58" class="fsm f58"></div>
+					</div><i>58. Windows Task Manager</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f59" class="fsm f59"></div>
+					</div><i>59. Windows Event Viewer</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f60" class="fsm f60"></div>
+					</div><i>60. Testing via CLI</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f61" class="fsm f61"></div>
+					</div><i>61. Testing via Admin</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f62" class="fsm f62"></div>
+					</div><i>62. Testing via Dashboard</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f63" class="fsm f64"></div>
+					</div><i>63. Uninstall the Service</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f64" class="fsm f64"></div>
+					</div><i>64. Dashboard Sign in</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f65" class="fsm f65"></div>
+					</div><i>65. Administration Dashboard</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f66" class="fsm f66"></div>
+					</div><i>66. Service Contents</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f67" class="fsm f67"></div>
+					</div><i>67. Admin Commands</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f68" class="fsm f68"></div>
+					</div><i>68. CLI Commands</i>
+				</li>
+				<li>
+					<div id="fsm_container" class="fsm-container">
+						<div id="f69" class="fsm f69"></div>
+					</div><i>69. Admin Status</i>
+				</li>
+			</ul>
+			<br><br><br>
+		</nav>
+	</div>
+	<div class="fsm" id="mainContent"><div id="fsm_actual" style="position: absolute;"></div></div>
+	<div class="content" id="section00" style="">
+		<h2>Introduction</h2>
+		<section>
+			<p id="intro">
+				SQL for Unity is a Relational Database Management System (RDBMS) using the SQL language as its primary interface.<br>
+				<br>
+				This RDBMS has been developed especially for Unity and has no 
+external requirements or dependencies other than Unitys' Engine and 
+Editor. It supports many serializable data types defined within Unity 
+directly such as Vectors and Colors and all Unity classes derived from 
+Unity.Object and loadable as a Unity Resource such as Sprites and 
+Prefabs.<br>
+				<br>
+				SQL for Unity is an RDBMS for integrating a local SQL database into Unity projects.<br>
+				SQL for Unity Client/Server is an extension to the SQL for Unity RDBMS and allows for both local and remote databases<br>
+				<br>
+				This version of the RDBMS was written in C# with Unity .Net 4.7.1 
+libraries and tested using Unity 2019.4, 2020.3, 2021.3 and 2022.3 for 
+Standalone, WebGL, Android and IOS but should function on all platforms 
+supported by Unity.<br>
+				While every effort has been made to ensure the compatibility of SQL 
+for Unity with all Unity versions, the correct functioning of the 
+software with Unity Alpha, Beta or Technical releases cannot be 
+guaranteed.<br>
+				<br>
+				This manual is not intended as an introduction to Database design or
+ to using the SQL language. An understanding of the basic SQL commands 
+will be assumed through out this documentation.<br>
+				<br>
+				The code that makes up this RDBMS is copyright SteveSmith.Software 
+2018. Unless specifically stated in the code file or this documentation 
+no part of the system may be copied or modified. Neither may it be 
+stored in such a way that would make it available to the public outside 
+of the Unity Asset Store.<br>
+				<br>
+				This documentation is available online at 
+https://stevesmith.software. You will also find there the form for 
+filing a bug report should it be necessary.<br>
+				<br>
+				Steve Smith 2018.<br>
+				<br><br>
+				This documentation is based upon SQL for Unity and SQL for Unity Client/Server V.1.0.7 released March 2024.<br>
+			</p>
+		</section>
+		<p style="text-align:right"><a href="#section00A">Next -&gt;</a></p><br><br><br>
+	</div>
+	<div class="content" id="section00A" style="display: none;">
+		<h2>Installation</h2>
+		<section>
+			<p id="install">
+				Please read the files Assets/SSSoftware/SQL4Unity/ReadMe and 
+Assets/SSSoftware/SQL4UnityExample/ReadMe before using SQL for Unity.<br><br>
+				To start SQL for Unity in the Unity Editor go to Tools-&gt;SQL for Unity-&gt;Workbench<br>
+				The Assets/StreamingAssets folder will be created in your project if
+ it does not exist when a database is first created from the Workbench.<br>
+				<br>
+				The Windows Command Line Interpreter can be found at 
+Assets/SSSoftware/SQL4Unity/Editor/External/SQL4UnityCLI.zip 
+(SQL4UnityService.zip for Client/Server version). See below for usage.
+				NOTE: Do NOT unzip this into your Unity project as it contains SQL 
+for Unity dll's specific to Windows and will cause problems when inside a
+ Unity project.
+				<br><br>
+				Client/Server version only.
+				<br>
+				The Server software can be found at Assets/SSSoftware/SQL4Unity/Editor/External/SQL4UnityService.zip. See below for usage.<br>
+				it is recommended to unzip this to a local folder e.g. C:\SQL4Unity for testing.<br>
+				Refer to <a href="#section07A1">Client/Server</a> for more information on installation and configuration.<br>
+				NOTE: SQL4UnityCLI and SQL4UnityService and SQL4UnityAdmin all use 
+the same SQL for Unity dll's so if you unzip them to different folders 
+then you will need these dll's.
+			</p>
+		</section>
+		<p style="text-align:right"><a href="#section00">&lt;- Previous</a> <a href="#section00B">Next -&gt;</a></p><br><br>
+	</div>
+	<div class="content" id="section00B" style="display: none;">
+		<h2>About SQL for Unity</h2>
+		<section>
+			<p id="about">
+				SQL for Unity consists of 5 main elements:-<br><br>
+				<a href="#section01">SQL Workbench</a> A Unity Editor window for defining and creating databases<br><br>
+				<a href="#section02">SQL Table Editor</a> A Unity Editor window for editing database table data<br><br>
+				<a href="#section03">SQL Execute</a> The programatic interface to interact with a database at run time<br><br>
+				<a href="#section04">SQL Result</a> The class containing the output generated by the SQL Execute interface<br>
+				Note: Each table in a database will have a C# class automatically 
+generated for it to allow easy code integration with the database data.<br><br>
+				<a href="#section05">Resources Management</a> Manage Unity Objects used in the database<br><br>
+				As well as many usual <a href="#section09A">datatypes</a> SQL for Unity also supports a range of Unity specific <a href="#section09B">datatypes</a><br><br><br>
+				Additionally the system contains<br>
+				<a href="#section06">Windows Command Line Interpreter</a> A Windows Command Line program for accessing SQL for Unity databases external to Unity.
+				<br><br>
+				Client/Server version only.<br>
+				<a href="#section07A">Windows Service</a> A windows service facilitating the communication between client applications and remote SQL for Unity databases<br>
+			</p>
+		</section>
+		<p style="text-align:right"><a href="#section00A">&lt;- Previous</a> <a href="#section01A">Next -&gt;</a></p><br><br>
+	</div>
+	<div class="content" id="section01" style="display: none;">
+		<h2>SQL Workbench</h2>
+		<section>
+			<p id="workbench">
+				The SQLWorkbench is the module where databases can be defined and created/updated<br>
+			</p>
+			<div class="subcontent" id="section01A">
+				<span class="label1">Getting Started</span>
+				<section>
+					<p id="started">
+						To access the workbench use the Tools -&gt; SQL for Unity -&gt; Workbench menu option in the Editor.<br><br>
+						<a href="#f1">
+							<img style="width:30%" src="SQL4Unity_files/ScreenShot_001.png">
+							<br><i>1. SQL for Unity menu options</i>
+						</a>
+						<br><br>
+						The workbench window is split into three sections.<br>
+						<br>
+						<a href="#section01C">Database Schema Definition</a><br>
+						<a href="#section01G">SQL Command</a><br>
+						<a href="#section01H">Messages &amp; SQL Output</a>
+						<br>
+						<br>
+						<a href="#f2">
+							<img style="width:30%" src="SQL4Unity_files/ScreenShot_002.png">
+							<br><i>2. SQL Workbench Window</i>
+						</a>
+					</p>
+				</section>
+				<p style="text-align:right"><a href="#section00B">&lt;- Previous</a> <a href="#section01B">Next -&gt;</a></p><br><br>
+			</div>
+			<div class="subcontent" id="section01B">
+				<span class="label1">Using Schemas</span>
+				<section>
+					<p>
+						The first time that you open the workbench a default Schema file 
+will be created. This file will hold all of the definitions for the 
+databases that you subsequently define.<br><br>
+						<br><br>
+						Important:- The Schema file is stored in the 
+SQL4Unity/Editor/Resources folder and should NEVER be modified other 
+than through the Workbench module.<br><br>
+						<img src="SQL4Unity_files/ScreenShot_002A.png"><br><br>
+						<br>
+						The workbench has 6 buttons at the top of the window<br>
+						<br>
+						<b>Open Schema</b> - Opens an alternative schema file<br>
+						<b>Rename Schema</b> - Renames a schema<br>
+						<b>Compact Schema</b> - Reorganises the Schema to reduce disk space<br>
+						<b>Import Schema</b> - Import a Database definition from a .schema file. Refer to DataBase -&gt; Export Schema for more information<br>
+						<b>Help</b> - Opens a new window showing this help file<br>
+						<b>About</b> - Opens a new window containing the links for error reporting<br>
+					</p>
+				</section>
+				<span class="label1">Naming Conventions</span>
+				<section>
+					<p>
+						Database, Table, Column and Index names must comply with the following rules<br>
+						Length: between 1 and 20 characters.<br>
+						Contents: a-z A-Z 0-9 _<br>
+						Unique within the database<br>
+						<i>Note: Names are not case sensitive</i><br>
+						<br>
+					</p>
+				</section>
+				<p style="text-align:right"><a href="#section01A">&lt;- Previous</a> <a href="#section01C1">Next -&gt;</a></p><br><br>
+			</div>
+			<div class="subcontent" id="section01C">
+				<span class="label1">Working with Databases</span>
+				<section>
+					<div class="subcontent" id="section01C1">
+						<span class="label2">Define a Database</span>
+						<section>
+							<p>
+								To define a new Database definition click on the Define Database
+ button. You will be prompted to enter a name for the database. Press OK
+ and the database will appear in the workbench and be selected as the 
+active database.<br>
+								<br>
+								<a href="#f3">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_003.png">
+									<br><i>3. Define a Database</i>
+								</a><br><br>
+								<img src="SQL4Unity_files/ScreenShot_004.png">
+								<i>Note: The database name must be unique within the Schema.</i><br><br>
+								<a href="#f5">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_005.png">
+									<br><i>5. Database defined</i>
+								</a>
+
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01B">&lt;- Previous</a> <a href="#section01C2">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section01C2">
+						<span class="label2">Rename a Database</span>
+						<section>
+							<p>
+								Select the database you wish to rename using the toggle to the 
+left of the database name. The Options button will appear for that 
+database. Press the Options button and select Rename. You will be 
+prompted to enter a new name. Press OK and the database will be renamed.<br>
+								<br>
+								<a href="#f5A">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_005A.png">
+									<br><i>5A. Database options</i>
+								</a>
+								<br><br>
+								<a href="#f6">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_006.png">
+									<br><i>6. Rename database</i>
+								</a>
+								<br><br>
+								<img src="SQL4Unity_files/ScreenShot_007.png">
+								<i>Note: The database name must be unique within the Schema.</i><br><br>
+								<a href="#f8">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_008.png">
+									<br><i>8. Database renamed</i>
+								</a>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01C1">&lt;- Previous</a> <a href="#section01C3">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section01C3">
+						<span class="label2">Delete a Database</span>
+						<section>
+							<p>
+								Select the database you wish to delete using the toggle to the 
+left of the database name. The Options button will appear for that 
+database. Press the Options button and select Drop. You will be prompted
+ to confirm the deletion. Press Continue and the database will be 
+deleted.<br>
+
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01C2">&lt;- Previous</a> <a href="#section01C4">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section01C4">
+						<span class="label2">Create the Database</span>
+						<section>
+							<p>
+								All of the above actions have, up until now, only been recorded 
+in the Schema. In order for the actual database file to be created or 
+updated it must first be created.
+								<br><br>
+								<a href="#f29">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_029.png">
+									<br><i>29. Players table</i>
+								</a><br><br>
+								<a href="#f30">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_030.png">
+									<br><i>30. Positions table</i>
+								</a><br><br>
+								<a href="#f31">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_031.png">
+									<br><i>31. Player Position table</i>
+								</a><br><br>
+								Select the database to be created using the toggle to the left 
+of its name and Press the options button next to it. Select the option 
+Create.<br><br>
+								<a href="#f32">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_032.png">
+									<br><i>32. Creating the database</i>
+								</a><br><br>
+								The database will now be created and will be stored in the 
+Assets/StreamingAssets folder with a .s4u file extension the actions 
+taken by the workbench will be shown in the message area.<br><br>
+								<i>Important : The database will be accessed from this folder 
+when SQLExecute is run from within the editor. When SQLExecute is run 
+from a built Unity project the database will be copied to the 
+Application.persistentData path if it has not already been so.</i><br>
+								As an aid to development iteration when a Unity project is built
+ as a DEVELOPMENT BUILD SQLExecute will automatically check to see if 
+the database has been updated since the previous build, if so then the 
+database from StreamingAssets will overwrite the database in 
+persistentData and this action will be logged to the Player log file.<br><br>
+								<br>
+								<i> Note: If you wish to access a database from a location other
+ than Application.persistentdata path you can use the .Open() and 
+.OpenAsync() methods of SQLExecute and supply a path name. You must have
+ read/write access to this location. Alternatively you can use .Open() 
+or .OpenAsync() to copy a database to Application.persistenData. For 
+more information please refer to the sections SQLExecute and WebGL 
+below.</i><br><br>
+								<img src="SQL4Unity_files/ScreenShot_033A.png"><br><br>
+								<a href="#f33">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_033.png">
+									<br><i>33. Database created</i>
+								</a><br><br>
+								For each table in the database a C# script will be generated and
+ stored in the SQL4Unity/Scripts folder. These scripts will be named 
+databasename_tablename.<br><br>
+								<img src="SQL4Unity_files/ScreenShot_033B.png"><br>
+								<br>
+								Important: The database file is a proprietary format and should NOT be modified outside of the RDBMS system.<br>
+								<br>
+								If the database already exists you will be prompted to Replace 
+or Update the database. If the database contains no data you wish to 
+retain choose Replace otherwise choose Update.<br><br>
+								<a href="#f34">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_034.png">
+									<br><i>34. Recreate database</i>
+								</a><br><br>
+								<i>Warning: Updating a database containing data may result in 
+data loss. If, for example, the datatype of a column has been changed 
+and the existing values in the database are of an incompatible data type
+ this information will be lost.</i><br>
+								<br>
+								Once that database has been created 4 more options are added to the database options menu<br><br>
+								<a href="#f34A">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_034A.png">
+									<br><i>34A. Additional database options</i>
+								</a><br><br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01C3">&lt;- Previous</a> <a href="#section01C5A">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section01C5">
+						<span class="label2">Database Options</span>
+						<section>
+							<div class="subcontent" id="section01C5A">
+								<span class="label2">Export Schema</span>
+								<section>
+									<p>
+										Select the database you wish to export using the toggle to the
+ left of the database name. The Options button will appear for that 
+database. Press the Options button and select Export Schema. You will be
+ prompted for a file name . Press Continue and the database definition 
+will be exported.<br>
+										<br>
+										<b>Export Data format is as follows</b><br>
+										<br>
+										DROP DATABASE database<br>
+										CREATE DATABASE database<br>
+										DROP TABLE database.table<br>
+										CREATE TABLE database.table (LARGE: True/False }<br>
+										DROP COLUMN database.table.column<br>
+										CREATE COLUMN database.table.column ( TYPE: datatype, NULL: 
+True/False, AUTO: True/False, KEY: True/False, VALUE: default value )<br>
+										DROP INDEX database.table.index<br>
+										CREATE INDEX database.table.index (TYPE: Dict/Sorted/List, UNIQUE: True/False, COLUMNS: column column )<br>
+										<br>
+										If Key constraints have been defined<br>
+										CREATE KEY database.table.column TO database.table.column ( 
+ENFORCE: True/False, UPDATE: True/False, DELETE: True/False )<br>
+										where the first column is the PRIMARY key and the TO column is the FOREIGN key.<br>
+										<br>
+										For an example of an exported schema refer to SQL4Unity\Example\MyGameDB.schema
+
+									</p>
+								</section>
+								<p style="text-align:right"><a href="#section01C4">&lt;- Previous</a> <a href="#section01C5B">Next -&gt;</a></p><br><br>
+							</div>
+							<div class="subcontent" id="section01C5B">
+								<span class="label2">Import</span>
+								<section>
+									<p>
+										The data from a flat file will be imported into the selected database. No existing table data will be lost.<br>
+										The AutoCommit option is turned off for this action. For large
+ tables a SET COMMIT command may be added to the import data.<br>
+										SET COMMIT takes 2 forms. Without a parameter an immediate commit will take place<br>
+										With a numeric parameter e.g. SET COMMIT 500 will perform a commit every n rows, in this case every 500 rows<br>
+										<br>
+										Note. Lines starting with double slash // will be treated as a comment and ignored.<br><br>
+										Important: As the statements may be split over several lines each statement MUST be terminated with a semi-colon ';'.<br>
+									</p>
+									<p>
+</p><pre><code class="prettyprint prettyprinted" style=""><span class="pln">
+	INSERT INTO </span><span class="typ">Players</span><span class="pln"> </span><span class="pun">(</span><span class="pln">id</span><span class="pun">,</span><span class="pln">title</span><span class="pun">,</span><span class="pln">active</span><span class="pun">,</span><span class="pln">prefab</span><span class="pun">,</span><span class="pln">currpos</span><span class="pun">)</span><span class="pln"> VALUES </span><span class="pun">(</span><span class="lit">10</span><span class="pun">,</span><span class="str">'Cube'</span><span class="pun">,</span><span class="kwd">True</span><span class="pun">,{</span><span class="pln">NAME</span><span class="pun">:</span><span class="typ">Cube</span><span class="pun">},</span><span class="pln">NULL</span><span class="pun">);</span><span class="pln">
+	</span><span class="com">// This is a comment</span><span class="pln">
+	INSERT INTO </span><span class="typ">Players</span><span class="pln">
+	 </span><span class="pun">(</span><span class="pln">id</span><span class="pun">,</span><span class="pln">title</span><span class="pun">,</span><span class="pln">active</span><span class="pun">,</span><span class="pln">prefab</span><span class="pun">,</span><span class="pln">currpos</span><span class="pun">)</span><span class="pln">
+	 VALUES
+	 </span><span class="pun">(</span><span class="lit">20</span><span class="pun">,</span><span class="str">'Sphere'</span><span class="pun">,</span><span class="kwd">True</span><span class="pun">,{</span><span class="pln">NAME</span><span class="pun">:</span><span class="typ">Sphere</span><span class="pun">},</span><span class="pln">NULL</span><span class="pun">);</span><span class="pln">
+	INSERT INTO </span><span class="typ">Positions</span><span class="pln"> </span><span class="pun">(</span><span class="pln">id</span><span class="pun">,</span><span class="pln">position</span><span class="pun">)</span><span class="pln"> VALUES </span><span class="pun">(</span><span class="lit">0</span><span class="pun">,{</span><span class="lit">1.0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1.0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1.0</span><span class="pun">});</span><span class="pln">
+	INSERT INTO </span><span class="typ">Positions</span><span class="pln"> </span><span class="pun">(</span><span class="pln">id</span><span class="pun">,</span><span class="pln">position</span><span class="pun">)</span><span class="pln"> 
+	 VALUES </span><span class="pun">(</span><span class="lit">1</span><span class="pun">,{</span><span class="lit">2.0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2.0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2.0</span><span class="pun">});</span><span class="pln">
+	INSERT INTO </span><span class="typ">PlayerPos</span><span class="pln"> </span><span class="pun">(</span><span class="pln">
+	playerid</span><span class="pun">,</span><span class="pln">
+	posid
+	</span><span class="com">// This line will be ignored</span><span class="pln">
+	</span><span class="pun">)</span><span class="pln"> VALUES </span><span class="pun">(</span><span class="pln">
+	</span><span class="lit">10</span><span class="pun">,</span><span class="pln">
+	</span><span class="lit">0</span><span class="pln">
+	</span><span class="pun">);</span><span class="pln">
+	INSERT INTO </span><span class="typ">PlayerPos</span><span class="pln"> </span><span class="pun">(</span><span class="pln">playerid</span><span class="pun">,</span><span class="pln">posid</span><span class="pun">)</span><span class="pln"> VALUES </span><span class="pun">(</span><span class="lit">20</span><span class="pun">,</span><span class="lit">1</span><span class="pun">);</span></code></pre>
+
+									<p></p>
+								</section>
+								<p style="text-align:right"><a href="#section01C5A">&lt;- Previous</a> <a href="#section01C5C">Next -&gt;</a></p><br><br>
+							</div>
+							<div class="subcontent" id="section01C5C">
+								<span class="label2">Export</span>
+								<section>
+									<p>
+										The data from the selected database will be written to a flat file (.sql) in SQL INSERT statement format.<br>
+										Alternatively a .xml file extension may be used and the data will be written in XML format.
+									</p>
+								</section>
+								<p style="text-align:right"><a href="#section01C5B">&lt;- Previous</a> <a href="#section01C5D">Next -&gt;</a></p><br><br>
+							</div>
+							<div class="subcontent" id="section01C5D">
+								<span class="label2">Compact Database</span>
+								<section>
+									<p>
+										The data from the database will be exported to a temporary 
+.sql file. The database will be recreated and then the data imported 
+from the temporary file<br>
+									</p>
+								</section>
+								<p style="text-align:right"><a href="#section01C5C">&lt;- Previous</a> <a href="#section01C5E">Next -&gt;</a></p><br><br>
+							</div>
+							<div class="subcontent" id="section01C5E">
+								<span class="label2">Refresh Resources</span>
+								<section>
+									<p>
+										Update the database with the current Unity Object Resource data.<br>
+										See <a href="#section05">Resource Management</a> for more information<br>
+									</p>
+								</section>
+								<p style="text-align:right"><a href="#section01C5D">&lt;- Previous</a> <a href="#section01C5F">Next -&gt;</a></p><br><br>
+							</div>
+							<div class="subcontent" id="section01C5F">
+								<span class="label2">Manage Passwords</span>
+								<section>
+									<p>
+										Select this option to add a password to your database. Once 
+this option has been set ALL database access will require that a valid 
+password is supplied.<br>
+										When using the Workbench or Table Editor you will be prompted to enter the password.<br>
+										When using SQLExecute the password should be appended to the database name in the form<br>
+									</p>
+									<p>
+</p><pre><code class="prettyprint prettyprinted" style=""><span class="pln">
+</span><span class="typ">SQLExecute</span><span class="pln"> sql </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">SQLExecute</span><span class="pun">(</span><span class="str">"MyDatabase#MyPassword"</span><span class="pun">);</span></code></pre>
+									<p></p>
+									<p>
+										NOTE: The password itself is not stored in the schema or the 
+database so if the password is lost or forgotton it cannot be recovered.<br>
+									</p>
+								</section>
+								<p style="text-align:right"><a href="#section01C5E">&lt;- Previous</a> <a href="#section01D1">Next -&gt;</a></p><br><br>
+							</div>
+						</section>
+					</div>
+				</section>
+			</div>
+			<div class="subcontent" id="section01D">
+				<span class="label1">Working with Tables</span>
+				<section>
+					<div class="subcontent" id="section01D1">
+						<span class="label2">Define a Table</span>
+						<section>
+							<p>
+								Select the database for which you wish to define a new table 
+using the toggle to the left of the database name. Press Define Table. 
+You will be prompted to enter a name for the table. Press OK and the 
+table will be created in the Schema.<br>
+								<br>
+								<a href="#f9">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_009.png">
+									<br><i>9. Define a Table</i>
+								</a><br><br>
+								<img src="SQL4Unity_files/ScreenShot_010.png">
+								<i>Note: The table name must be unique within the Database.</i>
+								<br><br>
+								<a href="#f11">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_011.png">
+									<br><i>11. Table defined</i>
+								</a>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01C5F">&lt;- Previous</a> <a href="#section01D2">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section01D2">
+						<span class="label2">Rename a Table</span>
+						<section>
+							<p>
+								Select the table you wish to rename using the toggle to the left
+ of the table name. The Options button will appear for that table. Press
+ the Options button and select Rename. You will be prompted to enter a 
+new name. Press OK and the table will be renamed.<br>
+								<br>
+								<a href="#f11A">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_011A.png">
+									<br><i>11A. Table options</i>
+								</a>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01D1">&lt;- Previous</a> <a href="#section01D3">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section01D3">
+						<span class="label2">Delete a Table</span>
+						<section>
+							<p>
+								Select the table you wish to delete using the toggle to the left
+ of the table name. The Options button will appear for that table. Press
+ the Options button and select Drop. The table will be deleted.<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01D2">&lt;- Previous</a> <a href="#section01D4">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section01D4">
+						<span class="label2">Duplicate a Table</span>
+						<section>
+							<p>
+								Select the table you wish to duplicate using the toggle to the 
+left of the table name. The Options button will appear for that table. 
+Press the Options button and select Duplicate. You will be prompted to 
+enter a name for the table. Press OK and the table and all of its 
+columns and indexes will be duplicated.<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01D3">&lt;- Previous</a> <a href="#section01D5">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section01D5">
+						<span class="label2">Partitioning a Table</span>
+						<section>
+							<p>
+								Select the table you wish to partition using the toggle to the 
+left of the table name. The Options button will appear for that table. 
+Press the Options button and select Partition Table. The change will 
+come into effect next time the database is created.<br>
+								<br>
+								For a normal table the maximum number of rows is limited to 64k.
+ Should you wish to have tables which will contain more than this limit 
+select this option, you will then be able to store up to 2 billion rows 
+although it is unlikely that operating system restraints would allow 
+such a thing.<br>
+								SQL for Unity uses a 8k row partitioning system. It is therefore
+ advisable to select table partioning for tables that will contain &gt; 
+10k rows as this may benefit performance.<br>
+								It is strongly advised NOT to use table partitioning for tables containing &lt; 8k rows as this will impact performance.
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01D4">&lt;- Previous</a> <a href="#section01E1">Next -&gt;</a></p><br><br>
+					</div>
+				</section>
+			</div>
+			<div class="subcontent" id="section01E">
+				<span class="label1">Working with Columns</span>
+				<section>
+					<div class="subcontent" id="section01E1">
+						<span class="label2">Define a Column</span>
+						<section>
+							<p>
+								Select the table for which you wish to define a new column using
+ the toggle to the left of the table name. Press Define Column. You will
+ be prompted to enter a name for the column. Press OK and the column 
+will be created in the Schema.<br>
+								<br>
+								<a href="#f12">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_012.png">
+									<br><i>12. Define a Column</i>
+								</a>
+								<br><br>
+								<img src="SQL4Unity_files/ScreenShot_013.png">
+								<i>Note: The column name must be unique within the Table.</i>
+								<br><br>
+								<a href="#f14">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_014.png">
+									<br><i>14. Column defined</i>
+								</a>
+								<br>
+								<br>
+								Columns are created with the following default atributes:<br>
+								Data type : string<br>
+								Allow Nulls: false<br>
+								Auto Increment: false<br>
+								Primary Key: false<br>
+								Default Value: None<br>
+								To change the Data type of the column click on the dropdown and select from the list provided.
+								<br><br>
+								<a href="#f15">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_015.png">
+									<br><i>15. Column datatypes</i>
+								</a>
+								<br><br>
+								If the column should allow null values click on the toggle. For 
+more information about null values in SQL for Unity see the DataTypes 
+section below.<br><br>
+								<img src="SQL4Unity_files/ScreenShot_016.png">
+								<br><br>
+								If the column has the data type 'int', 'short' or 'long' you may
+ select that the column be automatically incremented during insert if a 
+value has not been specified. If this is desired click on the toggle.<br>
+<i>Note: Automatic increment columns may not be updated and, should the 
+value reach the MaxValue for the datatype an ArgumentOutOfRange 
+exception will be thrown</i><br>
+<br>
+								<img src="SQL4Unity_files/ScreenShot_017.png">
+								<br><br>
+								If you wish the column to have a unique Index generated for it click on the Primary key toggle.<br>
+								Note: Although you can select multiple columns to be Primary 
+keys this will NOT result in a complex key. To define complex keys 
+define a multi-column index manually.
+								<br><br>
+								<img src="SQL4Unity_files/ScreenShot_018.png">
+								<br><br>
+								If you wish to define a default value for a column, to be used 
+for inserts when a column has been omitted, Press Edit. You will be 
+prompted to enter a value. Press OK and the value will be shown in the 
+workbench.
+								<br><br>
+								<a href="#f19">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_019.png">
+									<br><i>19. Move column</i>
+								</a>
+								<br><br>
+								<a href="#f20">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_020.png">
+									<br><i>20. Default value</i>
+								</a>
+								<br><br>
+								<a href="#f21">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_021.png">
+									<br><i>21. Default value set</i>
+								</a>
+								<br><br>
+								Please refer to the section0 below on Data Types for more 
+information about which data types are supported and the syntax required
+ when using them.<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01D5">&lt;- Previous</a> <a href="#section01E2">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section01E2">
+						<span class="label2">Rename a Column</span>
+						<section>
+							<p>
+								Press the Options button at the end of the column definition and
+ select Rename. You will be prompted to enter a new name. Press OK and 
+the column will be renamed.
+								<br><br>
+								<a href="#f14A">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_014A.png">
+									<br><i>14A. Column options</i>
+								</a><br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01E1">&lt;- Previous</a> <a href="#section01E3">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section01E3">
+						<span class="label2">Delete a Column</span>
+						<section>
+							<p>
+								Press the Options button at the end of the column definition and select Drop.  The column will be deleted.<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01E2">&lt;- Previous</a> <a href="#section01E4">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section01E4">
+						<span class="label2">Moving a Column</span>
+						<section>
+							<p>
+								Press the Options button at the end of the column definition and
+ select either Move Up or Move Down. The column will be moved within the
+ table<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01E3">&lt;- Previous</a> <a href="#section01E5">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section01E5">
+						<span class="label2">Define Key Constraints</span>
+						<section>
+							<p>
+								Press the Options button at the end of the column definition and select Edit Constraints.<br>
+								Note: Constraints should be set FROM the primary table/column TO the foreign table/column.
+								<br><br>
+								<a href="#f14B">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_014B.png">
+									<br><i>14B. Edit Key Constraints</i>
+								</a><br>
+								<b>Create Constraint</b><br><br>
+								Select the required foreign key table and column from the dropdown.<br>
+								Note: The drop down is populated with all table/columns which match the datatype of the primary column.<br>
+								<br>
+								<b>Enforce Constraint</b>: When selected this will check the constraint on Inserts and Updates on the foreign key table.<br>
+								Should the constraint fail then the error message<br>
+								<i>Unable to enforce constraint on PRIMARY KEY NAME</i><br>
+								Will be returned in the result message and the Insert or Update will fail.<br>
+								<br>
+								<b>Cascade Update</b>: When selected an Update of the primary column will automatically be applied to the foreign key column<br>
+<i>Note: Auto Increment Columns cannot be updated therefore the Cascade Update option is not available for them</i><br>
+								<b>Cascade Delete</b>: When selected a Delete of the primary row will automatically be applied to the foreign key row(s)<br>
+								Note: If the foreign key also has cascade constraints defined 
+then action on the primary column/row will also cascade down to these 
+tables<br>
+								<b>Create Index</b>:  Selecting this option will create a non unique index for the foreign key.<br>
+								Note: This option is only available if the column is an indexable data type.<br>
+								<br>
+								When all options have been selected press the Add button. 
+Multiple constrains can be added to a primary column to different 
+foreign keys.<br>
+								When all foreign keys have been defined press the Save button.<br>
+								Press the Cancel button to discard any changes.<br>
+								<br>
+								Important: For performance reasons it is highly recommended that
+ the primary column be indexed if constraints are to be enforced and 
+that foreign keys be indexed if cascading is required.<br>
+								Be careful NOT to define circular cascades as this will lead to an infinite loop.<br>
+								<br>
+								<b>Edit a Constraint</b><br>
+								For an existing constraint you can select/unselect any of the existing options then press Save.<br>
+								<br>
+								<b>Delete a Constraint</b><br>
+								Press the Delete button next the the constraint to be removed then press Save.<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01E4">&lt;- Previous</a> <a href="#section01F1">Next -&gt;</a></p><br><br>
+					</div>
+				</section>
+			</div>
+			<div class="subcontent" id="section01F">
+				<span class="label1">Working with Indexes</span>
+				<section>
+					<div class="subcontent" id="section01F1">
+						<span class="label2">Define an Index</span>
+						<section>
+							<p>
+								Select the table for which you wish to define a new index using 
+the toggle to the left of the table name. Press Define Index. You will 
+be prompted to enter a name for the index. Press OK and the index will 
+be created in the Schema.
+								<br><br>
+								<a href="#f22">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_022.png">
+									<br><i>22. Define Index</i>
+								</a>
+								<br><br>
+								<img src="SQL4Unity_files/ScreenShot_023.png">
+								<i>Note: The index name must be unique within the Table.</i>
+								<br><br>
+								<a href="#f24">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_024.png">
+									<br><i>24. Index defined</i>
+								</a>
+								<br>
+								<br>
+								Indexes are created with the following default atributes<br>
+								Type : Sorted<br>
+								Unique: true<br>
+								Columns: None<br>
+								<br>
+								To change the type of the index click on the type dropdown and select from the list provided
+								<br><br>
+								<a href="#f25">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_025.png">
+									<br><i>25. Set index type</i>
+								</a>
+								<br><br>
+								The options are :-<br>
+								Dict - Dictionary. Best for Auto Increment and Join columns where access will be on equality.<br>
+								Sorted - A Sorted Dictionary. This type of index will be 
+slightly slower during inserts but will be the faster for searches of 
+all types.<br>
+								List - An array of keys. This type of index is intended to be 
+used for sequential numerical data, such as ID's, it offers extremely 
+fast access but at the expense of using memory for all possible key 
+values as such only byte, ushort and uint columns can have List indexes.
+ This is the default type for Row Id and Auto Increment Primary Keys.<br>
+								<br>
+								If the index should only allow unique values leave the toggle selected otherwise turn it off.<br><br>
+								<img src="SQL4Unity_files/ScreenShot_026.png"><br><br>
+								To add or remove columns to/from the index click on Add/Remove Column and select from the list provided.<br>
+								The index data type will reflect the data type of the column 
+selected. If more than one column is selected for an index the data type
+ will be multiple.<br>
+								Only columns which use a C# system.valuetype data type are allowed to be indexed.
+								<br><br>
+								<a href="#f27">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_027.png">
+									<br><i>27. Choose Index columns</i>
+								</a><br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01E4">&lt;- Previous</a> <a href="#section01F2">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section01F2">
+						<span class="label2">Rename an Index</span>
+						<section>
+							<p>
+								Press the Options button at the end of the index definition and 
+select Rename. You will be prompted to enter a new name. Press OK and 
+the index will be renamed.
+								<br><br>
+								<a href="#f28">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_028.png">
+									<br><i>28. Index options</i>
+								</a><br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01F1">&lt;- Previous</a> <a href="#section01F3">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section01F3">
+						<span class="label2">Delete an Index</span>
+						<section>
+							<p>
+								Press the Options button at the end of the index definition and select Drop.  The index will be deleted.<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section01F2">&lt;- Previous</a> <a href="#section01I">Next -&gt;</a></p><br><br>
+					</div>
+				</section>
+			</div>
+			<div class="subcontent" id="section01I">
+				<span class="label1">Stored SQL</span>
+				<section>
+					<p>
+						<b>Defining a Stored SQL</b><br>
+						<br>
+						Enter a SQL Statement into the SQL Command area. Press Save As. 
+You will be probpted to enter a name for the sql, this name must be 
+unique within the database. Press Ok and the SQL Command will be saved 
+and will appear under the stored sql's section.<br>
+						An options button will appear for the selected SQL which allows you to Rename, Drop or Edit the sql.<br>
+						Parameter names can be used in stored sql's in the form %name% and
+ these names must be replaced with real values at runtime. (See 
+SQLExecute for more information on parameter substitution)<br>
+						For Example<br>
+</p><pre><code class="prettyprint prettyprinted" style=""><span class="pln">
+</span><span class="typ">Select</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="kwd">from</span><span class="pln"> </span><span class="typ">Players</span><span class="pln"> </span><span class="kwd">where</span><span class="pln"> ID</span><span class="pun">=%</span><span class="pln">id</span><span class="pun">%</span></code></pre>
+						Defines a parameter, id which must be supplied when the sql is 
+Executed. If this is done using the Execute button of SQL Command then a
+ window will appear for you to supply parameter values.<br>
+					<p></p>
+				</section>
+				<p style="text-align:right"><a href="#section01F3">&lt;- Previous</a> <a href="#section01G">Next -&gt;</a></p><br><br>
+			</div>
+			<div class="subcontent" id="section01G">
+				<span class="label1">SQL Command</span>
+				<section>
+					<p>
+						The SQL Command section0 allows you to enter, parse and execute 
+SQL statements against the selected database once it has been created. 
+This can be very helpful in validating SQL commands before implementing 
+them in your Unity Engine code.<br>
+						<br>
+						In order to facilitate this the table options menu has 6 built in 
+commands available. To access these commands select the table using its 
+toggle, press Options and choose from the following options
+						<br><br>
+						<a href="#f35">
+							<img style="width:30%" src="SQL4Unity_files/ScreenShot_035.png">
+							<br><i>35. Additional table options</i>
+						</a>
+						<br>
+						<br>
+						<b>View Data</b> - The SQL Command 'SELECT * FROM table' will be executed and the results displayed.<br>
+						<b>Truncate Table</b> - The SQL Command 'TRUNCATE table' will be executed<br>
+						<b>Make Insert</b> - A template INSERT command for the table will be displayed in the SQL command text area.
+						<br><br>
+						<a href="#f36">
+							<img style="width:30%" src="SQL4Unity_files/ScreenShot_036.png">
+							<br><i>36. Default Insert</i>
+						</a>
+						<br><br>
+						<b>Make Select</b> - A template SELECT command for the table will be displayed in the SQL command text area.
+						<br><br>
+						<a href="#f37">
+							<img style="width:30%" src="SQL4Unity_files/ScreenShot_037.png">
+							<br><i>37. Default Select</i>
+						</a>
+						<br><br>
+						<b>Make Update</b> -  A template UPDATE command for the table will be displayed in the SQL command text area.
+						<br><br>
+						<a href="#f38">
+							<img style="width:30%" src="SQL4Unity_files/ScreenShot_038.png">
+							<br><i>38. Default Update</i>
+						</a>
+						<br><br>
+						<b>Make Delete</b> - A template DELETE command for the table will be displayed in the SQL command text area.
+						<br><br>
+						<a href="#f39">
+							<img style="width:30%" src="SQL4Unity_files/ScreenShot_039.png">
+							<br><i>39. Default Delete</i>
+						</a>
+						<br>
+						<br>
+						Once a command has been entered you can ensure that it is a valid 
+command by pressing the Parse button. Any parse errors found will be 
+shown in the message area.<br>
+						<br>
+						Pressing the Execute button will execute the entered command 
+against the selected database and the results of the command will be 
+shown in the message area.<br>
+						<br>
+						Using the Edit SQL option for a Stored SQL will also populate the 
+command area. Once editor is complete use the Save or Save As buttons to
+ save the changes.<br>
+					</p>
+				</section>
+				<p style="text-align:right"><a href="#section01I">&lt;- Previous</a> <a href="#section01H">Next -&gt;</a></p><br><br>
+			</div>
+			<div class="subcontent" id="section01H">
+				<span class="label1">Error Messages and SQL Output</span>
+				<section>
+					<p>
+						All of the output from the DataBase-&gt;Create, PARSE and EXECUTE 
+will be displayed here. Press the Clear button to clear the output.<br>
+						<br>
+						The extended documentation on https://stevesmith.software contains more detail about the parse error messages.<br>
+					</p>
+				</section>
+				<p style="text-align:right"><a href="#section01G">&lt;- Previous</a> <a href="#section02">Next -&gt;</a></p><br><br>
+			</div>
+		</section>
+	</div>
+
+	<div class="content" id="section02" style="display: none;">
+		<h2>Table Editor</h2>
+		<section>
+			<p>
+				The table editor allows you to manipulate the data within an SQL for Unity database without having to use SQL statements.<br>
+				<br>
+				Click 'Open Database' to select a database. A file select window 
+will be shown of the current project Assets/StreamingAssets folder and 
+all SQL for Unity databases (file extension .s4u)<br>
+				Select a database and click OK.<br>
+				Note: Only databases within the current project may be opened.<br>
+				Click 'Help' to open this help text.<br>
+				<b>Note:</b>After opening a database a button 'Refresh Resource 
+Files' will appear. Click this button to update your database with the 
+latest Resources in your project.<br>
+				<a href="#section05">See Resources Management section for more information.</a>
+				<br>
+				<br>
+				<a href="#f44">
+					<img style="width:30%" src="SQL4Unity_files/ScreenShot_044.png">
+					<br><i>44. Table Editor window</i>
+				</a><br>
+				<br>
+				Once a database has been opened a list of the database tables will be shown in the Database window/<br>
+				To open a table click on the table name.<br>
+				To close a table click on the name again.
+				<br>
+				<br>
+				<a href="#f45">
+					<img style="width:30%" src="SQL4Unity_files/ScreenShot_045.png">
+					<br><i>45. Opened database</i>
+				</a><br>
+				<br>
+				Once a table has been opened a list of the table columns will be 
+shown in the database window and a table window will be opened showing 
+the table data<br>
+				The column list will show the column name, it's data type and a toggle.<br>
+				If the column allows NULL values the datatype will have a '?' suffix.
+				<br>
+				<br>
+				<a href="#f46">
+					<img style="width:30%" src="SQL4Unity_files/ScreenShot_046.png">
+					<br><i>46. Edit table data</i>
+				</a><br>
+				<br>
+				Alongside the open table name a 'Options' button is displayed. This button shows the table level options.<br>
+				</p><table>
+					<tbody><tr>
+						<td>&nbsp;</td>
+						<td>Refresh</td>
+						<td>Refresh the table data</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Sort Ascending</td>
+						<td>Show the table data sorted by ascending row id. (Default)</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Sort Descending</td>
+						<td>Show the table data sorted by descending row id</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Truncate</td>
+						<td>
+							Reset the table to it's original empty state.<br>
+							Note: This option will delete all data in the table and cannot be undone.
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Import</td>
+						<td>
+							Import table data from a .SQL file.<br>
+							Note: This will remove all existing data.
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Export</td>
+						<td>
+							Export the table data to a .SQL file.<br>
+							Note: The data will be exported in SQL INSERT format.
+						</td>
+					</tr>
+				</tbody></table>
+				<br>
+				<a href="#f47">
+					<img style="width:30%" src="SQL4Unity_files/ScreenShot_047.png">
+					<br><i>47. Table options</i>
+				</a><br>
+				<br>
+				Clicking on a column toggle will show or hide that column data in the table window.<br>
+				Tip: This is useful to remove columns which have defaul values or 
+allow NULL values from the table window when adding new rows.<br>
+				<br>
+				<a href="#f48">
+					<img style="width:30%" src="SQL4Unity_files/ScreenShot_048.png">
+					<br><i>48. Filter columns</i>
+				</a><br>
+				<br>
+				The top row displayed in the table window is for adding new rows to the table.<br>
+				Fill in all of the required columns and then press 'Add'<br>
+				If there are any validation errors a message will appear at the bottom of the main window.<br>
+				<br>
+				<a href="#f49">
+					<img style="width:30%" src="SQL4Unity_files/ScreenShot_049.png">
+					<br><i>49. Add row to table</i>
+				</a><br>
+				<br>
+				Right click on any column within a row to show the row menu<br>
+				<table>
+					<tbody><tr>
+						<td>&nbsp;</td>
+						<td>Set to NULL</td>
+						<td>Set the column value to NULL</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Delete Row</td>
+						<td>Delete the row from the table</td>
+					</tr>
+				</tbody></table>
+				<br>
+				<a href="#f50">
+					<img style="width:30%" src="SQL4Unity_files/ScreenShot_050.png">
+					<br><i>50. Row options</i>
+				</a><br>
+				<br>
+				To change a column value select the field and enter the new data.<br>
+				A 'Save' button will be shown at the bottom of the table window.<br>
+				Once all edits have been made press Save to update the database.<br>
+				<br>
+				<a href="#f53">
+					<img style="width:30%" src="SQL4Unity_files/ScreenShot_053.png">
+					<br><i>53. Open Multiple tables</i>
+				</a><br>
+				<br>
+				You can have multiple tables open at the same time. Each table window can be dragged and positioned within the main window.<br>
+				<br>
+				<a href="#f54">
+					<img style="width:30%" src="SQL4Unity_files/ScreenShot_054.png">
+					<br><i>54. Reposition windows</i>
+				</a><br>
+				<br>
+				Right click on the column name in the table window to show the column menu.<br>
+				<table>
+					<tbody><tr>
+						<td>&nbsp;</td>
+						<td>Filter <i>coluumn name</i></td>
+						<td>Apply a filter to the column</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>Sort Ascending</td>
+						<td>Sort the table by this columns values</td>
+					</tr>
+				</tbody></table>
+				<br>
+				<a href="#f55">
+					<img style="width:30%" src="SQL4Unity_files/ScreenShot_055.png">
+					<br><i>55. Column options</i>
+				</a><br>
+				<br>
+				Choosing the Filter option above will display a dialog box where a filter value can be entered.<br>
+				Press OK to apply the filter.<br>
+				Press Cancel to remove a filter.<br>
+				Note: Filters may be applied to multiple columns at the same time.<br>
+				<br>
+				<a href="#f56">
+					<img style="width:30%" src="SQL4Unity_files/ScreenShot_056.png">
+					<br><i>56. Filter Column</i>
+				</a><br>
+				<br><br><br>
+			<p></p>
+		</section>
+		<p style="text-align:right"><a href="#section01H">&lt;- Previous</a> <a href="#section03A">Next -&gt;</a></p><br><br>
+	</div>
+
+	<div class="content" id="section03" style="display: none;">
+		<h2>SQL Execute</h2>
+		<section>
+			<p>
+				The SQL Execute module is used in your scripts to execute SQL commands against a database.<br>
+			</p>
+			<div class="subcontent" id="section03A">
+				<span class="label1">Overview</span>
+				<section>
+					<p>
+</p><pre><code class="prettyprint prettyprinted" style=""><span class="pln">
+</span><span class="kwd">using</span><span class="pln"> </span><span class="typ">UnityEngine</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">MyClass</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="typ">MonoBehaviour</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+	SQL4Unity</span><span class="pun">.</span><span class="typ">SQLResult</span><span class="pln"> sqlResult</span><span class="pun">;</span><span class="pln">
+	SQL4Unity</span><span class="pun">.</span><span class="typ">SQLExecute</span><span class="pln"> sql</span><span class="pun">;</span><span class="pln">
+
+	</span><span class="kwd">void</span><span class="pln"> </span><span class="typ">Start</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+		</span><span class="com">// Initialise the result and execute classes</span><span class="pln">
+		sqlResult </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> SQL4Unity</span><span class="pun">.</span><span class="typ">SQLResult</span><span class="pun">();</span><span class="pln">
+		sql </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> SQL4Unity</span><span class="pun">.</span><span class="typ">SQLExecute</span><span class="pun">();</span><span class="pln">
+
+		</span><span class="com">// Open the database MyDataBase</span><span class="pln">
+		</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">sql</span><span class="pun">.</span><span class="typ">Open</span><span class="pun">(</span><span class="str">"MyDataBase"</span><span class="pun">))</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+			</span><span class="com">// Select all rows from MyTable</span><span class="pln">
+			</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">sql</span><span class="pun">.</span><span class="typ">Command</span><span class="pun">(</span><span class="str">"select MyName, MyScore from MyTable"</span><span class="pun">,</span><span class="pln"> sqlResult</span><span class="pun">))</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+				</span><span class="com">// Iterate over the rows returned</span><span class="pln">
+				</span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i</span><span class="pun">=</span><span class="lit">0</span><span class="pun">;</span><span class="pln">i</span><span class="pun">&lt;</span><span class="pln"> sqlResult</span><span class="pun">.</span><span class="pln">rowsAffected</span><span class="pun">;</span><span class="pln">i</span><span class="pun">++)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+					</span><span class="com">// Retrieve the row data</span><span class="pln">
+					mydatabase_mytable row </span><span class="pun">=</span><span class="pln"> sqlResult</span><span class="pun">.</span><span class="typ">Get</span><span class="str">&lt;mydatabase_mytable&gt;</span><span class="pun">(</span><span class="pln">i</span><span class="pun">);</span><span class="pln">
+
+					</span><span class="com">// Do something with the data</span><span class="pln">
+					</span><span class="kwd">string</span><span class="pln"> name </span><span class="pun">=</span><span class="pln"> row</span><span class="pun">.</span><span class="typ">MyName</span><span class="pun">;</span><span class="pln">
+					</span><span class="kwd">int</span><span class="pln"> score </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+					</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(!</span><span class="pln">sqlResult</span><span class="pun">.</span><span class="pln">isNull</span><span class="pun">(</span><span class="pln">i</span><span class="pun">,</span><span class="str">"MyScore"</span><span class="pun">))</span><span class="pln">
+						score </span><span class="pun">=</span><span class="pln"> row</span><span class="pun">.</span><span class="typ">MyScore</span><span class="pun">;</span><span class="pln">
+				</span><span class="pun">}</span><span class="pln">
+			</span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+				</span><span class="com">// Select statement failed</span><span class="pln">
+				</span><span class="typ">Debug</span><span class="pun">.</span><span class="typ">Log</span><span class="pun">(</span><span class="pln">sqlResult</span><span class="pun">.</span><span class="pln">message</span><span class="pun">);</span><span class="pln">
+			</span><span class="pun">}</span><span class="pln">
+
+			</span><span class="com">// Close the database</span><span class="pln">
+			sql</span><span class="pun">.</span><span class="typ">Close</span><span class="pun">();</span><span class="pln">
+		</span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+			</span><span class="com">// Open database failed</span><span class="pln">
+			</span><span class="typ">Debug</span><span class="pun">.</span><span class="typ">Log</span><span class="pun">(</span><span class="pln">sqlResult</span><span class="pun">.</span><span class="pln">message</span><span class="pun">);</span><span class="pln">
+		</span><span class="pun">}</span><span class="pln">
+	</span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span></code></pre>
+						<br>
+						The <b>Command</b> method will always return true if the command 
+completed sucessfully, even if it resulted in 0 rows being affected. It 
+will return false if any error occured.<br>
+						Commands have the following syntax:<br>
+						<br>
+						Insert into TABLE (COLUMN LIST) values (VALUE LIST)<br><br>
+						Select COLUMN LIST from TABLE LIST [where COLUMN OPERAND VALUE ...] [Order By COLUMN LIST] or [Group By COLUMN LIST]<br><br>
+						Update TABLE set COLUMN=VALUE,... [where COLUMN OPERAND VALUE ...]<br><br>
+						Delete from TABLE [where COLUMN OPERAND VALUE ...]<br><br>
+						Truncate TABLE<br>
+						Execute STOREDSQL<br>
+						<br>
+						where TABLE is the table name<br>
+						<br>
+						where TABLE LIST is a list of TABLE seperated by commas<br>
+						<br>
+						where COLUMN is the column name<br>
+						<br>
+						where COLUMN LIST is a list of COLUMN seperated by commas<br>
+						Note: Nullable columns may be ommited when used in an INSERT statement<br>
+						<br>
+						where STOREDSQL is the name of a SQL command previously stored in the database<br>
+						<br>
+						where VALUE is an allowed value for the column data type<br>
+						Note: The literal 'null' (without the quotes) can by used for nullable columns.<br>
+						<br>
+						where VALUE LIST is a list of VALUE seperated by commas.<br>
+						<br>
+						where OPERAND is one of =, !=, &gt;, &gt;=, &lt;, &lt;=, in, !in, between, like<br>
+						<br>
+						when OPERAND is 'in' or '!in' VALUE must be (VALUE LIST)<br>
+						when OPERAND is 'between' VALUE must be (VALUE,VALUE)<br>
+						<i>Note: The 2 VALUES in the between clause are inclusive</i><br>
+the 'like' OPERAND may only be applied to string columns<br>
+The wildcard character is ~ (tilde) and the VALUE specified as follows:<br>
+'a~'  - Select all rows beginning with 'a'<br>
+'~a'  - Select all rows ending with 'a'<br>
+'~a~' - Select all rows containing 'a'<br>
+'a~z' - Select all rows beginning with 'a' and ending with 'z'<br>
+<i>Note: The like comparison is NOT case sensitive.</i><br>
+						<br>
+						the COLUMN OPERAND VALUE sequence may be repeated using the words AND or OR seperated by spaces<br>
+						<br>
+						when the Group By clause is used one or more of he following numeric functions may be included in the Select COLUMN LIST<br>
+						Count(*) or<br>
+						Count(COLUMN)<br>
+						Sum(COLUMN)<br>
+						Min(COLUMN)<br>
+						Max(COLUMN)<br>
+						<i>Note: The data type returned by the above functions will always be of type double</i><br>
+						<br>
+						See the Data Types section of this documentation for the correct syntax of each value data type.<br>
+						<br>
+						The DELETE command will remove rows from the TABLE without affecting rowid or auto increment values.<br>
+						The TRUNCATE command will remove ALL rows from the TABLE and reset rowid and auto increment values to zero.<br>
+						<br>
+
+						<br>
+					<p></p>
+				</section>
+				<p style="text-align:right"><a href="#section02">&lt;- Previous</a> <a href="#section03B">Next -&gt;</a></p><br><br>
+			</div>
+			<div class="subcontent" id="section03B">
+				<span class="label1">Constructors</span>
+				<section>
+					<p>
+						<b>SQLExecute()</b> : The standard constructor<br>
+						<b>SQLExecute(string Database)</b> : Open the database named in the parameter<br>
+						<b>SQLExecute(MonoBehaviour mono)</b> : Initialise SQLExecute for asyncronous database open<br>
+						<i>Note: This consructor must be used when targeting WebGL. Please refer to the section on <a href="#section03D">WebGL</a> below</i><br>
+<br>
+<i>Important:</i> SQLExecute can be run on a thread other than the main 
+Unity thread however, before running the SQLExecute constructor, you 
+must call the static method<br>
+</p><p>
+<b>SQL4Unity.SQLUnity.Initialize();</b>
+</p>
+from the MAIN Unity thread. This is to ensure that all of the Unity API 
+calls that SQLExecute requires are run against the main thread.<br>
+					<p></p>
+				</section>
+				<p style="text-align:right"><a href="#section03A">&lt;- Previous</a> <a href="#section03C1">Next -&gt;</a></p><br><br>
+			</div>
+			<div class="subcontent" id="section03C">
+				<span class="label1">Methods</span>
+				<section>
+					<div class="subcontent" id="section03C1">
+						<span class="label1">Command</span>
+						<section>
+							<p>
+								<b>bool Command(string query, SQLResult result)</b><br><br>
+								Execute the SQL command stored in query and fill the SQLResult 
+class. If the method returns false result.message will contain the 
+reason<br><br>
+
+								<b>bool Command(string query, SQLResult result, SQLRow row)</b><br>
+								<b>bool Command(string query, SQLResult result, SQLRow[] rows)</b><br>
+								<b>bool Command(string query, SQLResult result, List&lt;SQLRow&gt; rows)</b><br>
+								<br>
+								This is a special case for the SQL Insert statement. Where the insert statement is formatted as<br>
+</p><pre><code class="prettyprint prettyprinted" style=""><span class="pln">
+</span><span class="typ">Insert</span><span class="pln"> </span><span class="kwd">into</span><span class="pln"> TABLE </span><span class="pun">(</span><span class="pln">COLUMN LIST</span><span class="pun">)</span><span class="pln"> values </span><span class="pun">()</span><br><span class="pln">
+</span></code></pre>
+								The column values will be taken from the supplied SQLRow(s) instance. For example<br>
+
+<pre><code class="prettyprint prettyprinted" style=""><span class="pln">
+mydatabase_mytable row </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> mydatabase_mytable</span><span class="pun">();</span><span class="pln">
+
+row</span><span class="pun">.</span><span class="pln">myColumn </span><span class="pun">=</span><span class="pln"> </span><span class="lit">1</span><span class="pun">;</span><span class="pln">
+
+row</span><span class="pun">.</span><span class="pln">myColumn1 </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Hello world"</span><span class="pun">;</span><span class="pln">
+
+sql</span><span class="pun">.</span><span class="typ">Command</span><span class="pun">(</span><span class="str">"Insert into mytable (myColumn, myColumn1) values ()"</span><span class="pun">,</span><span class="pln"> result</span><span class="pun">,</span><span class="pln"> row</span><span class="pun">);</span><span class="pln">
+</span></code></pre>
+								<br>
+
+								If multiple rows are supplied either as an array or a list a 
+commit will be executed after ALL rows are inserted sucussfully. If any 
+rows are rejected ALL of the supplied rows will be rejected.
+								<br>
+
+								<br>
+
+								<b>bool Command(string query, SQLResult result, SQLParameter parameters)</b><br><br>
+								This is a special case for any SQL statement using parameter substituution<br>
+
+								Parameters are defined in the sql statements using the following syntax<br>
+
+								%name% - Where name is the name of the parameter<br>
+
+								and can be used in a sql statement like<br>
+
+<pre><code class="prettyprint prettyprinted" style=""><span class="pln">
+</span><span class="typ">Select</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="kwd">from</span><span class="pln"> </span><span class="typ">Players</span><span class="pln"> </span><span class="kwd">where</span><span class="pln"> ID</span><span class="pun">=%</span><span class="pln">id</span><span class="pun">%</span></code></pre>
+								To supply the value of %id% at run time we use the SQLParameter 
+class and its method SetValue(string name, object value) as per this 
+example<br>
+
+								<i>Note: Parameter names are case sensitive</i><br>
+
+
+
+<pre><code class="prettyprint prettyprinted" style=""><span class="pln">
+</span><span class="kwd">string</span><span class="pln"> query </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Update Players set Title=%name% where ID=%id%"</span><span class="pun">;</span><span class="pln">
+
+</span><span class="typ">SQLParameter</span><span class="pln"> parameters </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">SQLParameter</span><span class="pun">();</span><span class="pln">
+
+sql</span><span class="pun">.</span><span class="typ">AutoCommit</span><span class="pun">(</span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+
+</span><span class="kwd">foreach</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Player</span><span class="pln"> player </span><span class="kwd">in</span><span class="pln"> players</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+	parameters</span><span class="pun">.</span><span class="typ">SetValue</span><span class="pun">(</span><span class="str">"id"</span><span class="pun">,</span><span class="pln"> player</span><span class="pun">.</span><span class="pln">ID</span><span class="pun">);</span><span class="pln">
+	parameters</span><span class="pun">.</span><span class="typ">SetValue</span><span class="pun">(</span><span class="str">"name"</span><span class="pun">,</span><span class="pln"> player</span><span class="pun">.</span><span class="typ">Name</span><span class="pun">);</span><span class="pln">
+
+	sql</span><span class="pun">.</span><span class="typ">Command</span><span class="pun">(</span><span class="pln">query</span><span class="pun">,</span><span class="pln"> result</span><span class="pun">,</span><span class="pln"> parameters</span><span class="pun">);</span><span class="pln">
+
+</span><span class="pun">}</span><span class="pln">
+
+sql</span><span class="pun">.</span><span class="typ">Commit</span><span class="pun">();</span></code></pre>
+							<p></p>
+						</section>
+						<p style="text-align:right"><a href="#section03B">&lt;- Previous</a> <a href="#section03C2">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section03C2">
+						<span class="label1">Open</span>
+						<section>
+							<p>
+								<b>bool Open(string name)</b><br><br>
+								Open the database name at location 
+streamingAssets/persistentData. If a database is already open it will be
+ closed. Returns true if the datbase open sucussfully or False if an 
+error occured<br><br>
+								<br>
+								<b>bool Open(string name, string path, bool copy)</b><br><br>
+								Open the database name at location path and optionally copy it 
+to persistentData. If a database is already open it will be closed. 
+Returns true if the datbase copy and open are sucussfull or False if an 
+error occured<br><br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section03C1">&lt;- Previous</a> <a href="#section03C3">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section03C3">
+						<span class="label1">OpenAsync</span>
+						<section>
+							<p>
+								<b>bool OpenAsync(string name, Action&lt;bool&gt; callback)</b><br>
+								<br>
+								Open the database name at location 
+streamingAssets/persistentData. If a database is already open it will be
+ closed. The method in callback is invoked when the database is opened<br><br>
+								<br>
+								<b>bool OpenAsync(string name, string path, bool copy, Action&lt;bool&gt; callback)</b>
+ : Open the database name at location path and optionally copy it to 
+persistentData. If a database is already open it will be closed. The 
+method in callback is invoked when the database has been copied is open<br><br>
+								<br>
+								<i>Note: The above two methods must be used if targting WebGL. Please refer to the section on <a href="#section03D">WebGL</a> below</i><br>
+								<i>Note: If a password has been applied to the database then 
+that should be appended to the database name in the form 
+DatabaseName#Password</i><br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section03C2">&lt;- Previous</a> <a href="#section03C4">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section03C4">
+						<span class="label1">Commit</span>
+						<section>
+							<p>
+								<b>void Commit()</b><br><br>
+								If autoCommit is false changes will be written to the database<br><br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section03C3">&lt;- Previous</a> <a href="#section03C5">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section03C5">
+						<span class="label1">Rollback</span>
+						<section>
+							<p>
+								<b>void RollBack()</b><br><br>
+								If autoCommit is false any unsaved changes will be discarded<br><br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section03C4">&lt;- Previous</a> <a href="#section03C6">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section03C6">
+						<span class="label1">Close</span>
+						<section>
+							<p>
+								<b>void Close(bool commit)</b><br><br>
+								Close the database. If commit is true any unsaved changes will be written to the database.<br><br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section03C5">&lt;- Previous</a> <a href="#section03C7">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section03C7">
+						<span class="label1">AutoCommit</span>
+						<section>
+							<p>
+								<b>void AutoCommit(bool commit)</b><br><br>
+								Turns autoCommit on or off. Note: Autocommit is ON by default.<br><br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section03C6">&lt;- Previous</a> <a href="#section03C8">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section03C8">
+						<span class="label1">Language</span>
+						<section>
+							<p>
+								<b>void Language(string language)</b><br>
+								<br>Changes the language of the system. Default EN - English<br><br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section03C7">&lt;- Previous</a> <a href="#section03C9">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section03C9">
+						<span class="label1">ReplaceIfNewer</span>
+						<section>
+							<p>
+								<b>bool ReplaceIfNewer(string Database, bool forceReplace, out string message, bool keepData)</b><br>
+								<br>
+								This option will check if the named database in 
+Application.persistentDataPath is older than a database of the same name
+ in Application.streamingAssetsPath. If so the older database will be 
+replaced with the newer one.<br>
+								If the option forceReplace is set to True the database will be replaced irrespactive of creation date<br>
+								If the option keepData is set to True the table data will be 
+copied from the old database to the new one before replacement.<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section03C8">&lt;- Previous</a> <a href="#section03D">Next -&gt;</a></p><br><br>
+					</div>
+				</section>
+			</div>
+
+			<div class="subcontent" id="section03D">
+				<span class="label1">Targeting WebGL</span>
+				<section>
+					<p id="webgl">
+						<b>Targeting WebGL and Async database open</b><br><br>
+						When targeting WebGL the constructor of SQLExecute must use the MonoBehaviour format.<br>
+						The database can then be opened using one of the OpenAsync methods.<br>
+						Once the callback from these methods has executed the database can then be used in the normal way.<br><br>
+						<i>Important: In order to access a database from a webserver the 
+server must allow the file extension .s4u with a mime type of 
+application/octet-stream</i><br><br>
+						<i>Note: If the OpenAsync(string Database, Action&lt;bool&gt; 
+callback) method is called when running in the Unity Editor the database
+ will be opened in the Application.streamingassets path</i><br>
+						<br>
+</p><pre><code class="prettyprint prettyprinted" style=""><span class="pln">
+</span><span class="kwd">using</span><span class="pln"> </span><span class="typ">UnityEngine</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">using</span><span class="pln"> SQL4Unity
+
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">OpenDB</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="typ">MonoBehaviour</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+	</span><span class="typ">SQLExecute</span><span class="pln"> sql </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+	</span><span class="typ">SQLResult</span><span class="pln"> result </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">SQLResult</span><span class="pun">();</span><span class="pln">
+
+	</span><span class="kwd">void</span><span class="pln"> </span><span class="typ">Start</span><span class="pun">()</span><span class="pln">
+	</span><span class="pun">{</span><span class="pln">
+		sql </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">SQLExecute</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">);</span><span class="pln">
+		sql</span><span class="pun">.</span><span class="typ">OpenAsync</span><span class="pun">(</span><span class="str">"MyDatabase"</span><span class="pun">,</span><span class="pln"> </span><span class="typ">IsOpen</span><span class="pun">);</span><span class="pln"> </span><span class="com">// Copy database from StreamingAssets to PersisentData then open</span><span class="pln">
+		</span><span class="com">// OR</span><span class="pln">
+		sql</span><span class="pun">.</span><span class="typ">OpenAsync</span><span class="pun">(</span><span class="str">"MyDatabase"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"https://stevesmith.software"</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> </span><span class="typ">IsOpen</span><span class="pun">);</span><span class="pln"> </span><span class="com">// Copy database to PersisentData from webserver then open</span><span class="pln">
+	</span><span class="pun">}</span><span class="pln">
+
+	</span><span class="kwd">void</span><span class="pln"> </span><span class="typ">IsOpen</span><span class="pun">(</span><span class="kwd">bool</span><span class="pln"> ok</span><span class="pun">)</span><span class="pln">
+	</span><span class="pun">{</span><span class="pln">
+		</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">ok</span><span class="pun">)</span><span class="pln">
+		</span><span class="pun">{</span><span class="pln">
+			sql</span><span class="pun">.</span><span class="typ">Command</span><span class="pun">(</span><span class="str">"Select * from MyTable"</span><span class="pun">,</span><span class="pln"> result</span><span class="pun">);</span><span class="pln">
+			</span><span class="com">// Do somthing here</span><span class="pln">
+			sql</span><span class="pun">.</span><span class="typ">Close</span><span class="pun">(</span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+		</span><span class="pun">}</span><span class="pln">
+		</span><span class="kwd">else</span><span class="pln">
+		</span><span class="pun">{</span><span class="pln">
+			</span><span class="typ">Debug</span><span class="pun">.</span><span class="typ">Log</span><span class="pun">(</span><span class="str">"Database unavailable"</span><span class="pun">);</span><span class="pln">
+		</span><span class="pun">}</span><span class="pln">
+	</span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code>
+</pre>
+						<br>
+						<i>Note: Should you wish to access a database from another 
+location using file:///, http:// or https:// protocols this structure 
+can also be used. If you do not have read/write access to the location 
+you must use the .OpenAsync() method with copy set to true so that the 
+database can be copied to Application.persistentdata before opening</i><br>
+						<i>The database copy will ONLY be done if the database does NOT 
+exist in Application.persistentDataPath it will NOT overwrite an 
+existing database</i>
+					<p></p>
+				</section>
+				<p style="text-align:right"><a href="#section03C9">&lt;- Previous</a> <a href="#section03E1">Next -&gt;</a></p><br><br>
+			</div>
+			<div class="subcontent" id="section03E">
+				<span class="label1">Example Code</span>
+				<section>
+					<p>
+						In this section I will publish some useful code snippets as and when I come across them
+					</p>
+					<div class="subcontent" id="section03E1">
+						<span class="label1">Outer Join</span>
+						<section>
+							<p>
+								Outer Joins are not supported by SQL for Unity but the following code shows a method of achieving the same result.<br>
+								<br>
+								The code can be made more efficient by storing query2 in the 
+database as a stored SQL and using the Execute statement to run it.
+							</p>
+							<p>
+</p><pre>	<code class="prettyprint prettyprinted" style=""><span class="pln">
+		SQL4Unity</span><span class="pun">.</span><span class="typ">SQLExecute</span><span class="pln"> sql </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> SQL4Unity</span><span class="pun">.</span><span class="typ">SQLExecute</span><span class="pun">(</span><span class="str">"MyGameDB"</span><span class="pun">);</span><span class="pln">
+		SQL4Unity</span><span class="pun">.</span><span class="typ">SQLResult</span><span class="pln"> result </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> SQL4Unity</span><span class="pun">.</span><span class="typ">SQLResult</span><span class="pun">();</span><span class="pln">
+		SQL4Unity</span><span class="pun">.</span><span class="typ">SQLParameter</span><span class="pln"> parms </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> SQL4Unity</span><span class="pun">.</span><span class="typ">SQLParameter</span><span class="pun">();</span><span class="pln">
+		parms</span><span class="pun">.</span><span class="typ">Add</span><span class="pun">(</span><span class="str">"id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"int"</span><span class="pun">);</span><span class="pln">
+
+		</span><span class="kwd">string</span><span class="pln"> query1 </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Select * from Players"</span><span class="pun">;</span><span class="pln">
+		</span><span class="kwd">string</span><span class="pln"> query2 </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Select * from PlayerPos where PlayerId=%id%"</span><span class="pun">;</span><span class="pln">
+
+		sql</span><span class="pun">.</span><span class="typ">Command</span><span class="pun">(</span><span class="pln">query1</span><span class="pun">,</span><span class="pln"> result</span><span class="pun">);</span><span class="pln">
+
+		mygamedb_players</span><span class="pun">[]</span><span class="pln"> players </span><span class="pun">=</span><span class="pln"> result</span><span class="pun">.</span><span class="typ">Get</span><span class="str">&lt;mygamedb_players&gt;</span><span class="pun">();</span><span class="pln">
+		mygamedb_playerpos</span><span class="pun">[]</span><span class="pln"> positions </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> mygamedb_playerpos</span><span class="pun">[</span><span class="pln">players</span><span class="pun">.</span><span class="typ">Length</span><span class="pun">];</span><span class="pln">
+
+		</span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i</span><span class="pun">=</span><span class="lit">0</span><span class="pun">;</span><span class="pln">i</span><span class="pun">&lt;</span><span class="pln">players</span><span class="pun">.</span><span class="typ">Length</span><span class="pun">;</span><span class="pln">i</span><span class="pun">++)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+			parms</span><span class="pun">.</span><span class="typ">SetValue</span><span class="pun">(</span><span class="str">"id"</span><span class="pun">,</span><span class="pln"> players</span><span class="pun">[</span><span class="pln">i</span><span class="pun">].</span><span class="pln">ID</span><span class="pun">);</span><span class="pln">
+			sql</span><span class="pun">.</span><span class="typ">Command</span><span class="pun">(</span><span class="pln">query2</span><span class="pun">,</span><span class="pln"> result</span><span class="pun">);</span><span class="pln">
+
+			</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">result</span><span class="pun">.</span><span class="pln">rowsAffected </span><span class="pun">==</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln">
+			</span><span class="pun">{</span><span class="pln">
+				positions</span><span class="pun">[</span><span class="pln">i</span><span class="pun">]=</span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+			</span><span class="pun">}</span><span class="pln"> 
+			</span><span class="kwd">else</span><span class="pln">
+			</span><span class="pun">{</span><span class="pln">
+				positions</span><span class="pun">[</span><span class="pln">i</span><span class="pun">]=</span><span class="pln">result</span><span class="pun">.</span><span class="typ">Get</span><span class="str">&lt;mygamedb_playerpos&gt;</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+			</span><span class="pun">}</span><span class="pln">
+		</span><span class="pun">}</span><span class="pln">
+	</span></code>
+</pre>
+
+							<p></p>
+						</section>
+						<p style="text-align:right"><a href="#section03D">&lt;- Previous</a> <a href="#section04A">Next -&gt;</a></p><br><br>
+					</div>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<div class="content" id="section04" style="display: none;">
+		<h2>SQL Result</h2>
+		<section>
+			<p>
+				The SQLResult class will contain all of the information resulting from the execution of an SQL statement<br>
+			</p>
+			<div class="subcontent" id="section04A">
+				<span class="label1">Properties</span>
+				<section>
+					<p>
+						<b>message</b> : Error or Informational message about the parsing and execution of the command<br>
+						<b>lastID</b> : The last rowId generated by an INSERT<br>
+						<b>rowsAffected</b> : The number of rows selected, inserted, updated or deleted by the command.<br>
+						<br>
+						Note: The rows collection of SQLResult will be filled by both Select and Insert statements.<br>
+					</p>
+				</section>
+			<p style="text-align:right"><a href="#section03E1">&lt;- Previous</a> <a href="#section04B">Next -&gt;</a></p><br><br>
+			</div>
+
+			<div class="subcontent" id="section04B">
+				<span class="label1">Methods</span>
+				<section>
+					<p>
+						** Column names must be in one of the following formats database.table.column, table.column, column.<br>
+						NOTE: Both rowIx and colIx start from 0. object o = result.Get(0, 0) will return the first column value from the first row<br>
+					</p>
+					<p style="text-align:right"><a href="#section04A">&lt;- Previous</a> <a href="#section04B1">Next -&gt;</a></p><br><br>
+					<div class="subcontent" id="section04B1">
+						<span class="label1">Clear</span>
+						<section>
+							<p>
+								<b>void Clear()</b> : reset all variables<br>
+							</p>
+						</section>
+					<p style="text-align:right"><a href="#section04B">&lt;- Previous</a> <a href="#section04B2">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section04B2">
+						<span class="label1">Get</span>
+						<section>
+							<p>
+								<b>Dictionary&lt;int, Dictionary&lt;string,object&gt;&gt; Get()</b> : Returns all data rows in the rows collection as a dictionary.<br><br>
+								<b>Dictionary&lt;string,object&gt; Get(int rowIx)</b> : Returns the data row at position rowIx in the rows collection as a dictionary.<br><br>
+								<b>database_table Get&lt;database_table&gt;(int rowIx)</b> : Return the data row at position rowIx in the rows collection as a class.<br><br>
+								<b>database_table[] Get&lt;database_table&gt;()</b> : Returns all data rows in the rows collection as a class array.<br><br>
+								<b>object Get(int rowIx, string column)</b> : Returns the value 
+of column from the data row at position rowIX of the rows collection. 
+Column should contain the column name**.<br><br>
+								<b>T Get&lt;T&gt;(int rowIx, string column)</b> : Returns the 
+value cast to Type T of column from the data row at position rowIX of 
+the rows collection. Column should contain the column name**.<br><br>
+								<b>object Get(int rowIx, int colIx)</b> : Returns the value of 
+the column from the data row at position rowIX of the rows collection 
+and position colIx of the columns collection.<br><br>
+								<b>T Get&lt;T&gt;(int rowIx, int colIx)</b> : Returns the value 
+cast to Type T of the column from the data row at position rowIX of the 
+rows collection and position colIx of the columns collection.<br><br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section04B1">&lt;- Previous</a> <a href="#section04B3">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section04B3">
+						<span class="label1">GetColumn</span>
+						<section>
+							<p>
+								<b>object[] GetColumn(string column)</b> : Returns all the values of a column from every data row. Column should contain the column name**.<br><br>
+								<b>T[] GetColumn&lt;T&gt;(string column)</b> : Returns all the values cast to Type T of a column from every data row. Column should contain the column name**.<br><br>
+								<b>object[] GetColumn(int colIx)</b> : Returns all the values of a column from every data row in position colIx of the columns collection.<br><br>
+								<b>T[] GetColumn&lt;T&gt;(int colIx)</b> : Returns all the values cast to Type T of a column from every data row in position colIx of the columns collection.<br><br>
+								<br>
+								Important: Columns containing Null values will return the C# value <b>DBNull.Value</b> Except when using the Get&lt;T&gt; syntax when it will return default(T)<br>
+								To Test for a Null value when using Get&lt;T&gt; use the isNull method before the Get<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section04B2">&lt;- Previous</a> <a href="#section04B4">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section04B4">
+						<span class="label1">GetColumnNames</span>
+						<section>
+							<p>
+								<b>List&lt;string&gt; GetColumnNames()</b> : Returns a list of the columns selected in the query. The names are in the format database.table.column<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section04B3">&lt;- Previous</a> <a href="#section04B5">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section04B5">
+						<span class="label1">isNull</span>
+						<section>
+							<p>
+								<b>bool isNull(int rowIx, string columnname)</b><br>
+								<b>bool isNull(int rowIx, int columnIx)</b><br>
+								Returns true if the value for the specified row/column is DBNULL.Value in the database
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section04B4">&lt;- Previous</a> <a href="#section05">Next -&gt;</a></p><br><br>
+					</div>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<div class="content" id="section05" style="display: none;">
+		<h2>Resources Mangement</h2>
+		<section>
+			<p>
+				Due to the nature of Unitys AssetDatabase and the fact the Resource 
+paths cannot be identified outside of the Editor SQL for Unity stores 
+this information internally.<br>
+				When a database is created the Resources folders are scanned and the information stored.<br>
+				This information is updated when individual Resources are used and 
+can also be Refreshed in the SQL Workbench, SQL Table Editor or by using
+ the Menu option <b>Tools -&gt; SQL for Unity -&gt; Refresh Resources</b><br>
+				Finally in the folder SQL4Unity/Editor is the script SQLPreBuild 
+which will run automatically when you build your project to ensure that 
+the latest Resource information is present in the database at runtime.<br>
+				If you do not use Unity Objects within your database this script may be deleted<br>
+			</p>
+		</section>
+		<p style="text-align:right"><a href="#section04B5">&lt;- Previous</a> <a href="#section06">Next -&gt;</a></p><br><br>
+	</div>
+
+	<div class="content" id="section06" style="display: none;">
+		<h2>Windows Command Line Interpreter</h2>
+		<section>
+			<p>
+				The windows command line interpreter allows the SQL4Unity databases to be accessed outside of a Unity project.<br>
+				The program (SQL4UnityCLI.exe and associated .dll's) can be found in
+ a compressed .zip file at SQL4Unity/Editor/External/SQL4UnityCLI.zip<br>
+				Note: For SQL for Unity Client/Server the CLI program is included in the SQL4UnityService.zip file<br>
+				Important: The .zip file must be unzipped into a folder external to 
+your Unity project. The .dll's supplied in the .zip are compatible with 
+but NOT replacements for the .dll's supplied with the SQL for Unity 
+package.<br>
+				<br>
+				SQL4UnityCLI supports the following commands<br>
+				<br>
+				About                           - Show Contact, Copyright and Version information<br>
+				Autocommit ON/OFF               - Toggle Auto Commit. Default is ON.<br>
+				Close                           - Close the currently open database<br>
+				Commit                          - Commit any pending database changes<br>
+				Help                            - Show this help text<br>
+				Quit                            - Exit program<br>
+				Rollback                        - Undo any pending database changes<br>
+				Open PATH/DATABASENAME#PASSWORD - Open the named database with optional password. Note forward slash<br>
+				<br>
+				And the following SQL Statements :-<br>
+				Select<br>
+				Insert<br>
+				Update<br>
+				Delete<br>
+				Truncate<br>
+				Execute<br>
+				<br>
+				For SQL for Unity Client/Server the following connect command is available<br>
+				<br>
+				Connect db=DATABASENAME pwd=PASSWORD user=USERNAME ip=IPADDRESS 
+port=PORTNUMBER protocol=WS or TCP uuid=UUID secure=True or False<br>
+				<br>
+				db=DATABASENAME           - Required<br>
+				pwd=PASSWORD              - Required if the database is password protected<br>
+				user=USERNAME             - Required if your application has a database per user<br>
+				ip=IPADDRESS              - Default 127.0.0.1<br>
+				Note: For WS protocol IPADDRESS should be the server domain name.<br>
+				port=PORTNUMBER           - Default 19190<br>
+				protocol=WS or TCP        - Default TCP<br>
+				uuid=UUID                 - UUID of your application. Default is the SQL for Unity default UUID<br>
+				secure=True or False      - Default False. WS protocol only<br>
+				<br>
+				you will receive a message if the database has opened sucussfully or not<br>
+				if the database is open then you can enter SQL commands against it<br>
+			</p>
+		</section>
+		<p style="text-align:right"><a href="#section05">&lt;- Previous</a> <a href="#section07A1">Next -&gt;</a></p><br><br>
+	</div>
+
+	<div class="content" id="section07" style="display: none;">
+		<h2>Client/Server</h2>
+		<section>
+			<div class="subcontent" id="section07A">
+				<span class="label1">SQL for Unity Client Server</span>
+				<section>
+					<p>
+						Client/Server is an extension to the standard SQL for Unity 
+package which allows for the hosting of SQL for Unity databases on a 
+remote windows server. These database(s) can then be accessed by your 
+Unity application from any Unity supported platform.<br>
+					</p>
+					<div class="subcontent" id="section07A1">
+						<span class="label1">Package Contents</span>
+						<section>
+							<p>
+								The package contains the following new/changed items<br>
+								<br>
+								SQL4UnityService.zip 	- A windows service to provide access to the database(s)<br>
+								SQL4Unity.dll			- Extensions have been added to SQLExecute to facilitate remote connections<br>
+								SQL4UnityCLI.exe		- The Connect command has been added to allow remote connections<br>
+								SQL4UnityServer.dll 	- SQL for UnityClient(s) added to the dll.<br>
+								SQL4UnityLibrary.jslib	- Emscripten/Javascript interface for WebGL WebSocket use<br>
+							</p>
+							<p>
+								Unzip 
+Assets/SSSoftware/SQL4Unity/Editor/External/SQL4UnityService.zip into a 
+local folder (e.g. C:\SQL4Unity) on both your Windows server and any 
+client machine you wish to use for server administration<br>
+								<br>
+								This will then contain the following folder and files<br>
+								<br>
+								<a href="#f66">
+									<img style="width:30%" src="SQL4Unity_files/ScreenShot_066.png">
+									<br><i>66. Service Contents</i>
+								</a>
+								<br>
+								Note: Although the SQL4Unity*.dll's supplied with 
+SQL4UnityService (and SQL4UnityCLI) are compatible with those in the 
+SQL4Unity/Plugins folder they are NOT interchangable. Do NOT try and use
+ these .dll's in a Unity project.<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section06">&lt;- Previous</a> <a href="#section07A2A">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section07A2">
+						<span class="label1">Installation</span>
+						<section>
+							<div class="subcontent" id="section07A2A">
+								<span class="label1">Configuration</span>
+								<section>
+									<p>
+										Open SQL4UnityService.exe.config in a text editor. Under appSettings you will see the following key/value pairs<br>
+										<br>
+										&lt;add key="Trace" value="false" /&gt;<br>
+										&lt;add key="Home" value="C:\SQL4Unity\Data" /&gt;<br>
+										&lt;add key="ClientTCPPort" value="19190" /&gt;<br>
+										&lt;add key="ClientWSPort" value="19191" /&gt;<br>
+										&lt;add key="WSAddress" value="127.0.0.1" /&gt;<br>
+										&lt;add key="SecureWS" value="false" /&gt;<br>
+										&lt;add key="AdminWSPort" value="19192" /&gt;<br>
+										&lt;add key="AdminTCPPort" value="19193" /&gt;<br>
+										&lt;add key="MaxClients" value="10" /&gt;<br>
+										&lt;add key="Milliseconds" value="2000" /&gt;<br>
+										&lt;add key="UUID" value="fcf368db-3c7f-43e4-8f0e-95e3ccdb999d" /&gt;<br>
+										&lt;add key="ReadOnly" value="false" /&gt;<br>
+										<br>
+										These key/values can be set as follows<br>
+										<br>
+										Trace		- true or false	- When set to true additional logging information will be output (See logging below)<br>
+										Home		- The path to the folder where the database file(s) will be stored<br>
+										ClientTCPPort	- The port to be used for Client TCP protocol connections<br>
+										ClientWSPort	- The port to be used for Client WebSocket connections. Must be used for WebGL connections<br>
+										AdminTCPPort	- The port to be used for Administration TCP connections. Used for user defined admin connections<br>
+										AdminWSPort	- The port to be used by the Web based Administration page<br>
+										<br>
+										Note: If any of the above ports are NOT to be used the values 
+should be set to 0 and no listener will be initialised for the 
+function/protocol. Do not forget to open the ports used in your 
+firewall.<br>
+										<br>
+										WSAddress	- The domain name that should be used to listen for incoming WebSocket connections<br>
+										SecureWS	- true or false. If set to true then wss protocol will be used for WebSocket connections<br>
+										<br>
+										MaxClients	- The maximum number of concurrent client connections allowed<br>
+										Milliseconds	- The number of milliseconds to wait before timing out a connection<br>
+										<br>
+										UUID		- The unique identifier for your application. This exact
+ value must be used on both the server and client side of your 
+application.<br>
+										<br>
+										Note: There are a number of tools on the internet that 
+generate UUID's. Although the system will function with the default UUID
+ it is strongly recommended for security reasons to generate and use 
+your own.<br>
+										By specifying a unique UUID it will mean that your databases are only accessible via your Unity application.<br>
+										<br>
+										ReadOnly	- true or false. If set to true then ONLY SQL Select 
+commands will be allowed to be executed against the database(s).<br>
+										<br>
+										Save your changes!<br>
+									</p>
+								</section>
+								<p style="text-align:right"><a href="#section07A1">&lt;- Previous</a> <a href="#section07A2B">Next -&gt;</a></p><br><br>
+							</div>
+							<div class="subcontent" id="section07A2B">
+								<span class="label1">Installing the Service</span>
+								<section>
+									<p>
+										To install the SQL for Unity Service<br>
+										Open a windows command prompt as Administrator and run install<br>
+										<br>
+										cd c:\SQL4Unity (or which ever folder you unzipped to)<br>
+										install.bat<br>
+										<br>
+										<a href="#f57">
+											<img style="width:60%" src="SQL4Unity_files/ScreenShot_057.png">
+											<br><i>57. Service Installation</i>
+										</a>
+										<br>
+										<br>
+										In the Task Manager under the Services tab you should now see the SQL for Unity service Running<br>
+										<br>
+										<a href="#f58">
+											<img style="width:60%" src="SQL4Unity_files/ScreenShot_058.png">
+											<br><i>58. Windows Task Manager</i>
+										</a>
+										<br>
+										Note: If you wish to make changes to the configuration file 
+after installation you must Stop/Start the service for those changes to 
+take effect.<br>
+									</p>
+								</section>
+								<p style="text-align:right"><a href="#section07A2A">&lt;- Previous</a> <a href="#section07A2C">Next -&gt;</a></p><br><br>
+							</div>
+							<div class="subcontent" id="section07A2C">
+								<span class="label1">Installing Databases</span>
+								<section>
+									<p>
+										To make a database accessible to the service it must be placed
+ in the 'Home' directory as specified in the config file.<br>
+										Should you wish to have a database per user (identified by 
+user name) then they should be placed in sub folders of the 'Home' 
+directory where the sub folder name is the user name<br>
+										e.g.<br>
+										<br>
+										C:\SQL4Unity\Data\MyGameDB.s4u<br>
+										Accesible by all without a user name<br>
+										<br>
+										C:\SQL4Unity\Data\Steve\MyGameDB.s4u<br>
+										Accessible only by those who supply the user name 'Steve' in their connection parameters<br>
+									</p>
+								</section>
+								<p style="text-align:right"><a href="#section07A2B">&lt;- Previous</a> <a href="#section07A2D">Next -&gt;</a></p><br><br>
+							</div>
+							<div class="subcontent" id="section07A2D">
+								<span class="label1">Logging</span>
+								<section>
+									<p>
+										In the Event Viewer under Application Logs you should see the SQL4UnityLog events<br>
+										<br>
+										<a href="#f59">
+											<img style="width:60%" src="SQL4Unity_files/ScreenShot_059.png">
+											<br><i>59. Windows Event Viewer</i>
+										</a>
+										<br>
+										<br>
+										When Trace is set to true in the config then all client 
+commands will be logged. This could have a detrimental effect on 
+performance and should be used for testing purposes only.<br>
+									</p>
+								</section>
+								<p style="text-align:right"><a href="#section07A2C">&lt;- Previous</a> <a href="#section07A2E">Next -&gt;</a></p><br><br>
+							</div>
+							<div class="subcontent" id="section07A2E">
+								<span class="label1">Testing the Service</span>
+								<section>
+									<p>
+										There a 3 ways you can ensure that the service is installed and running corectly<br><br>
+										Firstly using the SQL for Unity Command Line Interpreter
+										<br>
+										<br>
+										Open a windows command prompt and run SQL4UnityCLI<br>
+										<br>
+										cd c:\SQL4Unity (or which ever folder you unzipped to)<br>
+										SQL4UnityCLI<br>
+										<br>
+										enter the connect command<br>
+										Connect db=DATABASENAME pwd=PASSWORD user=USERNAME 
+ip=IPADDRESS port=PORTNUMBER protocol=WS or TCP uuid=UUID secure=True or
+ False<br>
+										Note: For WS protocol IPADDRESS should be the server domain name.<br>
+										<br>
+										See <a href="#section06">Windows Command Line Interpreter</a> for exact usage
+										<br>
+										you will receive a message if the database has opened sucussfully or not<br>
+										if the database is open then you can enter SQL commands against it<br>
+										<br>
+										<a href="#f60">
+											<img style="width:60%" src="SQL4Unity_files/ScreenShot_060.png">
+											<br><i>60. Testing via CLI</i>
+										</a>
+										<br><br>
+										If you have enabled Administration TCP protocol you can use the SQL4UnityAdmin program
+										<br>
+										Open a windows command prompt and run SQL4UnityAdmin<br>
+										<br>
+										cd c:\SQL4Unity (or which ever folder you unzipped to)<br>
+										SQL4UnityAdmin<br>
+										<br>
+										enter the servers command<br>
+										<br>
+										<a href="#f61">
+											<img style="width:60%" src="SQL4Unity_files/ScreenShot_061.png">
+											<br><i>61. Testing via Admin</i>
+										</a>
+										<br><br>
+										If you have enabled the Administration WebSocket protocol then
+ you can see the status of the service by navigating to the following in
+ any web browser<br>
+										http(s)://IPADDRESS:PORT<br>
+										where IPADDRESS and PORT are the ip address of the domain 
+specified in the WSAddress and AdminWSPort keys of your config file<br>
+										You will be prompted to enter your UUID which must be the same as the one used in the service config file<br>
+										The browser will then display the status of the server processes<br>
+										<br>
+										<a href="#f62">
+											<img style="width:60%" src="SQL4Unity_files/ScreenShot_062.png">
+											<br><i>62. Testing via Dashboard</i>
+										</a>
+									</p>
+								</section>
+								<p style="text-align:right"><a href="#section07A2D">&lt;- Previous</a> <a href="#section07A2F">Next -&gt;</a></p><br><br>
+							</div>
+							<div class="subcontent" id="section07A2F">
+								<span class="label1">Uninstall</span>
+								<section>
+									<p>
+										To uninstall the SQL for Unity Service<br>
+										Open a windows command prompt as Administrator and run uninstall<br>
+										<br>
+										cd c:\SQL4Unity (or which ever folder you unzipped to)<br>
+										uninstall.bat<br>
+										<br>
+										<a href="#f63">
+											<img style="width:60%" src="SQL4Unity_files/ScreenShot_063.png">
+											<br><i>63. Uninstall the Service</i>
+										</a>
+									</p>
+								</section>
+								<p style="text-align:right"><a href="#section07A2E">&lt;- Previous</a> <a href="#section07A3A">Next -&gt;</a></p><br><br>
+							</div>
+						</section>
+					</div>
+					<div class="subcontent" id="section07A3">
+						<span class="label1">SQLExecute Extensions</span>
+						<section>
+							<p>
+								Access to the remote database(s) has been added to the 
+SQLExecute class. All of the remote access is done asyncronously so as 
+not to block the application for slow connections and is implemented via
+ callbacks<br>
+							</p>
+							<div class="subcontent" id="section07A3A">
+								<span class="label1">Methods</span>
+								<section>
+									<p>
+										Note: When using the TCP protocol it is possible to use both 
+syncronous or asyncronous communications. Using the methods without a 
+callback will use syncronous comms using the methods with a callback 
+will use asyncronous.<br><br>
+
+										<b>bool Connect(Server.Protocol protocol, string ipaddress, 
+int port, string uuid, bool secure=false, bool adminOnly=false, string 
+userName="", Action&lt;bool&gt;	callback=null)</b><br>
+										<br>
+										adminOnly should only be set to true when you do not with to 
+execute SQL Commands but only wish to use the Backup or Restore 
+fuctions.<br>
+										Note: For Websocket protocol ipaddress should be the server domain name.<br>
+
+										<br>
+										Note: OpenAsync will attempt to open both a local database (if
+ it exists) and the remote one. It is highly recommended that you 
+include a local database with your application even if it is empty of 
+data. If your database contains references to Unity objects, Textures, 
+Materials, Sprites etc then you MUST have a local database available so 
+that SQL4Unity can correctly resolve these objects at runtime.<br>
+										The SQL for Unity Service does not know how to resolve Unity 
+Objects and relies on the client side of SQL for Unity to do so using 
+the resources which are embedded in the local database.<br>
+										This usage of both a local and a remote database allows SQL 
+for Unity to fallback to using the local database if the remote database
+ is not available thus ensuring that the clients can work offline as 
+well as online.<br>
+										<br>
+										<br>
+										The Command method now have the following additional 
+signatures and these should always be used for Web Socket 
+implementations. When using TCP either may be used.<br>
+										<br>
+										<b>void Command(string command, SQLResult result, Action&lt;bool, SQLResult&gt; callback)</b><br>
+										<b>void Command(string command, SQLResult result, SQLRow row, Action&lt;bool, SQLResult&gt; callback)</b><br>
+										<b>void Command(string command, SQLResult result, SQLParameter parameters, Action&lt;bool, SQLResult&gt; callback)</b><br>
+										<br>
+										In addition to the new Connect method and the extension of the
+ Command methods with a callback parameter the following new methods are
+ available<br>
+										<br>
+										<b>void BackupToServer(string database, string userName="", Action&lt;bool&gt; callback = null)</b><br>
+										<br>
+										To copy a local database to the server<br>
+										<br>
+										<b>void RestoreFromServer(string database, string userName = "", Action&lt;bool&gt; callback=null)</b><br>
+										<br>
+										To copy a database from the server to local, the database will
+ be placed in the Application.persistantData folder and can then be used
+ in the normal way.<br>
+										<br>
+										<b>void SyncWithServer(bool on)</b><br>
+										<br>
+										This method allows for the consistent syncronisation of both a
+ remote and local database. Once this is switched on then the following 
+processing of SQL commands takes place<br>
+										<br>
+										Select commands are executed against the local database<br>
+										<br>
+										Insert/Update/Delete commands are executed against the remote 
+database and the resulting changes are sent back and applied to the 
+local database.<br>
+									</p>
+								</section>
+								<p style="text-align:right"><a href="#section07A2F">&lt;- Previous</a> <a href="#section07A4A">Next -&gt;</a></p><br><br>
+							</div>
+						</section>
+					</div>
+					<div class="subcontent" id="section07A4">
+						<span class="label1">Administration</span>
+						<section>
+							<div class="subcontent" id="section07A4A">
+								<span class="label1">Web Browser</span>
+								<section>
+									<p>
+										If you have enabled the Administration WebSocket protocol then
+ you can see the status of the server processes and client connections 
+by navigating to the following in any web browser<br>
+										http(s)://DOMAIN:PORT<br>
+										where DOMAIN and PORT are the values specified in the WSAddress and AdminWSPort keys of your config file<br>
+										You will be prompted to enter your UUID which must be the same as the one used in the service config file<br>
+										<br>
+										<a href="#f64">
+											<img style="width:60%" src="SQL4Unity_files/ScreenShot_064.png">
+											<br><i>64. Dashboard Sign in</i>
+										</a>
+										<br>
+										Press Send and the browser will then display the status of the server processes and any client connections<br>
+										<br>
+										<a href="#f65">
+											<img style="width:60%" src="SQL4Unity_files/ScreenShot_065.png">
+											<br><i>65. Administration Dashboard</i>
+										</a>
+										<br><br>
+										The Dashboard displays the following information:-<br>
+										<br>
+										<b>For Server processes</b><br>
+										Type - The type of process, Client or Admin<br>
+										Protocol - The protocol the process uses<br>
+										Port - The communication port used. If a server is not in use the port will show Undefined<br>
+										Status - The process status, Running or Stopped<br>
+										Connections - The number of clients connected to the server<br>
+										<br>
+										<b>For Client Processes</b>
+										<br>
+										Protocol The protocol the client uses<br>
+										Platform - The Unity platform used by the client<br>
+										User - The client user name, if any<br>
+										Database - Which database the client is connected to<br>
+										Status - The status of the client connection, Open or Closed<br>
+										IP Address - The IP Address of the client<br>
+										Access - The type of access the client has to the database<br>
+										Messages - Error messages, if any, generated by the client<br>
+										<br>
+										From the Dashboard you can carry out the following tasks:-<br>
+										<br>
+										<b>Stop Service</b> - Stop the SQL for Unity Service<br>
+										Note: This causes the whole service to stop to restart it you 
+will need to do so via the Windows Task or Services Manager<br>
+										<b>Pause</b> - Stop a server process from accepting new client connections<br>
+										<b>Resume</b> - Allow the server process to accept new client connections<br>
+										<b>Stop All</b> - Stop ALL client connections from accessing databases<br>
+										<b>Stop</b> - Stop an individual client from accessing databases<br>
+										<b>Disconnect</b> - Close the Dashboard connection to the server<br>
+									</p>
+								</section>
+								<p style="text-align:right"><a href="#section07A3A">&lt;- Previous</a> <a href="#section07A4B">Next -&gt;</a></p><br><br>
+							</div>
+							<div class="subcontent" id="section07A4B">
+								<span class="label1">Command Line</span>
+								<section>
+									<p>
+										The service .zip contains the windows command line program 
+SQL4UnityAdmin.exe. This can be used for administration tasks instead of
+ the Browser based option.<br>
+										Firstly you will need to modify the configutation file<br>
+										<br>
+										Open SQL4UnityAdmin.exe.config in a text editor. Under appSettings you will see the following key/value pairs<br>
+										<br>
+										&lt;add key="IPAddress" value="127.0.0.1" /&gt;<br>
+										&lt;add key="AdminTCPPort" value="19193" /&gt;<br>
+										&lt;add key="UUID" value="fcf368db-3c7f-43e4-8f0e-95e3ccdb999d" /&gt;<br>
+										<br>
+										These key/values must be set as follows<br>
+										<br>
+										AdminTCPPort	- The AdminTCPPort value from the Service config<br>
+										IPAddress		- The IP address of your server<br>
+										UUID			- The  UUID value from the service config<br>
+										<br>
+										Save your changes!<br>
+										<br>
+										<br>
+										Open a windows command prompt and run SQL for Unity Admin<br>
+										<br>
+										cd c:\SQL4Unity (or which ever folder you unzipped to)<br>
+										SQL4UnityAdmin<br>
+										<br>
+										The Help or ? command will show a list of available commands 
+which work in the same way as the Administration Dashboard.
+										<br><br>
+										About                              - Show Contact, Copyright and Version information<br>
+										Close                              - Close the server connection<br>
+										Help                               - Show this help text<br>
+										Servers                            - Show the status of the Server processes<br>
+										Clients                            - Show the Client connection details<br>
+										Stop Service                       - Stop the SQL4Unity service<br>
+										Stop All                           - Stop all Client connections<br>
+										Stop ID                            - Stop the Client with ID (use Clients command to find the ID to stop)<br>
+										Pause Admin PROTOCOL               - Pause the Admin Server for the protocol<br>
+										Pause Client PROTOCOL              - Pause the Client Server for the protocol<br>
+										Resume Admin PROTOCOL              - Resume the Admin Server for the protocol<br>
+										Resume Client PROTOCOL             - Resume the Client Server for the protocol<br>
+										   where PROTOCOL above is one of TCP or WS<br>
+										Send local=DBNAME remote=DBNAME    - Send Database to Server<br>
+										Receive local=DBNAME remote=DBNAME - Get Database from Server<br>
+										Quit                               - Exit program<br>
+										<br><br>
+										The servers and clients commands can be used to display the status of the server processes and the client connections
+										<br><br>
+										<a href="#f69">
+											<img style="width:60%" src="SQL4Unity_files/ScreenShot_069.png">
+											<br><i>69. Admin Status</i>
+										</a>
+										<br><br>
+										Note: For those wishing to make their own custom 
+administration tool the source code for SQL4UnityAdmin is available from
+ the SQL for Unity GitHub repository.<br>
+										Please contact sql4unity@stevesmith.software with your license information for access to this repository.<br>
+
+									</p>
+								</section>
+								<p style="text-align:right"><a href="#section07A4A">&lt;- Previous</a> <a href="#section07A5">Next -&gt;</a></p><br><br>
+							</div>
+						</section>
+					</div>
+					<div class="subcontent" id="section07A5">
+						<span class="label1">Example Code</span>
+						<section>
+							<p>
+								An example of the code to access a remote database<br>
+
+</p><pre style="width:100%"><code class="prettyprint prettyprinted" style=""><span class="pln">
+	</span><span class="kwd">using</span><span class="pln"> </span><span class="typ">UnityEngine</span><span class="pun">;</span><span class="pln">
+	</span><span class="kwd">using</span><span class="pln"> </span><span class="typ">System</span><span class="pun">;</span><span class="pln">
+
+	</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">DatabaseClient</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="typ">MonoBehaviour</span><span class="pln">
+	</span><span class="pun">{</span><span class="pln">
+		</span><span class="kwd">public</span><span class="pln"> SQL4Unity</span><span class="pun">.</span><span class="typ">Server</span><span class="pun">.</span><span class="typ">Protocol</span><span class="pln"> </span><span class="typ">Protocol</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> SQL4Unity</span><span class="pun">.</span><span class="typ">Server</span><span class="pun">.</span><span class="typ">Protocol</span><span class="pun">.</span><span class="pln">TCP</span><span class="pun">;</span><span class="pln">
+		</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> </span><span class="typ">Database</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="str">"MyGameDB"</span><span class="pun">;</span><span class="pln">
+		</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> </span><span class="typ">UserName</span><span class="pun">=</span><span class="kwd">string</span><span class="pun">.</span><span class="typ">Empty</span><span class="pun">;</span><span class="pln">
+		</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> </span><span class="typ">IpAddress</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="str">"127.0.0.1"</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Local IP for testing</span><span class="pln">
+		</span><span class="com">//	Note: For Websocket protocol IpAddress should be the server domain name.</span><span class="pln">
+		</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">bool</span><span class="pln"> secure </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+		</span><span class="kwd">int</span><span class="pln"> </span><span class="typ">Port</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="lit">19190</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Default Client TCP Port</span><span class="pln">
+		</span><span class="kwd">internal</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> UUID </span><span class="pun">=</span><span class="pln"> </span><span class="str">"fcf368db-3c7f-43e4-8f0e-95e3ccdb999d"</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Default UUID. Replace with yours</span><span class="pln">
+		SQL4Unity</span><span class="pun">.</span><span class="typ">SQLExecute</span><span class="pln"> sql</span><span class="pun">=</span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+
+		</span><span class="kwd">void</span><span class="pln"> </span><span class="typ">Start</span><span class="pun">()</span><span class="pln">
+		</span><span class="pun">{</span><span class="pln">
+			</span><span class="com">// Must be WebSocket for WebGL</span><span class="pln">
+			</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Application</span><span class="pun">.</span><span class="pln">platform </span><span class="pun">==</span><span class="pln"> </span><span class="typ">RuntimePlatform</span><span class="pun">.</span><span class="typ">WebGLPlayer</span><span class="pun">)</span><span class="pln"> </span><span class="typ">Protocol</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> SQL4Unity</span><span class="pun">.</span><span class="typ">Server</span><span class="pun">.</span><span class="typ">Protocol</span><span class="pun">.</span><span class="typ">WebSocket</span><span class="pun">;</span><span class="pln">
+			</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Protocol</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> SQL4Unity</span><span class="pun">.</span><span class="typ">Server</span><span class="pun">.</span><span class="typ">Protocol</span><span class="pun">.</span><span class="typ">WebSocket</span><span class="pun">)</span><span class="pln"> </span><span class="typ">Port</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="lit">19191</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Default Client WebSocket Port</span><span class="pln">
+
+			</span><span class="typ">Debug</span><span class="pun">.</span><span class="typ">Log</span><span class="pun">(</span><span class="str">"Using Protocol "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="typ">Protocol</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">" to "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="typ">IpAddress</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">":"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="typ">Port</span><span class="pun">);</span><span class="pln">
+			</span><span class="com">// Monobehaviour required for Websocket and TCP Async Connections. Secure Socket = True/False required for WebSocket Protocol</span><span class="pln">
+			sql </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> SQL4Unity</span><span class="pun">.</span><span class="typ">SQLExecute</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">);</span><span class="pln">
+			sql</span><span class="pun">.</span><span class="typ">Connect</span><span class="pun">(</span><span class="typ">Protocol</span><span class="pun">,</span><span class="pln"> </span><span class="typ">IpAddress</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Port</span><span class="pun">,</span><span class="pln"> UUID</span><span class="pun">,</span><span class="pln"> secure</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">,</span><span class="pln"> </span><span class="typ">UserName</span><span class="pun">,</span><span class="pln"> </span><span class="typ">ConnectCallback</span><span class="pun">);</span><span class="pln">
+		</span><span class="pun">}</span><span class="pln">
+
+		</span><span class="com">// Called once a connection to the server has been made</span><span class="pln">
+		</span><span class="kwd">void</span><span class="pln"> </span><span class="typ">ConnectCallback</span><span class="pun">(</span><span class="kwd">bool</span><span class="pln"> ok</span><span class="pun">)</span><span class="pln">
+		</span><span class="pun">{</span><span class="pln">
+			</span><span class="typ">Debug</span><span class="pun">.</span><span class="typ">Log</span><span class="pun">(</span><span class="str">"Connected:"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> ok</span><span class="pun">);</span><span class="pln">
+			sql</span><span class="pun">.</span><span class="typ">OpenAsync</span><span class="pun">(</span><span class="typ">Database</span><span class="pun">,</span><span class="pln"> </span><span class="typ">OpenCallback</span><span class="pun">);</span><span class="pln"> </span><span class="com">// Even if the remote connection failed SQL4Unity will fallback to using a local database</span><span class="pln">
+		</span><span class="pun">}</span><span class="pln">
+
+		</span><span class="com">// Called once the database has been Opened</span><span class="pln">
+		</span><span class="kwd">void</span><span class="pln"> </span><span class="typ">OpenCallback</span><span class="pun">(</span><span class="kwd">bool</span><span class="pln"> ok</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+			</span><span class="typ">Debug</span><span class="pun">.</span><span class="typ">Log</span><span class="pun">(</span><span class="str">"Database Open:"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> ok</span><span class="pun">);</span><span class="pln">
+			</span><span class="com">// Execute an SQL command against the remote database</span><span class="pln">
+			</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">ok</span><span class="pun">)</span><span class="pln"> sql</span><span class="pun">.</span><span class="typ">Command</span><span class="pun">(</span><span class="str">"select * from positions"</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">,</span><span class="pln"> </span><span class="typ">SelectCallback</span><span class="pun">);</span><span class="pln"> </span><span class="com">// We do not need to supply a result as it is passed back to the callback</span><span class="pln">
+		</span><span class="pun">}</span><span class="pln">
+
+		</span><span class="com">// Called when the SQL Command has executed and the results are available</span><span class="pln">
+		</span><span class="kwd">void</span><span class="pln"> </span><span class="typ">SelectCallback</span><span class="pun">(</span><span class="kwd">bool</span><span class="pln"> ok</span><span class="pun">,</span><span class="pln"> SQL4Unity</span><span class="pun">.</span><span class="typ">SQLResult</span><span class="pln"> result</span><span class="pun">)</span><span class="pln">
+		</span><span class="pun">{</span><span class="pln">
+			</span><span class="typ">ShowResults</span><span class="pun">(</span><span class="pln">result</span><span class="pun">);</span><span class="pln">
+			sql</span><span class="pun">.</span><span class="typ">Close</span><span class="pun">();</span><span class="pln">
+		</span><span class="pun">}</span><span class="pln">
+
+		</span><span class="kwd">void</span><span class="pln"> </span><span class="typ">ShowResults</span><span class="pun">(</span><span class="pln">SQL4Unity</span><span class="pun">.</span><span class="typ">SQLResult</span><span class="pln"> result</span><span class="pun">)</span><span class="pln">
+		</span><span class="pun">{</span><span class="pln">
+			</span><span class="typ">Debug</span><span class="pun">.</span><span class="typ">Log</span><span class="pun">(</span><span class="pln">result</span><span class="pun">.</span><span class="pln">resultType</span><span class="pun">.</span><span class="typ">ToString</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="str">" "</span><span class="pun">+</span><span class="pln"> result</span><span class="pun">.</span><span class="pln">status</span><span class="pun">.</span><span class="typ">ToString</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">" "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> result</span><span class="pun">.</span><span class="pln">message</span><span class="pun">);</span><span class="pln">
+			</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">result</span><span class="pun">.</span><span class="pln">status</span><span class="pun">)</span><span class="pln">
+			</span><span class="pun">{</span><span class="pln">
+				</span><span class="kwd">try</span><span class="pln">
+				</span><span class="pun">{</span><span class="pln">
+					mygamedb_positions</span><span class="pun">[]</span><span class="pln"> players </span><span class="pun">=</span><span class="pln"> result</span><span class="pun">.</span><span class="typ">Get</span><span class="str">&lt;mygamedb_positions&gt;</span><span class="pun">();</span><span class="pln">
+					</span><span class="kwd">foreach</span><span class="pln"> </span><span class="pun">(</span><span class="pln">mygamedb_positions player </span><span class="kwd">in</span><span class="pln"> players</span><span class="pun">)</span><span class="pln">
+					</span><span class="pun">{</span><span class="pln">
+						</span><span class="typ">Debug</span><span class="pun">.</span><span class="typ">Log</span><span class="pun">(</span><span class="str">"Player: "</span><span class="pun">+</span><span class="pln">player</span><span class="pun">.</span><span class="pln">ID</span><span class="pun">+</span><span class="str">" Position: "</span><span class="pun">+</span><span class="pln">player</span><span class="pun">.</span><span class="typ">Position</span><span class="pun">);</span><span class="pln">
+					</span><span class="pun">}</span><span class="pln">
+				</span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pun">(</span><span class="typ">Exception</span><span class="pln"> ex</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+					</span><span class="com">// May throw an Illegal Cast Exception if the local database is missing</span><span class="pln">
+					</span><span class="typ">Debug</span><span class="pun">.</span><span class="typ">Log</span><span class="pun">(</span><span class="pln">ex</span><span class="pun">.</span><span class="typ">Message</span><span class="pun">);</span><span class="pln">
+				</span><span class="pun">}</span><span class="pln">
+			</span><span class="pun">}</span><span class="pln">
+		</span><span class="pun">}</span><span class="pln">
+	</span><span class="pun">}</span></code></pre>
+								Note: SQLExecute is using the MonoBehaviour contructor and the 
+database is Opened using OpenAsync. This allows the code to function 
+correctly irrespective of the Unity target platform.
+							<p></p>
+						</section>
+						<p style="text-align:right"><a href="#section07A4B">&lt;- Previous</a> <a href="#section07B1">Next -&gt;</a></p><br><br>
+					</div>
+				</section>
+			</div>
+			<div class="subcontent" id="section07B">
+				<span class="label1">SQL*Server</span>
+				<section>
+					<p>
+						The SQLServer class is designed to give direct access to a Microsoft SQL*Server database<br>
+						There are 2 prerequisites required on the SQL*Server side<br>
+						1) The Instance must be enabled for TCP connections<br>
+						2) The Instance must accept SQL Authentication<br>
+					</p>
+					<div class="subcontent" id="section07B1">
+						<span class="label1">Constructor</span>
+						<section>
+							<p>
+								<b>SQLServer(string DBName, string username, string password, 
+string ipAddress= "127.0.0.1", int portNr= 51908, string instance= 
+"SQLEXPRESS")</b><br>
+								where:<br>
+								DBName is the name of the SQL*Server Database.<br>
+								username is the SQL*Server user name.<br>
+								password is the SQL*Server user password<br>
+								ipAddress is the IP Address of the instance. Default 127.0.0.1. i.e localhost.<br>
+								portNr is the TCP port the instance is listening on. Default 51908<br>
+								instance is the name of the SQL*Server instance. Default SQLEXPRESS.<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section07A5">&lt;- Previous</a> <a href="#section07B2">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section07B2">
+						<span class="label1">Methods</span>
+						<section>
+							<p>
+								<b>bool Open()</b> - Open the Database. Returns true if the database opened succesfuly<br>
+								<b>bool Close()</b> - Close the database. Returns true if the database closed succesfuly<br>
+								<b>bool ExecuteNonQuery(string sqlcmd, bool close=true)</b> - Execute a Non Query sql command. Return true if successful.<br>
+								<b>System.Data.DataTable ExecuteQuery(string sqlcmd, bool close=true)</b> - Executes a Select query. Returns a Datatable with the results.<br>
+								<b>int Count()</b> - Returns a count of the number of records affected by the previous sql command.<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section07B1">&lt;- Previous</a> <a href="#section07C">Next -&gt;</a></p><br><br>
+					</div>
+				</section>
+			</div>
+			<div class="subcontent" id="section07C">
+				<span class="label1">MySQL</span>
+				<section>
+					<p>
+						The MySQL class is designed to give direct access to a MySQL database<br>
+						The Instance must accept SQL Authentication<br>
+					</p>
+					<div class="subcontent" id="section07C1">
+						<span class="label1">Constructor</span>
+						<section>
+							<p>
+								<b>MySQL(string DBName, string username, string password, string ipAddress= "localhost", int portNr= 3306)</b><br>
+								where:<br>
+								DBName is the name of the MySQL Database.<br>
+								username is the MySQL user name.<br>
+								password is the MySQL user password<br>
+								ipAddress is the IP Address of the server. Default localhost.<br>
+								portNr is the TCP port the instance is listening on. Default 3306<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section07B2">&lt;- Previous</a> <a href="#section07C2">Next -&gt;</a></p><br><br>
+					</div>
+					<div class="subcontent" id="section07C2">
+						<span class="label1">Methods</span>
+						<section>
+							<p>
+								<b>bool Open()</b> - Open the Database. Returns true if the database opened succesfuly<br>
+								<b>bool Close()</b> - Close the database. Returns true if the database closed succesfuly<br>
+								<b>bool ExecuteNonQuery(string sqlcmd, bool close=true)</b> - Execute a Non Query sql command. Return true if successful.<br>
+								<b>System.Data.DataTable ExecuteQuery(string sqlcmd, bool close=true)</b> - Executes a Select query. Returns a Datatable with the results.<br>
+								<b>int Count()</b> - Returns a count of the number of records affected by the previous sql command.<br>
+							</p>
+						</section>
+						<p style="text-align:right"><a href="#section07C1">&lt;- Previous</a> <a href="#section09A">Next -&gt;</a></p><br><br>
+					</div>
+				</section>
+			</div>
+		</section>
+	</div>
+
+	<div class="content" id="section09" style="display: none;">
+		<h2>Data Types</h2>
+		<section>
+			<p>
+				SQL4Unity supports many more datatypes than a 'normal' RDBMS. These are broken down into 3 categories<br>
+				C# Data types<br>
+				Unity Serializable types<br>
+				Unity Objects<br>
+				<br>
+				For columns defined as nullable the literal value 'null' (without 
+the quotes) can be used instead of an actual column value. 
+Alternatively, for INSERT statements, the column can be omitted 
+completely.
+				<br><br>
+				<i>Note:</i> Those data types that are specified enclosed in braces {
+ ... } are a non standard extension of SQL made specifically for use in 
+this RDBMS to support the Unity data types.<br>
+				<br>
+				If there any specifc Unity serializable types or objects that you 
+would like added to the above list please email 
+SQL4Unity@stevesmith.software with your request.<br>
+				<br>
+				<b> Important:</b>The DataType class contains a ToString method for 
+converting C# variables into a format that can be parsed by SQL 
+statements. It is strongly reccommended that you use this method when 
+constructing SQL statEments from variables<br>
+				<br>
+				For Example: string query = "UPDATE myTable set myVector3="+SQL4Unity.DataType.ToString(Vector3.up)+" where id = 1";<br>
+				will convert the Unity Vector3.up into the SQL4Unity string format { 0,1,0 }<br>
+			</p>
+			<div class="subcontent" id="section09A">
+				<span class="label1">C# Data types</span>
+				<section>
+					<p>
+						<b>byte</b> - A single unsigned byte. 0 - 255<br>
+						<b>sbyte</b> - A single signed byte. -127 - +127<br>
+						<b>short</b> - A 16 bit integer number<br>
+						<b>ushort</b> - A 16 bit unsigned integer number<br>
+						<b>int</b> - A 32 bit integer number<br>
+						<b>uint</b> - A 32 bit unsigned integer number<br>
+						<b>long</b> - A 64 bit integer number<br>
+						<b>ulong</b> - A 64 bit unsigned integer number<br>
+						<b>char</b> - A single character<br>
+						<b>double</b> - A number including decimal point but no separators. Optionally terminated by the letter d<br>
+						<b>float</b> - A number including decimal point but no separators. Optionally terminated by a letter f<br>
+						<i>Note: doubles and floats are validated using the Invariant 
+Culture. Using seperators other than comma or a comma instead of a 
+decimal point will lead to incorrect interpretation of your input</i><br>
+						<i>So 999,999.00 is valid input but 999.999,99 or 999,99 will result in incorrect validation</i>
+						<br>
+						<b>string</b> - A string literal. Strings must be enclosed in single quotes and may not contain a single quote<br>
+						<br>
+						<b>bool</b> - Boolean. true or false.<br>
+						<br>
+						<b>DateTime</b> - A Date, Time or Date and Time. SQL4Unity uses a 
+class, SQLDate, to represent dates and times. The methods .set(), .get()
+ and .ToString() must be used to manipulate the data. The .raw() method 
+returns the Date/Time in Unix format (Number of seconds since 1st 
+January 1970). In SQL statements Dates are in the format 'YYYY-MM-DD' 
+and Times in the format 'HH:MM' or 'HH:MM:SS' A Date and Time uses 
+'YYYY-MM-DD HH:MM:SS'.<br>
+						<br>
+						Where YYYY is a 4 digit Year, MM is a 1 or 2 digit Month where 
+January = 1 (1-12), DD is a 1 or 2 digit Day of month (1-31)<br>
+						AND HH is a 1 or 2 digit Hour ( 0 - 23), MM is a 1 or 2 digit Minutes (0-59), SS is a 1 or 2 digit seconds (0-59).<br>
+						The hyphens in the date string and the colons in the time string 
+are required. The strings must be enclosed in single quotes.<br>
+						<br>
+						The .ToString() method supports a format string, this string can be any C# DateTime format string.<br>
+						<br>
+						To format a DateTime variable for SQL usage use the static SQLDate.ToString(DateTime date) method.<br>
+						To get the current date and time use the static SQLDate.Now() method.<br>
+						To get the current date use the static SQLDate.Today() method.<br>
+						These methods include the necessary enclosing single quotes in their output string.<br>
+						<br>
+						<b>TimeStamp</b> - A time stamp is a special form of DateTime and 
+cannot be used in an Insert or Update statement. A TimeStamp takes two 
+forms dependent upon the setting of the Allow Null option. The time 
+stamp column will always be set to the current date and time during 
+Insert. If the Allow Null option is off the time stamp column will also 
+be set to the current date and time during Update.<br>
+						<br>
+						<b>Blob</b> - A class that can contain a byte array.<br>
+						Use byte[] bytes = blob.Get(); and blob.Set(byte[]); to access the array using byte data.<br>
+						A Blob can also be used to store a <b>Serializable</b> C# Class as a byte array<br>
+						Use MyClass myclass = blob.Get&lt;MyClass&gt;(); and blob.Set&lt;MyClass&gt;(myClass);<br>
+						These methods automatically handle the conversion from/to byte array format<br>
+						Blob also supports the usage of a Unity Texture2D as a parameter.<br>
+						Use:<br>
+						Texture2D tex = ...;<br>
+						Blob blob = new Blob(tex);<br>
+						or<br>
+						Texture2D tex = ...;<br>
+						Blob blob = new Blob();<br>
+						blob.Set(tex);<br>
+						and to fill a texture from a Blob<br>
+						blob.Get(tex);<br>
+						Note: blob.Get(Texture2D) does not create a new texture it fills an existing one with the blob contents.<br>
+						<br>
+						If it is required to use byte array data in an SQL statement then 
+that data must be converted to Base64 Encoded string format.<br>
+						The Datatype class provides 2 ways of making Base64 strings<br>
+						string base64 = DataType.ToString(byte[]); - string from byte array<br>
+						string base64 = DataType.ToString(Blob); - string from a Blob object<br>
+						Blob also has a ToString method which returns a base64 string.<br>
+					</p>
+				</section>
+				<p style="text-align:right"><a href="#section07B2">&lt;- Previous</a> <a href="#section09B">Next -&gt;</a></p><br><br>
+			</div>
+			<div class="subcontent" id="section09B">
+				<span class="label1">Unity Serializable types</span>
+				<section>
+					<p>
+						<b>Vector2</b> - 2 numbers in the form { n, n }<br>
+						<b>Vector2Int</b> - 2 integers in the form { n, n }<br>
+						<b>Vector3</b> - 3 numbers in the form { n, n, n }<br>
+						<b>Vector3Int</b> - 3 integers in the form { n, n, n }<br>
+						<b>Vector4</b> - 4 numbers in the form { n, n, n, n }<br>
+						<b>Quaternion</b> - 4 numbers in the form { n, n, n, n }<br>
+						<b>Rect</b> - 4 numbers in the form { n, n, n, n }<br>
+						<b>RectInt</b> - 4 integers in the form { n, n, n, n }<br>
+						<b>Color</b> - 4 numbers in the form { n, n, n, n }. Range 0-1 incl.<br>
+						<b>Color32</b> - 4 integers in the form { n, n, n, n }. Range 0-255 incl.<br>
+					</p>
+				</section>
+				<p style="text-align:right"><a href="#section09A">&lt;- Previous</a> <a href="#section09C">Next -&gt;</a></p><br><br>
+			</div>
+			<div class="subcontent" id="section09C">
+				<span class="label1">Unity Objects</span>
+				<section>
+					<p>
+						<b>GameObject</b> - A reference to a GameObject in the form { NAME:name, TAG:tag } where either NAME or TAG or both must be supplied.<br>
+						<br>
+						<i>Note:</i> The Game object datatype cannot be assigned a value in the Editor only at run time<br>
+						<br>
+						<b>Texture2D</b> - A reference to a 2D texture in a Resources folder in the form { NAME:path/name }<br>
+						<b>Material</b> - A reference to a material in a Resources folder in the form { NAME:path/name }<br>
+						<b>Sprite</b> - A reference to a 2D texture to be used as a sprite in a Resources folder in the form { NAME:path/name }<br>
+						<b>AudioClip</b> - A reference to an audio clip in a Resources folder in the form { NAME:path/name }<br>
+						<b>Resource</b> - A reference to a resource in a Resources folder in the form { NAME:path/name }. Stored as a Unity.Object<br>
+						<br>
+						<b>Important:</b>If your database uses Unity Objects it is important that the Resources within the database are kept up to date. See <a href="#section5">Resources Management</a> for more information<br>
+					</p>
+					<br><br><br>
+				</section>
+				<p style="text-align:right"><a href="#section09B">&lt;- Previous</a> <a href="#section10">Next -&gt;</a></p><br><br>
+			</div>
+		</section>
+	</div>
+
+	<div class="content" id="section10" style="display: none;">
+		<h2>Reserverd Words</h2>
+		<section>
+			<p>
+				The following words are not allowed to be used for Database, Table, 
+Column or Index names. All reserverd words are NOT case sensitive.<br>
+				<br>
+				</p><table>
+					<tbody><tr>
+						<td style="width:200px"><b>SQL Reserved words</b></td>
+						<td style="width:200px"><b>C# reserved words</b></td>
+						<td style="width:200px"><b>SQL4Unity reserved words</b></td>
+					</tr>
+					<tr>
+						<td>
+							insert<br>
+							select<br>
+							update<br>
+							delete<br>
+							create<br>
+							drop<br>
+							alter<br>
+							from<br>
+							into<br>
+							set<br>
+							where<br>
+							order<br>
+							by<br>
+							group<br>
+							having<br>
+							join<br>
+							left<br>
+							right<br>
+							null<br>
+							not<br>
+							primarykey<br>
+							count<br>
+							sum<br>
+							min<br>
+							max<br>
+						</td>
+						<td>
+							public<br>
+							private<br>
+							class<br>
+							list<br>
+							dictionary<br>
+							using<br>
+							true<br>
+							false<br>
+							if<br>
+							else<br>
+							for<br>
+							foreach<br>
+							do<br>
+							while<br>
+							until<br>
+							hashtable<br>
+							hashset<br>
+							object<br>
+							namespace<br>
+						</td>
+						<td>
+							schema<br>
+							database<br>
+							table<br>
+							column<br>
+							index<br>
+							indexdict<br>
+							indexlist<br>
+							indexsorted<br>
+							indextree<br>
+							indexrow<br>
+							datarow<br>
+							datatable<br>
+							systable<br>
+							workbench<br>
+							datatype<br>
+							utility<br>
+							rowid<br>
+							rowidix<br>
+							dropped<br>
+							btree<br>
+							compare<br>
+							datatype<br>
+							reserved<br>
+							name<br>
+						</td>
+					</tr>
+				</tbody></table>
+				<br>
+				<br>
+				In addition, the names asigned to data types (see above) are also reserved words.<br>
+				<br>
+				<br>
+				<br>
+			<p></p>
+		</section>
+		<p style="text-align:right"><a href="#section09C">&lt;- Previous</a> <a href="#section11">Next -&gt;</a></p><br><br>
+	</div>
+
+	<div class="content" id="section11" style="display: none;">
+		<h2>Backup/Restore</h2>
+		<section>
+			<p>
+				When you make backups of your data always include the following folders/files<br>
+				<br>
+				Assets/SSSoftware/SQL4Unity/<br>
+				&nbsp;&nbsp;&nbsp;Editor<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Resources<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schema.asset - The Database Schema file. Created by SQLWorkbench<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schema.asset.meta - Unity meta file<br>
+				&nbsp;&nbsp;&nbsp;Scripts<br>
+				Assets/StreamingAssets
+				<br>
+				To restore your files copy back all four of the folders mentioned above.<br>
+				<br>
+				Failure to do so will result in inconsistancies between your databases and the schema file and may result in data loss.<br>
+				<br>
+				To make a backup or copy for runtime use only include the following<br>
+				<br>
+				Assets/SSSoftware/SQL4Unity/<br>
+				&nbsp;&nbsp;&nbsp;Scripts<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yourDatabase_*.cs<br>
+				&nbsp;&nbsp;&nbsp;Plugins<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL4Unity.dll<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL4UnityData.dll<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL4UnityServer.dll - If used<br>
+				&nbsp;&nbsp;&nbsp;Resources - This folder is optional and only needs
+ to be included if informational and error messages are required<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL4Unityxx.txt - SQL4Unity 
+language files where xx is the language code. e.g. EN for English<br>
+				Assets/StreamingAssets<br>
+				&nbsp;&nbsp;&nbsp;yourDatabase.s4u<br>
+				<br>
+				<br>
+				<b>Important:</b> When making backups or restoring data always make sure that the corresponding Unity .meta files are included
+			</p>
+			<p>
+				<b>Git Source Code Control</b><br>
+				For those of you who use GIT as your source control, the following 
+added to your gitignore file will ensure that you always maintain a 
+consistent SQL for Unity environment<br>
+</p><pre style="width:100%"><code class="prettyprint prettyprinted" style=""><span class="pln">
+	</span><span class="pun">/</span><span class="typ">Assets</span><span class="com">/*
+	!Assets/SSSoftware/
+
+	/Assets/SSSoftware/*
+	!/Assets/SSSoftware/SQL4Unity/
+
+	/Assets/SSSoftware/SQL4Unity/*
+	!/Assets/SSSoftware/SQL4Unity/Scripts/
+	!/Assets/SSSoftware/SQL4Unity/Editor/
+
+	/Assets/SSSoftware/SQL4Unity/Editor/*
+	!/Assets/SSSoftware/SQL4Unity/Editor/Resources/
+
+	/Assets/SSSoftware/SQL4Unity/Editor/Resources/*
+	!/Assets/SSSoftware/SQL4Unity/Editor/Resources/Schema.asset
+	!/Assets/SSSoftware/SQL4Unity/Editor/Resources/Schema.asset.meta
+	/Assets/StreamingAssets/*
+	!/Assets/StreamingAssets/*.s4u
+	!/Assets/StreamingAssets/*.s4u.meta
+</span></code></pre>
+		
+			<p></p>
+		</section>
+		<p style="text-align:right"><a href="#section10">&lt;- Previous</a> <a href="#section12A">Next -&gt;</a></p><br><br>
+	</div>
+
+	<div class="content" id="section12" style="display: none;">
+		<h2>Additional Information</h2>
+		<section>
+			<div class="subcontent" id="section12A">
+				<span class="label1">Package Contents</span>
+				<section>
+					<p>
+						The SQL4Unity package is made up of the following components:<br>
+						<br>
+						Assets/SSSoftware/SQL4Unity/<br>
+						&nbsp;&nbsp;&nbsp;ReadMe.txt - Read this file before using SQL4Unity<br>
+						&nbsp;&nbsp;&nbsp;Editor<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQLPreBuild.cs - Resource 
+update on Build. Not included in build. This script may be deleted if 
+you do not use Unity Objects in your database<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;External<br>
+						
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL4UnityCLI.zip -
+ Windows Command Line Interpreter. May be deleted if not required<br>
+						
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL4UnityService.zip
+ - Client/Server Only. The Windows service software<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Resources - Editor resource files. Not included in build<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schema.asset - The Database Schema file. Created by SQLWorkbench<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL4Unity.html - This documentation<br>
+						&nbsp;&nbsp;&nbsp;Scripts - Automagically generated Database table scripts are stored here<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mygamedb_players.cs - Example MyGameDB Players script. This script may be deleted<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mygamedb_positions.cs - Example MyGameDB Positions script. This script may be deleted<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mygamedb_playerpos.cs - Example MyGameDB PlayerPos script. This script may be deleted<br>
+						&nbsp;&nbsp;&nbsp;Plugins<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL4Unity.dll - The SQL for Unity RDBMS Engine<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL4UnityData.dll - The SQL for Unity Database data structures<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL4UnityEditor.dll - The SQL for Unity Unity Editor code<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL4UnityServer.dll - The SQL for Unity Unity Client/Server code<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL4UnityLibrary.jslib - Client/Server Only. The WebGL websocket interface code<br>
+						&nbsp;&nbsp;&nbsp;Resources<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL4Unityxx.txt - SQL for 
+Unity language files where xx is the language code. e.g. EN for English<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If informational and error 
+messages are not required in production builds. These files should be 
+deleted or moved<br>
+						&nbsp;&nbsp;&nbsp;Example - An example of SQL for Unity usage. 
+This folder and its subfolders may be deleted if the example is no 
+longer needed<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Example - Example Unity Scene<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ReadMe - Installation and usage instructions for the example<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MyGameDB.schema - Example SQLWorkbench schema export file<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MyGameDB.sql - Example MyGameDB SQL export file<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Resources<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Capsule - Unity Prefab<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cube - Unity Prefab<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cylinder - Unity Prefab<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sphere - Unity Prefab<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schema.asset - Example SQL for Unity schema.<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scripts<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;InitDB.cs - Return the example database to its initial state<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQLExample.cs - The example run time code<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assets/StreamingAssets - The 
+database files are stored here. Databases have the file extension .s4u<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MyGameDB - Example SQL for Unity Database. This file may be deleted<br>
+					</p>
+				</section>
+				<p style="text-align:right"><a href="#section11">&lt;- Previous</a> <a href="#section12B">Next -&gt;</a></p><br><br>
+			</div>
+			<div class="subcontent" id="section12B">
+				<span class="label1">Distribution</span>
+				<section>
+					<p>
+						This RDBMS system comprises many C# scripts split into 4 plugin 
+dll's. When you wish to distribute your finished product you are allowed
+ and must include the compiled version of the scripts in the 
+SQL4Unity/Scripts and SQL4Unity/Plugins/SQL4Unity.dll and 
+SQL4UnityData.dll as these will be necessary to support the operation of
+ your database at run time.<br>
+						The SQL4UnityData.dll must always be the same version as was used 
+to create the database. Using the wrong version will result in the 
+database being unusable.
+						<br>
+						If your project fails to build for your selected platform make 
+sure that the SQL4Unity/Plugins/SQL4UnityEditor.dll is marked as only 
+Editor in the Inspector<br>
+					</p>
+				</section>
+				<p style="text-align:right"><a href="#section12A">&lt;- Previous</a> <a href="#section12C">Next -&gt;</a></p><br><br>
+			</div>
+			<div class="subcontent" id="section12C">
+				<span class="label1">Support</span>
+				<section>
+					<p>
+						Whilst every effort has been made to test this software thoroughly
+ in a system of this complexity it is always possible for bugs to have 
+slipped through the net. Should you be unlucky enough to encounter such a
+ bug please accept my humble apologies and raise a bug report.<br>
+						<br>
+						<br>
+						To raise a bug report go to  https://stevesmith.software and use the form provided or email SQL4Unity@stevesmith.software<br>
+					</p>
+				</section>
+				<p style="text-align:right"><a href="#section12B">&lt;- Previous</a> <a href="#section12D">Next -&gt;</a></p><br><br>
+			</div>
+			<div class="subcontent" id="section12D">
+				<span class="label1">Change Requests</span>
+				<section>
+					<p>
+						This RDBMS only implements a subset of the SQL specification. This
+ was a deliberate design decision in order to keep the runtime as small 
+and fast as possible<br>
+						If there is specific functionality which has not been implemented 
+but which you feel should have been please raise a change request. I 
+cannot guarantee that these will be implemented in any future releases 
+but all requests will be seriously considered.
+						<br>
+						<br>
+						To register a change request go to  https://stevesmith.software 
+and use the form provided or email SQL4Unity@stevesmith.software<br>
+					</p>
+				</section>
+				<p style="text-align:right"><a href="#section12C">&lt;- Previous</a> <a href="#section12E">Next -&gt;</a></p><br><br>
+			</div>
+			<div class="subcontent" id="section12E">
+				<span class="label1">Internationalisation</span>
+				<section>
+					<p>
+						The SQL4Unity/Resources folder contains a file called 
+SQL4UnityEN.txt. This file contains all of the error and informational 
+messages that are used in the system. You may change the wording or 
+translate into anther language any of the text in this file. Do not 
+change the sequence of the messages as this will cause problems with the
+ functioning of the system.<br>
+						<br>
+						Should you translate the entirity of this file into another 
+language and wish to publish it please send a copy to 
+SQL4Unity@stevesmith.software and if accepted it will be incorpoated 
+into a future release of the RDBMS.<br>
+					</p>
+				</section>
+				<p style="text-align:right"><a href="#section12D">&lt;- Previous</a></p><br><br>
+			</div>
+		</section>
+	</div>
+
+	<footer class="footer"><b>© SteveSmith.Software</b> 2018. All Rights Reserved.</footer>
+
+
+
+</body></html>

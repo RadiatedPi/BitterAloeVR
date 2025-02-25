@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: fe5725be005c2944c956b882e20e8600
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 115308
+  packageName: SQL for Unity Database
+  packageVersion: 1.0.7
+  assetPath: Assets/SSSoftware/SQL4Unity/Editor/Resources/SQL4Unity_files/prettify.css
+  uploadId: 708763

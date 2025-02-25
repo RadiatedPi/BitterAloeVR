@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: b1af69308f1d74849aac55655aa00cda
+timeCreated: 1545458725
+licenseType: Store
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 115308
+  packageName: SQL for Unity Database
+  packageVersion: 1.0.7
+  assetPath: Assets/SSSoftware/SQL4Unity/Editor/Resources/SQL4Unity.html
+  uploadId: 708763

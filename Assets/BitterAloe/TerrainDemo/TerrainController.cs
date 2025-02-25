@@ -90,7 +90,7 @@ public class TerrainController : MonoBehaviour {
     }
 
     private void Update() {
-        if (parquetParser.df != null)
+        //if (parquetParser.df != null)
             LoadTileLoop().Forget();
     }
 

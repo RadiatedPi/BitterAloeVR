@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: ebf87b23dfd490b4b873dbc853a3882e
+timeCreated: 1545636625
+licenseType: Store
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 115308
+  packageName: SQL for Unity Database
+  packageVersion: 1.0.7
+  assetPath: Assets/SSSoftware/SQL4Unity/Example/Example.unity
+  uploadId: 708763
