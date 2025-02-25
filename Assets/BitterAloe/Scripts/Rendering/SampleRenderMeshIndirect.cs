@@ -105,7 +105,7 @@ public class SampleRenderMeshIndirect : MonoBehaviour
 
             float height = Mathf.PerlinNoise(noiseX, noiseZ);
             //Debug.Log($"For render, tile is {chunkIndex.x}, {chunkIndex.y}, noise is {noiseX}, {noiseZ}");
-            coordinateArray[i] = new Vector3(coordinateArray[i].x, height * terrainSize.y, coordinateArray[i].z);
+            coordinateArray[i] = new Vector3(coordinateArray[i].x, height * terrainSize.y + 0.2f, coordinateArray[i].z);
         }
 
         return coordinateArray;
