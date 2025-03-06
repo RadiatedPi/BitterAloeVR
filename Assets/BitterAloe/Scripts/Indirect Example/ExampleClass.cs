@@ -25,8 +25,10 @@ public class ExampleClass : MonoBehaviour
     {
         RenderParams rp = new RenderParams(material);
         rp.worldBounds = new Bounds(Vector3.zero, 10000 * Vector3.one); // use tighter bounds for better FOV culling
+        // TDOD: Add matProps to plant renderer
         rp.matProps = new MaterialPropertyBlock();
         rp.matProps.SetMatrix("_ObjectToWorld", Matrix4x4.Translate(new Vector3(-4.5f, 0, 0)));
+
         commandData[0].indexCountPerInstance = mesh.GetIndexCount(0);
         commandData[0].instanceCount = 10;
         //commandData[1].indexCountPerInstance = mesh.GetIndexCount(0);

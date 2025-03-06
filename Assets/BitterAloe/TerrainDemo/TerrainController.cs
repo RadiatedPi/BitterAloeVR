@@ -7,22 +7,24 @@ using Unity.Burst;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class TerrainController : MonoBehaviour {
-    private GlobalReferences globalRef;
-    [SerializeField]
-    private ParquetParser parquetParser = null;
+    private GlobalReferences gr;
     [SerializeField]
     private GameObject terrainTilePrefab = null;
+    [SerializeField] private Mesh plantMesh;
     public Material material;
-    public Vector3 tileResolution = new Vector3(32, 8, 32);
-    public Vector3 TerrainSize { get { return tileResolution; } }
+    public Vector3 tileSize = new Vector3(32, 8, 32);
+    public Vector3 TerrainSize { get { return tileSize; } }
     public float noiseScale = 1, cellSize = 4;
     public int radiusToRender = 2;
     [SerializeField]
     private Transform[] gameTransforms;
     [SerializeField]
     private Transform playerTransform;
+    [SerializeField]
+    private Transform playerContainer;
     [SerializeField]
     private int seed;
     [SerializeField]
@@ -70,13 +72,19 @@ public class TerrainController : MonoBehaviour {
     }
 
     public void InitialLoad() {
-        globalRef = GameObject.FindWithTag("Reference").GetComponent<GlobalReferences>();
-        Debug.Log($"{globalRef}");
+        gr = GameObject.FindWithTag("Reference").GetComponent<GlobalReferences>();
+
         DestroyTerrain();
 
         Level = new GameObject("Level").transform;
+
+        ConstraintSource constraintSource = new ConstraintSource();
+        constraintSource.sourceTransform = Level.transform;
+        constraintSource.weight = 1;
+
+        playerTransform.GetComponent<ParentConstraint>().AddSource(constraintSource);
         //water.parent = Level;
-        playerTransform.parent = Level;
+        //playerContainer.parent = Level;
         foreach (Transform t in gameTransforms)
             t.parent = Level;
 
@@ -90,7 +98,7 @@ public class TerrainController : MonoBehaviour {
     }
 
     private void Update() {
-        //if (parquetParser.df != null)
+        if (gr.parq.df != null)
             LoadTileLoop().Forget();
     }
 
@@ -98,7 +106,7 @@ public class TerrainController : MonoBehaviour {
     private async UniTaskVoid LoadTileLoop()
     {
         //save the tile the player is on
-        Vector2 playerTile = TileFromPosition(playerTransform.localPosition);
+        Vector2 playerTile = TileFromPosition(playerTransform.position - Level.transform.position);
         //save the tiles of all tracked objects in gameTransforms (including the player)
         List<Vector2> centerTiles = new List<Vector2>();
         centerTiles.Add(playerTile);
@@ -158,48 +166,59 @@ public class TerrainController : MonoBehaviour {
                 t.SetActive(true);
         }
     }
-
+     
     private async UniTask<GameObject> CreateTile(int xIndex, int yIndex) {
         GameObject terrain = Instantiate(
             terrainTilePrefab,
-            Vector3.zero,
+            new Vector3(tileSize.x * xIndex, 0, tileSize.z * yIndex),
             Quaternion.identity,
             Level
         );
-        
+       
         //had to move outside of instantiate because it's a local position
         //terrain.transform.localPosition = new Vector3(tileResolution.x * xIndex, tileResolution.y, tileResolution.z * yIndex);
-        terrain.transform.localPosition = new Vector3(tileResolution.x * xIndex, 0, tileResolution.z * yIndex);
         terrain.name = TrimEnd(terrain.name, "(Clone)") + " [" + xIndex + " , " + yIndex + "]";
+        terrain.GetComponent<TileData>().tileIndex = new Vector2(xIndex, yIndex);
 
         terrainTiles.Add(new Vector2(xIndex, yIndex), terrain);
 
+        await terrain.GetComponent<TileData>().GetPlantData();
+
+        terrain.transform.localPosition = new Vector3(tileSize.x * xIndex, 0, tileSize.z * yIndex);
+        //terrain.transform.position = new Vector3(tileSize.x * xIndex - Level.position.x, 0, tileSize.z * yIndex - Level.position.z);
+
         GenerateMesh gm = terrain.GetComponent<GenerateMesh>();
-        gm.TerrainSize = tileResolution;
+        gm.TerrainSize = tileSize;
         gm.NoiseScale = noiseScale;
         gm.CellSize = cellSize;
         gm.NoiseOffset = NoiseOffset(xIndex, yIndex);
         gm.TileIndex = new Vector2(xIndex, yIndex);
-        gm.Generate();
+        gm.Generate(); 
 
-        UnityEngine.Random.InitState((int)(seed + (long)xIndex * 100 + yIndex));//so it doesn't form a (noticable) pattern of similar tiles
         /*
         PlaceObjects po = gm.GetComponent<PlaceObjects>();
         po.TerrainController = this;
         po.Place();
         */
+
+
+        UnityEngine.Random.InitState((int)(seed + (long)xIndex * 100 + yIndex));//so it doesn't form a (noticable) pattern of similar tiles
         RandomizeInitState();
 
-        terrain.GetComponent<SampleRenderMeshIndirect>().parq = parquetParser;
-        terrain.GetComponent<SampleRenderMeshIndirect>().tc = GetComponent<TerrainController>();
-        terrain.GetComponent<SampleRenderMeshIndirect>().chunkIndex = new Vector2(xIndex, yIndex);
-        terrain.GetComponent<SampleRenderMeshIndirect>()._material = new Material(material);
-        terrain.GetComponent<SampleRenderMeshIndirect>().chunkScale = tileResolution;
-        terrain.GetComponent<SampleRenderMeshIndirect>().GetChunkPlantData().Forget();
+        //GameObject plantRenderer = new GameObject("Indirect Mesh Renderer"); 
+        //plantRenderer.transform.position = terrain.transform.position;
+        //plantRenderer.transform.SetParent(terrain.transform);
 
+        SampleRenderMeshIndirect plantRenderer = terrain.AddComponent<SampleRenderMeshIndirect>();
+        plantRenderer.td = terrain.GetComponent<TileData>();
+        plantRenderer._mesh = plantMesh;
+        plantRenderer._material = new Material(material);
+
+        await plantRenderer.StartRender();
         return terrain;
     }
-
+   
+   
     public Vector2 NoiseOffset(int xIndex, int yIndex) {
         Vector2 noiseOffset = new Vector2(
             (xIndex * noiseScale + startOffset.x) % noiseRange.x,
@@ -214,7 +233,7 @@ public class TerrainController : MonoBehaviour {
     }
 
     private Vector2 TileFromPosition(Vector3 position) {
-        return new Vector2(Mathf.FloorToInt(position.x / tileResolution.x + .5f), Mathf.FloorToInt(position.z / tileResolution.z + .5f));
+        return new Vector2(Mathf.FloorToInt(position.x / tileSize.x + .5f), Mathf.FloorToInt(position.z / tileSize.z + .5f));
     }
 
     private void RandomizeInitState() {
@@ -232,7 +251,7 @@ public class TerrainController : MonoBehaviour {
 
     public void DestroyTerrain() {
         //water.parent = null;
-        playerTransform.parent = null;
+        //playerContainer.parent = null;
         foreach (Transform t in gameTransforms)
             t.parent = Level;
         Destroy(Level);

@@ -43,7 +43,7 @@ Shader "Custom/ForRenderMeshIndirect"
         // SRP batching compatibility for Clear Coat (Not used in Lit)
         [HideInInspector] _ClearCoatMask("_ClearCoatMask", Float) = 0.0
         [HideInInspector] _ClearCoatSmoothness("_ClearCoatSmoothness", Float) = 0.0
-
+         
         // Blending state
         _Surface("__surface", Float) = 0.0
         _Blend("__blend", Float) = 0.0
@@ -324,7 +324,7 @@ Shader "Custom/ForRenderMeshIndirect"
         }
 
         Pass
-        {
+        { 
             Name "DepthOnly"
             Tags
             {
@@ -336,7 +336,7 @@ Shader "Custom/ForRenderMeshIndirect"
             ZWrite On
             ColorMask R
             Cull[_Cull]
-
+             
             HLSLPROGRAM
             #pragma target 2.0
 

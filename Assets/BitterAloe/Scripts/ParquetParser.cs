@@ -1,9 +1,12 @@
+using Apache.Arrow;
 using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.Data.Analysis;
 using Parquet;
 using Parquet.Data;
 using Parquet.Schema;
 using Parquet.Serialization;
+using ProceduralToolkit;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -45,12 +48,14 @@ public class ParquetParser : MonoBehaviour
     public string fileName = "trctestimonies.parquet";
 
     private string filePath;
-    public DataFrame df = null;
+    public DataFrame df = new DataFrame();
     public DataFrame dfFiltered;
     public IList<Testimony> testimonies;
     public KDTree kdTree;
     public Vector2 plantMapCenterOffset = new(5f, 5f);
     public float plantMapSampleScale = 0.05f;
+
+    public bool parquetRead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -69,20 +74,23 @@ public class ParquetParser : MonoBehaviour
         Debug.Log("Detected platform: Android");
         filePath = await CopyParquetToPersistentPath(streamingFilePath);
 #endif
-        df = await ReadParquetIntoDataFrame(filePath);
-
-        // REMOVE ONCE PERFORMANCE ISSUES ARE FIXED
+        DataFrame tempDf = await ReadParquetIntoDataFrame(filePath);
+         
+        // REMOVE ONCE QUERY PERFORMANCE ISSUES ARE FIXED
         // ---------------------------------------------------------------------------------------
-        Vector2 min = await GetCoordinateBoundMin(new Vector2(-10, -10), plantMapSampleScale);
-        Vector2 max = await GetCoordinateBoundMax(new Vector2(10, 10), plantMapSampleScale);
-        df = await GetDataFrameWithinBounds(min, max);
+        tempDf = tempDf.Filter(tempDf["location"].ElementwiseEquals("Cape Town"));
+        //Vector2 min = await GetCoordinateBoundMin(new Vector2(-10, -10), plantMapSampleScale);
+        //Vector2 max = await GetCoordinateBoundMax(new Vector2(10, 10), plantMapSampleScale);
+        //tempDf = await GetDataFrameWithinBounds(tempDf, min, max);
         // ---------------------------------------------------------------------------------------
 
-        df = await AddIndexColumnToDataFrame(df);
+        df = await AddIndexColumnToDataFrame(tempDf);
         kdTree = await CreateKDTree(df);
+          
+        parquetRead = true;
         Debug.Log($"Parquet successfully read into DataFrame");
-    }
-    
+    } 
+     
 
     
 
@@ -236,7 +244,7 @@ public class ParquetParser : MonoBehaviour
     }
 
     // filters DataFrame by given bounds to determine which plants are on a chunk
-    public async UniTask<DataFrame> GetDataFrameWithinBounds(Vector2 min, Vector2 max)
+    public async UniTask<DataFrame> GetDataFrameWithinBounds(DataFrame df, Vector2 min, Vector2 max)
     {
         Debug.Log($"Creating chunk-specific DataFrame");
 
@@ -247,47 +255,22 @@ public class ParquetParser : MonoBehaviour
         }
 
         // TODO: There's gotta be a faster way to do this
-        DataFrame chunkDf = df;
+        DataFrame tileDf = df;
         await UniTask.RunOnThreadPool(() =>
-            { chunkDf = chunkDf[chunkDf["umap_x"].ElementwiseGreaterThan(min.x)]; });
+            { tileDf = tileDf.Filter(tileDf["umap_x"].ElementwiseGreaterThan(min.x)); });
         await UniTask.RunOnThreadPool(() =>
-            {  chunkDf = chunkDf[chunkDf["umap_x"].ElementwiseLessThan(max.x)]; });
+            { tileDf = tileDf.Filter(tileDf["umap_x"].ElementwiseLessThan(max.x)); });
         await UniTask.RunOnThreadPool(() =>
-            { chunkDf = chunkDf[chunkDf["umap_y"].ElementwiseGreaterThan(min.y)]; });
+            { tileDf = tileDf.Filter(tileDf["umap_y"].ElementwiseGreaterThan(min.y)); });
         await UniTask.RunOnThreadPool(() =>
-            { chunkDf = chunkDf[chunkDf["umap_y"].ElementwiseLessThan(max.y)]; });
+            { tileDf = tileDf.Filter(tileDf["umap_y"].ElementwiseLessThan(max.y)); });
 
         
 
 
         Debug.Log("Chunk-specific DataFrame created");
-        return chunkDf;
+        return tileDf;
     }
-
-    // converts coordinates from global to local relative to a given chunk
-    public async UniTask<NativeArray<Vector3>> ScaleCoordinateArray(Vector2 chunkIndex, NativeArray<Vector3> array, Vector2 min, Vector2 max, Vector3 chunkScale)
-    {
-        //Debug.Log("Converting NativeArray of coordinates to local terrain chunk space");
-        NativeArray<Vector3> newArray = new NativeArray<Vector3>(array.Length, Allocator.TempJob);
-
-        await UniTask.RunOnThreadPool(() =>
-        {
-            for (int i = 0; i < array.Length; i++)
-            {
-                // normalizes coordinates from 0 to 1
-                var xNorm = (array[i].x - min.x) / (max.x - min.x);
-                var zNorm = (array[i].z - min.y) / (max.y - min.y);
-                // scales up coordinates to match the size and position of the chunk
-                newArray[i] = new Vector3((xNorm - 0.5f + chunkIndex.x) * chunkScale.x, array[i].y, (zNorm - 0.5f + chunkIndex.y) * chunkScale.z);
-                //Debug.Log($"{newArray[i]}");
-            }
-        });
-        //Debug.Log($"NativeArray coordinates localized");
-        return newArray;
-    }
-
-
-
 
 
 

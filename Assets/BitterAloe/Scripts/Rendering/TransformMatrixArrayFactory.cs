@@ -10,6 +10,7 @@ using ZstdSharp.Unsafe;
 
 public static class TransformMatrixArrayFactory
 {
+    /*
     public static NativeArray<Matrix4x4> Create(int count, float3 maxPosition, float3 minPosition)
     {
         var transformMatrixArray = new NativeArray<Matrix4x4>(count, Allocator.TempJob);
@@ -25,7 +26,6 @@ public static class TransformMatrixArrayFactory
 
         return transformMatrixArray;
     }
-
     [BurstCompile]
     private struct InitializeMatrixJob : IJobParallelFor
     {
@@ -43,8 +43,8 @@ public static class TransformMatrixArrayFactory
             _transformMatrixArray[index] = Matrix4x4.TRS(new Vector3(x, y, z), Quaternion.Euler(random.NextFloat(0, 360), 0, 90), Vector3.one * random.NextFloat(0.9f, 1.1f));
         }
     }
-
-    public static async UniTask<NativeArray<Matrix4x4>> Create(NativeArray<Vector3> coordinates)
+    */
+    public static NativeArray<Matrix4x4> Create(NativeArray<Vector3> coordinates)
     {
         var transformMatrixArray = new NativeArray<Matrix4x4>(coordinates.Length, Allocator.TempJob);
         var job = new InitializeDataFrameMatrixJob
@@ -53,12 +53,9 @@ public static class TransformMatrixArrayFactory
             _coordinates = coordinates
         };
 
-        Debug.Log(coordinates.Length);
+        //Debug.Log(coordinates.Length);
         var jobHandle = job.Schedule(coordinates.Length, 64);
         jobHandle.Complete();
-
-        for (int i = 0; i < transformMatrixArray.Length; i++)
-            Debug.Log(transformMatrixArray[i]);
 
         return transformMatrixArray;
     }
@@ -71,7 +68,7 @@ public static class TransformMatrixArrayFactory
 
         public void Execute(int index)
         {
-            var random = new Unity.Mathematics.Random((uint)index + 1);
+            var random = new Unity.Mathematics.Random((uint)((_coordinates[index].x * _coordinates[index].z) * 100000));
             _transformMatrixArray[index] = Matrix4x4.TRS(_coordinates[index], Quaternion.Euler(-90, random.NextFloat(0,360), 0), Vector3.one /** random.NextFloat(0.9f, 1.1f)*/);
         }
     }

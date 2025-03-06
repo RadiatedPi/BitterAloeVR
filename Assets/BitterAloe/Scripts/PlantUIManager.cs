@@ -32,7 +32,7 @@ public class PlantUIManager : MonoBehaviour
         public string location = "";
         public string date = "";
     }
-
+   
     public async UniTaskVoid SpawnPlantUI(Vector3 coordinates)
     {
         transform.position = coordinates + new Vector3(0, 1, 0);
@@ -40,9 +40,11 @@ public class PlantUIManager : MonoBehaviour
 
     public async UniTaskVoid GetTranscript(int plantIndex)
     {
-        selectedPlant = parquetParser.df.Rows[plantIndex];
+        //selectedPlant = parquetParser.df.Rows[plantIndex];
+        //Debug.Log($"df length: {parquetParser.df["file_num"].Length}");
+        //Debug.Log($"plantIndex: {plantIndex}");
         int fileNum = Convert.ToInt32(parquetParser.df["file_num"][plantIndex]);
-        //Debug.Log("filenum: " + fileNum);
+        Debug.Log("filenum: " + fileNum);
         Transcript transcript = new Transcript();
 
         transcript.fileURL = (string)parquetParser.df["saha_page"][plantIndex];

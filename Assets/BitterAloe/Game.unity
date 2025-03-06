@@ -14,12 +14,12 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
+  m_Fog: 1
+  m_FogColor: {r: 0.7882353, g: 0.5743089, b: 0.41568628, a: 1}
+  m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 300
+  m_LinearFogStart: 50
+  m_LinearFogEnd: 90
   m_AmbientSkyColor: {r: 0.1470273, g: 0.19461787, b: 0.3515327, a: 1}
   m_AmbientEquatorColor: {r: 0.228, g: 0.25, b: 0.266, a: 1}
   m_AmbientGroundColor: {r: 0.4188679, g: 0.22778839, b: 0.10353149, a: 1}
@@ -2846,6 +2846,7 @@ MonoBehaviour:
   fileName: trctestimonies.parquet
   plantMapCenterOffset: {x: 5, y: 5}
   plantMapSampleScale: 0.05
+  parquetRead: 0
 --- !u!1 &443542933
 GameObject:
   m_ObjectHideFlags: 0
@@ -3900,12 +3901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d83a2d29c34222b4289e5fbe03fcc6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parq: {fileID: 0}
-  tc: {fileID: 0}
-  gm: {fileID: 0}
-  chunkIndex: {x: 0, y: 0}
-  chunkScale: {x: 0, y: 0, z: 0}
-  _count: 10
+  td: {fileID: 0}
   _mesh: {fileID: -2191619054911159353, guid: 09d7279bb28444742aa779a6ed7d1e53, type: 3}
   _material: {fileID: 2100000, guid: fa4641efdcc6aa441a3d36c714e5240b, type: 2}
   _shadowCastingMode: 1
@@ -7061,6 +7057,11 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2397425259038431700, guid: fa5ef3b56cfeb4f4ba855cdf2610a578, type: 3}
   m_PrefabInstance: {fileID: 962419017}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &968205508 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7942002212320107157, guid: a5226a72c9553294abfe172a458b5805, type: 3}
+  m_PrefabInstance: {fileID: 1515036744}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &974182754
 GameObject:
@@ -22759,7 +22760,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7942002210973373747, guid: a5226a72c9553294abfe172a458b5805, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.13
+      value: 9.1
       objectReference: {fileID: 0}
     - target: {fileID: 7942002210973373747, guid: a5226a72c9553294abfe172a458b5805, type: 3}
       propertyPath: m_LocalPosition.z
@@ -23008,9 +23009,12 @@ PrefabInstance:
       insertIndex: 6
       addedObject: {fileID: 1821069692}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7942002210973373748, guid: a5226a72c9553294abfe172a458b5805, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 7942002212320107157, guid: a5226a72c9553294abfe172a458b5805, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1988096336}
+      addedObject: {fileID: 1837141638}
+    - targetCorrespondingSourceObject: {fileID: 7942002212320107157, guid: a5226a72c9553294abfe172a458b5805, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1837141639}
     - targetCorrespondingSourceObject: {fileID: 7942002211881670213, guid: a5226a72c9553294abfe172a458b5805, type: 3}
       insertIndex: -1
       addedObject: {fileID: 278361041}
@@ -24543,15 +24547,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cfd1d6d3c592fd42aeca762bb41a0b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parquetParser: {fileID: 443207839}
-  terrainTilePrefab: {fileID: 1458032746511054, guid: c7e0a26319bad724cb97fc7a3e11565e, type: 3}
+  terrainTilePrefab: {fileID: 1458032746511054, guid: 91e31214ea7fa1c47be1cb6cd78c5c53, type: 3}
+  plantMesh: {fileID: -2191619054911159353, guid: a4c235f409299624796676d2e3bed6da, type: 3}
   material: {fileID: 2100000, guid: fa4641efdcc6aa441a3d36c714e5240b, type: 2}
-  tileResolution: {x: 32, y: 8, z: 32}
+  tileSize: {x: 32, y: 8, z: 32}
   noiseScale: 1
   cellSize: 4
   radiusToRender: 2
   gameTransforms: []
   playerTransform: {fileID: 1837141637}
+  playerContainer: {fileID: 1988096337}
   seed: 0
   placeableObjects: []
   placeableObjectSizes: []
@@ -26200,6 +26205,42 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7942002212320107156, guid: a5226a72c9553294abfe172a458b5805, type: 3}
   m_PrefabInstance: {fileID: 1515036744}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1837141638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968205508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54d47a94426f12429255fd494d3b6b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainController: {fileID: 1636357914}
+--- !u!1773428102 &1837141639
+ParentConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968205508}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Weight: 1
+  m_TranslationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_TranslationOffsets: []
+  m_RotationOffsets: []
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_AffectRotationX: 1
+  m_AffectRotationY: 1
+  m_AffectRotationZ: 1
+  m_Active: 0
+  m_IsLocked: 0
+  m_Sources: []
 --- !u!1001 &1862692885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27155,25 +27196,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1968504340}
   m_CullTransparentMesh: 1
---- !u!1 &1988096332 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7942002210973373748, guid: a5226a72c9553294abfe172a458b5805, type: 3}
+--- !u!4 &1988096337 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7942002210973373747, guid: a5226a72c9553294abfe172a458b5805, type: 3}
   m_PrefabInstance: {fileID: 1515036744}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1988096336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1988096332}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54d47a94426f12429255fd494d3b6b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  terrainController: {fileID: 1636357914}
-  distance: 10
 --- !u!1 &2015106486
 GameObject:
   m_ObjectHideFlags: 0
@@ -27936,6 +27963,52 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2179057468902719979, guid: 41d89b59fe3e9964a83686ff24b7d0c5, type: 3}
   m_PrefabInstance: {fileID: 2081677411}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2131473714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2131473716}
+  - component: {fileID: 2131473715}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2131473715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131473714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca29f8e1831211e4ba478d7d0c3b4465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 2c0d9accd7e7df84c93f104a9fdab445, type: 2}
+  mesh: {fileID: -2191619054911159353, guid: a4c235f409299624796676d2e3bed6da, type: 3}
+--- !u!4 &2131473716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131473714}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.608701, y: -3.1, z: -133.29689}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2134526062
 GameObject:
   m_ObjectHideFlags: 0
@@ -29146,6 +29219,7 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1391889478}
   - {fileID: 299639869}
   - {fileID: 1636357915}
   - {fileID: 1506039317}
@@ -29155,4 +29229,4 @@ SceneRoots:
   - {fileID: 1093589334}
   - {fileID: 1779925844}
   - {fileID: 1515036744}
-  - {fileID: 1391889478}
+  - {fileID: 2131473716}
