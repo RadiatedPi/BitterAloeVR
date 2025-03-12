@@ -213,6 +213,8 @@ public class TerrainController : MonoBehaviour {
         plantRenderer.td = terrain.GetComponent<TileData>();
         plantRenderer._mesh = plantMesh;
         plantRenderer._material = new Material(material);
+        plantRenderer._shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.TwoSided;
+        plantRenderer._receiveShadows = true;
 
         await plantRenderer.StartRender();
         return terrain;

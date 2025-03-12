@@ -21,8 +21,8 @@ public class SampleRenderMeshIndirect : MonoBehaviour
     //[SerializeField] private int _count;
     public Mesh _mesh;
     public Material _material;
-    [SerializeField] private ShadowCastingMode _shadowCastingMode;
-    [SerializeField] private bool _receiveShadows;
+    public ShadowCastingMode _shadowCastingMode;
+    public bool _receiveShadows;
 
     private GraphicsBuffer _drawArgsBuffer;
     private GraphicsBuffer _dataBuffer;

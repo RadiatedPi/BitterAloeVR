@@ -98,16 +98,19 @@ public class TileData : MonoBehaviour
     {
         var chunkPlantIndex = kdTree.FindNearest(coordinates);
         var datasetIndex = df.Rows[chunkPlantIndex]["index"];
-        return df.Rows[chunkPlantIndex];
+        return df.Rows[chunkPlantIndex]; 
     }
 
 
     private async UniTask<NativeArray<Vector3>> GetPlantHeights(NativeArray<Vector3> coordinateArray)
     {
-        for (int i = 0; i < coordinateArray.Length; i++)
+        for (int i = 0; i < coordinateArray.Length; i++) 
         {
-            float noiseX = coordinateArray[i].x / gr.tc.tileSize.x + 0.5f + gr.tc.startOffset.x;
-            float noiseZ = coordinateArray[i].z / gr.tc.tileSize.z + 0.5f + gr.tc.startOffset.y;
+            // adjusts for offset caused by the temporary terrain tile border quads generated to calculate normals
+            float quadLength = gr.tc.tileSize.x / Mathf.FloorToInt(gr.tc.tileSize.x / gr.tc.cellSize);
+            // +0.5f to compensate for terrain tile origins being at center
+            float noiseX = (coordinateArray[i].x + quadLength) / gr.tc.tileSize.x + 0.5f  + gr.tc.startOffset.x;
+            float noiseZ = (coordinateArray[i].z + quadLength) / gr.tc.tileSize.z + 0.5f + gr.tc.startOffset.y;
 
             noiseX = (noiseX) % gr.tc.noiseRange.x;
             noiseZ = (noiseZ) % gr.tc.noiseRange.y;

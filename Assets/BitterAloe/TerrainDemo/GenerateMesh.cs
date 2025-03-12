@@ -4,6 +4,9 @@ using ProceduralToolkit;
 using System;
 using UnityEngine.Rendering;
 using ZstdSharp.Unsafe;
+using Unity.Android.Gradle.Manifest;
+using System.Linq;
+using static UnityEngine.Rendering.HableCurve;
 
 [RequireComponent(typeof(MeshFilter))]
 public class GenerateMesh : MonoBehaviour
@@ -12,7 +15,9 @@ public class GenerateMesh : MonoBehaviour
     private MeshFilter meshFilter;
     private MeshFilter childMeshFilter;
 
+    // physical size of terrain
     public Vector3 TerrainSize { get; set; }
+    // physical size of the terrain mesh's quads
     public float CellSize { get; set; }
     public float NoiseScale { get; set; }
 
@@ -32,8 +37,8 @@ public class GenerateMesh : MonoBehaviour
         draft.Move(Vector3.left * TerrainSize.x / 2 + Vector3.back * TerrainSize.z / 2);
         meshFilter.mesh = draft.ToMesh();
         //meshFilter.mesh = WeldVertices(draft.ToMesh());
-        meshFilter.mesh.normals = CalculateNormals(meshFilter.mesh);
-        
+        //meshFilter.mesh.normals = CalculateNormals(meshFilter.mesh);
+
         childMeshFilter.mesh = meshFilter.mesh;
 
         MeshCollider meshCollider = GetComponent<MeshCollider>();
@@ -47,74 +52,446 @@ public class GenerateMesh : MonoBehaviour
 
     private MeshDraft SmoothTerrainDraft(Vector3 terrainSize, float cellSize, Vector2 noiseOffset, float noiseScale)
     {
-        int xSegments = Mathf.FloorToInt(terrainSize.x / cellSize);
-        int zSegments = Mathf.FloorToInt(terrainSize.z / cellSize);
+        // how many quads fit into a terrain tile on one axis
+        int meshQuads = Mathf.FloorToInt(terrainSize.x / cellSize);
+        int borderedQuads = meshQuads + 2;
+        // count of vertices across tile edge
+        int meshSize = meshQuads + 1;
+        int borderedSize = borderedQuads + 1;
 
-        float xStep = terrainSize.x / xSegments;
-        float zStep = terrainSize.z / zSegments;
+        // physical distance between vertices
+        float xStep = terrainSize.x / meshQuads;
+        float zStep = terrainSize.z / meshQuads;
 
-        int vertexCount = (xSegments + 1) * (zSegments + 1);
-        int triangleCount = 6 * xSegments * zSegments;
+        int vertexCount = meshSize * meshSize;
+        int triangleCount = 6 * meshQuads * meshQuads;
+
+        int vertexCountBordered = borderedSize * borderedSize;
+        int triangleCountBordered = 6 * borderedQuads * borderedQuads;
 
         MeshDraft draft = new MeshDraft
         {
             name = "Terrain",
-            vertices = new List<Vector3>(vertexCount),
-            triangles = new List<int>(triangleCount),
-            uv = new List<Vector2>(vertexCount),
-            normals = new List<Vector3>(triangleCount)
+            vertices = new List<Vector3>(vertexCountBordered),
+            triangles = new List<int>(triangleCountBordered),
+            normals = new List<Vector3>(vertexCountBordered),
+            uv = new List<Vector2>(vertexCount)
         };
 
-        for (int i = 0; i < vertexCount; i++)
+        for (int i = 0; i < vertexCountBordered; i++)
         {
             draft.vertices.Add(Vector3.zero);
-            draft.uv.Add(Vector2.zero);
-        }
-        for (int i = 0; i < triangleCount; i++)
-        {
-            draft.triangles.Add(0);
             draft.normals.Add(Vector3.zero);
         }
+        for (int i = 0; i < triangleCountBordered; i++)
+            draft.triangles.Add(0);
+        for (int i = 0; i < vertexCount; i++)
+            draft.uv.Add(Vector2.zero);
+
+        // vertex index map
+        int[,] vertexIndexMap = new int[borderedSize, borderedSize];
+
+        // height map
+        float[,] heightMap = new float[borderedSize, borderedSize];
 
 
-
-        for (int i = 0, z = 0; z <= xSegments; z++)
+        // populates height map and index map
+        for (int z = 0, meshVertexIndex = 0, borderVertexIndex = -1; z < borderedSize; z++)
         {
-            for (int x = 0; x <= zSegments; x++)
+            for (int x = 0; x < borderedSize; x++) 
             {
-                float y = GetHeight(x + 0, z + 0, xSegments, zSegments, noiseOffset, noiseScale);
-                draft.vertices[i] = new Vector3(x * xStep, y * terrainSize.y, z * zStep);
-                i++;
+                heightMap[x, z] = GetHeight(x, z, meshQuads, meshQuads, noiseOffset, noiseScale) * terrainSize.y;
+                if (z == 0 || z == borderedSize - 1 || x == 0 || x == borderedSize - 1)
+                {
+                    vertexIndexMap[x, z] = borderVertexIndex;
+                    borderVertexIndex--;
+                }
+                else
+                {
+                    vertexIndexMap[x, z] = meshVertexIndex;
+                    meshVertexIndex++;
+                }
+            }
+        }
+
+        // adds vertices to draft using height map and index map
+        for (int z = 0; z < borderedSize; z++)
+        {
+            for (int x = 0; x < borderedSize; x++)
+            {
+                Vector3 vertex = new Vector3((x - 1) * xStep, heightMap[x, z], (z - 1) * zStep);
+                int index = vertexIndexMap[x, z];
+
+                if (index >= 0)
+                    draft.vertices[index] = vertex;
+                else
+                    draft.vertices[draft.vertices.Count + index] = vertex;
+            }
+        }
+
+        // triangles
+        for (int z = 0, meshQuadIndex = 0, borderQuadIndex = -6; z < borderedQuads; z++)
+        {
+            for (int x = 0; x < borderedQuads; x++)
+            {
+                int vertexIndex00 = vertexIndexMap[x + 0, z + 0];
+                int vertexIndex01 = vertexIndexMap[x + 0, z + 1];
+                int vertexIndex10 = vertexIndexMap[x + 1, z + 0];
+                int vertexIndex11 = vertexIndexMap[x + 1, z + 1];
+
+                // if border quad
+                if (z == 0 || z == borderedQuads - 1 || x == 0 || x == borderedQuads - 1)
+                {
+                    // adjust negative indexes to correctly pull from the end of the vertex list
+                    Debug.Log($"vertex indices for quads: 00 = {vertexIndex00}, 01 = {vertexIndex01}, 10 = {vertexIndex10}, 11 = {vertexIndex11}");
+                    if (vertexIndex00 < 0)
+                        vertexIndex00 += draft.vertices.Count;
+                    if (vertexIndex01 < 0)
+                        vertexIndex01 += draft.vertices.Count;
+                    if (vertexIndex10 < 0)
+                        vertexIndex10 += draft.vertices.Count;
+                    if (vertexIndex11 < 0)
+                        vertexIndex11 += draft.vertices.Count;
+
+                    draft.triangles[draft.triangles.Count + borderQuadIndex + 0] = vertexIndex00;
+                    draft.triangles[draft.triangles.Count + borderQuadIndex + 1] = vertexIndex01;
+                    draft.triangles[draft.triangles.Count + borderQuadIndex + 2] = vertexIndex10;
+                    draft.triangles[draft.triangles.Count + borderQuadIndex + 3] = vertexIndex10;
+                    draft.triangles[draft.triangles.Count + borderQuadIndex + 4] = vertexIndex01;
+                    draft.triangles[draft.triangles.Count + borderQuadIndex + 5] = vertexIndex11;
+
+                    borderQuadIndex -= 6;
+                }
+                else
+                {
+                    draft.triangles[meshQuadIndex + 0] = vertexIndex00;
+                    draft.triangles[meshQuadIndex + 1] = vertexIndex01;
+                    draft.triangles[meshQuadIndex + 2] = vertexIndex10;
+                    draft.triangles[meshQuadIndex + 3] = vertexIndex10;
+                    draft.triangles[meshQuadIndex + 4] = vertexIndex01;
+                    draft.triangles[meshQuadIndex + 5] = vertexIndex11;
+
+                    meshQuadIndex += 6;
+                }
             }
         }
 
 
-        int vert = 0;
-        int tris = 0;
-        for (int z = 0; z < zSegments; z++)
+        List<Vector3> vertexNormals = new List<Vector3>(draft.normals.Count);
+        for (int z = 0, meshQuadIndex = 0, borderQuadIndex = -6; z < borderedQuads; z++)
         {
-            for (int x = 0; x < xSegments; x++)
+            for (int x = 0; x < borderedQuads; x++)
+            {
+                int vertexIndex00 = vertexIndexMap[x + 0, z + 0];
+                int vertexIndex01 = vertexIndexMap[x + 0, z + 1];
+                int vertexIndex10 = vertexIndexMap[x + 1, z + 0];
+                int vertexIndex11 = vertexIndexMap[x + 1, z + 1];
+                 
+                if (vertexIndex00 < 0)
+                    vertexIndex00 += draft.vertices.Count;
+                if (vertexIndex01 < 0)
+                    vertexIndex01 += draft.vertices.Count;
+                if (vertexIndex10 < 0)
+                    vertexIndex10 += draft.vertices.Count;
+                if (vertexIndex11 < 0)
+                    vertexIndex11 += draft.vertices.Count;
+
+                Vector3 triangleNormal = SurfaceNormalFromIndices(draft, vertexIndex00, vertexIndex01, vertexIndex10);
+                draft.normals[vertexIndex00] += triangleNormal;
+                draft.normals[vertexIndex01] += triangleNormal;
+                draft.normals[vertexIndex10] += triangleNormal;
+
+                triangleNormal = SurfaceNormalFromIndices(draft, vertexIndex10, vertexIndex01, vertexIndex11);
+                draft.normals[vertexIndex10] += triangleNormal;
+                draft.normals[vertexIndex01] += triangleNormal;
+                draft.normals[vertexIndex11] += triangleNormal;
+
+            }
+        }
+
+        for (int i = 0; i < vertexNormals.Count; i++)
+        {
+            draft.normals[i].Normalize();
+        }
+
+        
+        draft.vertices.RemoveRange(vertexCount, vertexCountBordered - vertexCount);
+        draft.triangles.RemoveRange(triangleCount, triangleCountBordered - triangleCount); 
+        draft.normals.RemoveRange(vertexCount, vertexCountBordered - vertexCount);
+        
+
+
+        /*
+        // vertices
+        List<Vector3> verticesBordered = new List<Vector3>(vertexCountBordered);
+        for (int i = 0; i < vertexCountBordered; i++)
+        {
+            verticesBordered.Add(Vector3.zero);
+        }
+        // primary vertices
+        for (int i = 0, z = 0; z <= meshQuads; z++)
+        {
+            for (int x = 0; x <= meshQuads; x++)
+            {
+                float y = GetHeight(x, z, meshQuads, meshQuads, noiseOffset, noiseScale);
+                Vector3 vertex = new Vector3(x * xStep, y * terrainSize.y, z * zStep);
+
+                draft.vertices[i] = vertex;
+                i++;
+            }
+        }
+        // extra vertices only used for normal calculation
+        for (int z = -1; z <= meshQuads + 1; z++) if (z < 0 || z > meshQuads)
+                for (int x = -1; x <= meshQuads + 1; x++) if (x < 0 || x > meshQuads)
+                    {
+                        float y = GetHeight(x, z, meshQuads, meshQuads, noiseOffset, noiseScale);
+                        Vector3 vertex = new Vector3(x * xStep, y * terrainSize.y, z * zStep);
+
+                        draft.vertices.Add(vertex);
+                    }
+
+        // triangles
+        List<int> trianglesBordered = new List<int>(triangleCountBordered);
+        for (int i = 0; i < triangleCountBordered; i++)
+        {
+            trianglesBordered.Add(0);
+        }
+        // primary triangles
+        for (int vert = 0, tris = 0, z = 0; z < meshQuads; z++)
+        {
+            for (int x = 0; x < meshQuads; x++)
             {
                 draft.triangles[tris + 0] = vert + 0;
-                draft.triangles[tris + 1] = vert + xSegments + 1;
+                draft.triangles[tris + 1] = vert + meshQuads + 1;
                 draft.triangles[tris + 2] = vert + 1;
                 draft.triangles[tris + 3] = vert + 1;
-                draft.triangles[tris + 4] = vert + xSegments + 1;
-                draft.triangles[tris + 5] = vert + xSegments + 2;
-
+                draft.triangles[tris + 4] = vert + meshQuads + 1;
+                draft.triangles[tris + 5] = vert + meshQuads + 2;
                 vert++;
                 tris += 6;
             }
             vert++;
         }
+        //  extra triangles only used for normal calculation
+        for (int vert = 0, tris = 0, z = 0; z < meshQuads; z++)
+        {
+            for (int x = 0; x < meshQuads; x++)
+            {
+                draft.triangles[tris + 0] = vert + 0;
+                draft.triangles[tris + 1] = vert + meshQuads + 1;
+                draft.triangles[tris + 2] = vert + 1;
+                draft.triangles[tris + 3] = vert + 1;
+                draft.triangles[tris + 4] = vert + meshQuads + 1;
+                draft.triangles[tris + 5] = vert + meshQuads + 2;
+                vert++;
+                tris += 6;
+            }
+            vert++;
+        }
+        */
 
 
+        /*
+        // vertices
+        List<Vector3> verticesBordered = new List<Vector3>(vertexCountBordered);
+        for (int i = 0; i < vertexCountBordered; i++)
+        {
+            verticesBordered.Add(Vector3.zero);
+        }
+        for (int i = 0, j = 0, z = -1; z <= xSegments + 1; z++)
+        {
+            for (int x = -1; x <= zSegments + 1; x++)
+            {
+                float y = GetHeight(x, z, xSegments, zSegments, noiseOffset, noiseScale);
+                Vector3 vertex = new Vector3(x * xStep, y * terrainSize.y, z * zStep);
+                verticesBordered[j] = vertex;
+                j++;
+
+                if ((x >= 0 && x <= xSegments) && (z >= 0 && z <= zSegments))
+                {
+                    draft.vertices[i] = vertex;
+                    i++;
+                }
+            }
+        }
+        */
+        /*
+        // triangles
+        List<int> trianglesBordered = new List<int>(triangleCountBordered);
+        for (int i = 0; i < triangleCountBordered; i++)
+        {
+            trianglesBordered.Add(0);
+        }
+
+        for (int vert = 0, vertBordered = 0, tris = 0, trisBordered = 0, z = -1; z < zSegments + 1; z++)
+        {
+            for (int x = -1; x < xSegments + 1; x++)
+            {
+                trianglesBordered[tris + 0] = vert + 0;
+                trianglesBordered[tris + 1] = vert + xSegments + 1;
+                trianglesBordered[tris + 2] = vert + 1;
+                trianglesBordered[tris + 3] = vert + 1;
+                trianglesBordered[tris + 4] = vert + xSegments + 1;
+                trianglesBordered[tris + 5] = vert + xSegments + 2;
+                vertBordered++;
+                trisBordered += 6;
+
+                if ((x >= 0 && x < xSegments) && (z >= 0 && z < zSegments))
+                {
+                    draft.triangles[tris + 0] = vert + 0;
+                    draft.triangles[tris + 1] = vert + xSegments + 1;
+                    draft.triangles[tris + 2] = vert + 1;
+                    draft.triangles[tris + 3] = vert + 1;
+                    draft.triangles[tris + 4] = vert + xSegments + 1;
+                    draft.triangles[tris + 5] = vert + xSegments + 2;
+                    vert++;
+                    tris += 6;
+                }
+            }
+            vertBordered++;
+
+            if (z >= 0 && z < zSegments)
+                vert++;
+        }
+        */
+
+
+        /*
+        // normals first pass
+        List<Vector3> normalsBordered = new List<Vector3>(vertexCountBordered);
+        for (int i = 0; i < vertexCountBordered; i++)
+        {
+            normalsBordered.Add(Vector3.zero);
+        }
+
+        for (int vertBordered = 0, trisBordered = 0, z = -1; z < zSegments + 1; z++)
+        {
+            for (int x = -1; x < xSegments + 1; x++)
+            {
+                int vertex00 = vertBordered + 0;
+                int vertex01 = vertBordered + xSegments + 1;
+                int vertex10 = vertBordered + 1;
+                int vertex11 = vertBordered + xSegments + 2;
+
+                Vector3 normal000111 = Vector3.Cross(
+                    verticesBordered[vertex01] - verticesBordered[vertex00],
+                    verticesBordered[vertex11] - verticesBordered[vertex00]
+                ).normalized;
+                Vector3 normal001011 = Vector3.Cross(
+                    verticesBordered[vertex11] - verticesBordered[vertex00],
+                    verticesBordered[vertex10] - verticesBordered[vertex00]
+                ).normalized;
+
+                normalsBordered[vertBordered + 0] += normal000111;
+                normalsBordered[vertBordered + 1] += normal000111;
+                normalsBordered[vertBordered + 2] += normal000111;
+                normalsBordered[vertBordered + 3] += normal001011;
+                normalsBordered[vertBordered + 4] += normal001011;
+                normalsBordered[vertBordered + 5] += normal001011;
+
+                vertBordered++;
+                trisBordered += 6;
+            }
+            vertBordered++;
+        }
+        
+        // normals second pass
+        for (int vert = 0, vertBordered = 0, tris = 0, trisBordered = 0, z = -1; z < zSegments + 1; z++)
+        {
+            for (int x = -1; x < xSegments + 1; x++)
+            {
+                normalsBordered[vertBordered + 0] = normalsBordered[vertBordered + 0].normalized;
+                normalsBordered[vertBordered + 1] = normalsBordered[vertBordered + 1].normalized;
+                normalsBordered[vertBordered + 2] = normalsBordered[vertBordered + 2].normalized;
+                normalsBordered[vertBordered + 3] = normalsBordered[vertBordered + 3].normalized;
+                normalsBordered[vertBordered + 4] = normalsBordered[vertBordered + 4].normalized;
+                normalsBordered[vertBordered + 5] = normalsBordered[vertBordered + 5].normalized;
+
+                if ((x >= 0 && x < xSegments) && (z >= 0 && z < zSegments))
+                {
+                    draft.normals[vert + 0] = normalsBordered[vertBordered + 0];
+                    draft.normals[vert + 1] = normalsBordered[vertBordered + 1];
+                    draft.normals[vert + 2] = normalsBordered[vertBordered + 2];
+                    draft.normals[vert + 3] = normalsBordered[vertBordered + 3];
+                    draft.normals[vert + 4] = normalsBordered[vertBordered + 4];
+                    draft.normals[vert + 5] = normalsBordered[vertBordered + 5];
+                    vert++;
+                    tris += 6;
+                }
+                vertBordered++;
+                trisBordered += 6;
+            }
+            if (z >= 0 && z < zSegments)
+                vert++;
+
+            vertBordered++;
+        }
+        */
+
+        /*  
+            Use a single mesh*, and add all the STANDARD vertices for the non-bordered version
+            Add the "extra" vertices & triangles to the END of the standard lists
+            Calculate normals (should work with the exact same method)
+            Remove the "extra" vertices & triangles & normals before returning the mesh
+ 
+            *single mesh meaning you get to discard trianglesBordered and verticesBordered and heavily simplify the code
+        */
+
+
+
+
+        /*
+
+        var bNormals = GetNormals(trianglesBordered, verticesBordered);
+        var dNormals = new Vector3[draft.vertices.Count];
+        for (int i = 0; i < bNormals.Count; i++)
+        {
+            var bVert = verticesBordered[i];
+            if (!draft.vertices.Contains(bVert)) { continue; }
+
+            var dIdx = draft.vertices.IndexOf(bVert);
+            dNormals[dIdx] = normalsBordered[i];
+        }
+
+        draft.normals = dNormals.ToList();
+        */
+
+        // uvs
+        for (int i = 0, z = 0; z <= meshQuads; z++)
+        {
+            for (int x = 0; x <= meshQuads; x++)
+            {
+                draft.uv[i] = new Vector2((float)x / meshQuads, (float)z / meshQuads);
+                i++;
+            }
+        }
 
         return draft;
     }
 
+    List<Vector3> GetNormals(List<int> triangles, List<Vector3> vertices)
+    {
+        Vector3[] normals = new Vector3[vertices.Count];
 
+        for (int i = 0; i < triangles.Count; i += 3)
+        {
+            var (i0, i1, i2) = (triangles[i + 0], triangles[i + 1], triangles[i + 2]);
+            var (v0, v1, v2) = (vertices[i0], vertices[i1], vertices[i2]);
+            var (e1, e2) = (v1 - v0, v2 - v0);
 
+            var normal = Vector3.Cross(e1, e2).normalized;
+            normals[i0] += normal;
+            normals[i1] += normal;
+            normals[i2] += normal;
+        }
+
+        for (int i = 0; i < normals.Length; i++)
+        {
+            normals[i] = normals[i].normalized;
+        }
+
+        return normals.ToList();
+    }
 
     private MeshDraft TerrainDraft(Vector3 terrainSize, float cellSize, Vector2 noiseOffset, float noiseScale)
     {
@@ -206,92 +583,6 @@ public class GenerateMesh : MonoBehaviour
         return draft;
     }
 
-    //int meshSimplificationIncrement = (levelOfDetail == 0) ? 1 : levelOfDetail * 2;
-
-    //int borderedSize = Mathf.FloorToInt(terrainSize.x / cellSize); ;
-    //int meshSize = borderedSize - 2 * meshSimplificationIncrement;
-    //int meshSizeUnsimplified = borderedSize - 2;
-
-    //float topLeftX = (meshSizeUnsimplified - 1) / -2f;
-    //float topLeftZ = (meshSizeUnsimplified - 1) / 2f;
-
-
-    //int verticesPerLine = (meshSize - 1) / meshSimplificationIncrement + 1;
-
-    ////MeshData meshData = new MeshData(verticesPerLine);
-
-    //MeshDraft meshData = new MeshDraft
-    //{
-    //    name = "Terrain",
-    //    vertices = new List<Vector3>(verticesPerLine * verticesPerLine),
-    //    uv = new List<Vector2>(verticesPerLine * verticesPerLine),
-    //    triangles = new List<int>((verticesPerLine - 1) * (verticesPerLine - 1) * 6),
-    //    normals = new List<Vector3>(verticesPerLine),
-
-    //    borderVertices = new List<Vector3>(verticesPerLine*4 + 4),
-    //    borderTriangles = new List<int>(24 * verticesPerLine)          
-    //};
-
-    //int[,] vertexIndicesMap = new int[borderedSize, borderedSize];
-    //int meshVertexIndex = 0;
-    //int borderVertexIndex = -1;
-
-    //for (int y = 0; y < borderedSize; y += meshSimplificationIncrement)
-    //{
-    //    for (int x = 0; x < borderedSize; x += meshSimplificationIncrement)
-    //    {
-    //        bool isBorderVertex = y == 0 || y == borderedSize - 1 || x == 0 || x == borderedSize - 1;
-
-    //        if (isBorderVertex)
-    //        {
-    //            vertexIndicesMap[x, y] = borderVertexIndex;
-    //            borderVertexIndex--;
-    //        }
-    //        else
-    //        {
-    //            vertexIndicesMap[x, y] = meshVertexIndex;
-    //            meshVertexIndex++;
-    //        }
-    //    }
-    //}
-
-    //for (int y = 0; y < borderedSize; y += meshSimplificationIncrement)
-    //{
-    //    for (int x = 0; x < borderedSize; x += meshSimplificationIncrement)
-    //    {
-    //        int vertexIndex = vertexIndicesMap[x, y];
-    //        Vector2 percent = new Vector2((x - meshSimplificationIncrement) / (float)meshSize, (y - meshSimplificationIncrement) / (float)meshSize);
-    //        //float height = heightCurve.Evaluate(heightMap[x, y]) * heightMultiplier;
-    //        float height = GetHeight(x,y,borderedSize,noiseOffset,noiseScale);
-    //        Vector3 vertexPosition = new Vector3(topLeftX + percent.x * meshSizeUnsimplified, height, topLeftZ - percent.y * meshSizeUnsimplified);
-
-    //        //meshData.AddVertex(vertexPosition, percent, vertexIndex);
-    //        if (vertexIndex < 0)
-    //        {
-    //            meshData.borderVertices[-vertexIndex - 1] = vertexPosition;
-    //        }
-    //        else
-    //        {
-    //            meshData.vertices[vertexIndex] = vertexPosition;
-    //            meshData.uv[vertexIndex] = percent;
-    //        }
-
-
-    //        if (x < borderedSize - 1 && y < borderedSize - 1)
-    //        {
-    //            int a = vertexIndicesMap[x, y];
-    //            int b = vertexIndicesMap[x + meshSimplificationIncrement, y];
-    //            int c = vertexIndicesMap[x, y + meshSimplificationIncrement];
-    //            int d = vertexIndicesMap[x + meshSimplificationIncrement, y + meshSimplificationIncrement];
-    //            meshData = AddTriangle(meshData, a, d, c);
-    //            meshData = AddTriangle(meshData, d, a, b);
-    //        }
-
-    //        vertexIndex++;
-    //    }
-    //}
-
-    //return meshData;
 
     // https://discussions.unity.com/t/welding-vertices-at-runtime/191731
     public static Mesh WeldVertices(Mesh aMesh, float aMaxDelta = 0.01f)
@@ -354,24 +645,24 @@ public class GenerateMesh : MonoBehaviour
     }
 
     // https://www.youtube.com/watch?v=NpeYTcS7n-M&list=PLFt_AvWsXl0eBW2EiBtl_sxmDtSgZBxB3&index=12
-    private Vector3[] CalculateNormals(Mesh mesh)
+    private List<Vector3> CalculateNormals(MeshDraft draft)
     {
-        Vector3[] vertexNormals = new Vector3[mesh.vertices.Length];
-        int triangleCount = mesh.triangles.Length / 3;
-        for (int i = 0; i < triangleCount; i++)
-        {
+        List<Vector3> vertexNormals = new List<Vector3>(draft.normals.Count);
+        int triangles = draft.triangles.Count / 3;
+        for (int i = 0; i < triangles; i++)
+        { 
             int normalTriangleIndex = i * 3;
-            int vertexIndexA = mesh.triangles[normalTriangleIndex];
-            int vertexIndexB = mesh.triangles[normalTriangleIndex + 1];
-            int vertexIndexC = mesh.triangles[normalTriangleIndex + 2];
+            int vertexIndexA = draft.triangles[normalTriangleIndex];
+            int vertexIndexB = draft.triangles[normalTriangleIndex + 1];
+            int vertexIndexC = draft.triangles[normalTriangleIndex + 2];
 
-            Vector3 triangleNormal = SurfaceNormalFromIndices(mesh, vertexIndexA, vertexIndexB, vertexIndexC);
+            Vector3 triangleNormal = SurfaceNormalFromIndices(draft, vertexIndexA, vertexIndexB, vertexIndexC);
             vertexNormals[vertexIndexA] += triangleNormal;
             vertexNormals[vertexIndexB] += triangleNormal;
             vertexNormals[vertexIndexC] += triangleNormal;
         }
 
-        for (int i = 0; i < vertexNormals.Length; i++)
+        for (int i = 0; i < vertexNormals.Count; i++)
         {
             vertexNormals[i].Normalize();
         }
@@ -379,11 +670,11 @@ public class GenerateMesh : MonoBehaviour
         return vertexNormals;
     }
 
-    Vector3 SurfaceNormalFromIndices(Mesh mesh, int indexA, int indexB, int indexC)
+    Vector3 SurfaceNormalFromIndices(MeshDraft draft, int indexA, int indexB, int indexC) 
     {
-        Vector3 pointA = mesh.vertices[indexA];
-        Vector3 pointB = mesh.vertices[indexB];
-        Vector3 pointC = mesh.vertices[indexC];
+        Vector3 pointA = draft.vertices[indexA];
+        Vector3 pointB = draft.vertices[indexB];
+        Vector3 pointC = draft.vertices[indexC];
 
         Vector3 sideAB = pointB - pointA;
         Vector3 sideAC = pointC - pointA;
