@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 7d0fcaf5ff5f01e4e82a6fdf01ff075c
+timeCreated: 1498406130
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 266407
+  packageName: Flora-Form
+  packageVersion: 1.0
+  assetPath: Assets/Flora-Form/Vegetation/Pine_002_M2.prefab
+  uploadId: 629321

@@ -73,7 +73,7 @@ Material:
     - _UVScale: 1
     - _value: 1
     m_Colors:
-    - _Color: {r: 0.687, g: 0.58666676, b: 0.523494, a: 1}
+    - _Color: {r: 0.556, g: 0.5014393, b: 0.3871215, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &8522703171423614569

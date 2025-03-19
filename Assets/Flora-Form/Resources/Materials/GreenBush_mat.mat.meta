@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 586b24ea1f7103e48a71d060f2b73e12
+timeCreated: 1496692502
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 266407
+  packageName: Flora-Form
+  packageVersion: 1.0
+  assetPath: Assets/Flora-Form/Resources/Materials/GreenBush_mat.mat
+  uploadId: 629321

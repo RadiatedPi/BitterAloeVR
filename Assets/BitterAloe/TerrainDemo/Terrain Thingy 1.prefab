@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4892055546076036}
   - component: {fileID: -3099082870470619975}
+  - component: {fileID: 7531332740119886046}
   - component: {fileID: 8460044801486818315}
   - component: {fileID: 33828089937414050}
   - component: {fileID: 23455885283343956}
   - component: {fileID: 64511578900453130}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Terrain Thingy 1
   m_TagString: Terrain
   m_Icon: {fileID: 0}
@@ -51,6 +52,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileIndex: {x: 0, y: 0}
+--- !u!114 &7531332740119886046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458032746511054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68258d7c47aef6249b9fe313cec628fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8460044801486818315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,10 +92,10 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458032746511054}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 2
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -94,7 +107,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1ead351ddfd53f647b8cfc5dce1078e2, type: 2}
+  - {fileID: 2100000, guid: 278a7c360b22fde49b64c47e4dc175f7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -102,7 +115,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
+  m_ReceiveGI: 2
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -132,7 +145,7 @@ MeshCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
@@ -155,7 +168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1467825551367647663
 Transform:
   m_ObjectHideFlags: 0

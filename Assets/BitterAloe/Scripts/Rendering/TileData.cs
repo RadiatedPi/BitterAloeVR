@@ -86,7 +86,7 @@ public class TileData : MonoBehaviour
                     globalCoordinates[i].x - (tileIndex.x * tileSize.x),
                     globalCoordinates[i].y,
                     globalCoordinates[i].z - (tileIndex.y * tileSize.z));
-                Debug.Log($"global: {globalCoordinates[i]}, local: {localCoordinates[i]}");
+                //Debug.Log($"global: {globalCoordinates[i]}, local: {localCoordinates[i]}");
             }
         });
         return localCoordinates;

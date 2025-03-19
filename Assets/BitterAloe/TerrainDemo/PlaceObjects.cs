@@ -1,38 +1,91 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using Palmmedia.ReportGenerator.Core;
+using Parquet.Schema;
+using Unity.XR.CoreUtils;
+using UnityEngine;
 
 [RequireComponent(typeof(GenerateMesh))]
-public class PlaceObjects : MonoBehaviour {
+public class PlaceObjects : MonoBehaviour
+{
 
     public TerrainController TerrainController { get; set; }
 
-    public void Place() {
-        // TODO: get plants in terrain chunk
+    //public void Place() {
+    //    Debug.Log($"Placing objects...");
 
-        // TODO: replace with amount of plants in terrain chunk
-        int numObjects = Random.Range(TerrainController.MinObjectsPerTile, TerrainController.MaxObjectsPerTile);
-        for (int i = 0; i < numObjects; i++) {
-            // TODO: replace with single plant mesh
-            int prefabType = Random.Range(0, TerrainController.PlaceableObjects.Length);
-            // TODO: replace with plant coordinates
-            Vector3 startPoint = RandomPointAboveTerrain();
+    //    int numObjects = Random.Range(TerrainController.MinObjectsPerTile, TerrainController.MaxObjectsPerTile);
+    //    for (int i = 0; i < numObjects; i++) {
+    //        int prefabType = Random.Range(0, TerrainController.PlaceableObjects.Length);
+    //        Vector3 startPoint = RandomPointAboveTerrain();
 
-            RaycastHit hit;
-            if (Physics.Raycast(startPoint, Vector3.down, out hit) && /*hit.point.y > TerrainController.Water.transform.position.y &&*/ hit.collider.CompareTag("Terrain")) {
-                Quaternion orientation = Quaternion.Euler(Vector3.up * Random.Range(0f, 360f));
-                RaycastHit boxHit;
-                if (Physics.BoxCast(startPoint, TerrainController.PlaceableObjectSizes[prefabType], Vector3.down, out boxHit, orientation) && boxHit.collider.CompareTag("Terrain")) {
-                    Instantiate(TerrainController.PlaceableObjects[prefabType], new Vector3(startPoint.x, hit.point.y, startPoint.z), orientation, transform);
-                }
-                //Debug code. To use, uncomment the giant thingy below
-                //Debug.DrawRay(startPoint, Vector3.down * 10000, Color.blue);
-                //DrawBoxCastBox(startPoint, TerrainController.PlaceableObjectSizes[prefabType], orientation, Vector3.down, 10000, Color.red);
-                //UnityEditor.EditorApplication.isPaused = true;
-            }
+    //        RaycastHit hit;
+    //        if (Physics.Raycast(startPoint, Vector3.down, out hit, float.MaxValue, LayerMask.GetMask("Terrain")) /*&& hit.point.y > TerrainController.Water.transform.position.y && hit.collider.CompareTag("Terrain")*/) {
+    //            Debug.Log($"Terrain hit");
+    //            Quaternion orientation = Quaternion.FromToRotation(Vector3.up, hit.normal) * Quaternion.Euler(Vector3.up * Random.Range(0f, 360f));
+    //            RaycastHit boxHit;
+    //            if (Physics.BoxCast(startPoint, TerrainController.PlaceableObjectSizes[prefabType], Vector3.down, out boxHit, orientation, float.MaxValue, LayerMask.GetMask("Terrain")) /*&& boxHit.collider.CompareTag("Terrain")*/) {
+    //                Instantiate(TerrainController.PlaceableObjects[prefabType], new Vector3(startPoint.x, hit.point.y, startPoint.z), orientation, transform);
+    //            }
+    //            //Debug code. To use, uncomment the giant thingy below
+    //            //Debug.DrawRay(startPoint, Vector3.down * 10000, Color.blue);
+    //            //DrawBoxCastBox(startPoint, TerrainController.PlaceableObjectSizes[prefabType], orientation, Vector3.down, 10000, Color.red);
+    //            //UnityEditor.EditorApplication.isPaused = true;
+    //        }
 
+    //    }   
+    //}
+
+
+    public async UniTask<bool> Place(GameObject objectsPrefab) 
+    {
+        //Debug.Log($"Placing objects...");
+
+        int prefabNum = objectsPrefab.transform.childCount;
+
+        if (prefabNum < 1)
+        {
+            return false;
         }
+
+        for (int i = 0; i < prefabNum; i++)
+        {
+            Transform objectType = objectsPrefab.transform.GetChild(i);
+            PlaceObjectSettings placeSettings = objectType.GetComponent<PlaceObjectSettings>();
+
+            int numObjects = Random.Range(placeSettings.countPerTileRange.x, placeSettings.countPerTileRange.y);
+            await UniTask.RunOnThreadPool(async () =>
+            {
+                for (int j = 0; j < numObjects; j++)
+                {
+                    await UniTask.Yield();
+                    Vector3 startPoint = RandomPointAboveTerrain();
+
+                    RaycastHit hit;
+                    if (Physics.Raycast(startPoint, Vector3.down, out hit, float.MaxValue, LayerMask.GetMask("Terrain")))
+                    {
+                        Quaternion orientation = Quaternion.FromToRotation(Vector3.up, hit.normal) * Quaternion.Euler(Vector3.up * Random.Range(0f, 360f));
+                        RaycastHit boxHit;
+                        if (Physics.BoxCast(startPoint, Vector3.one, Vector3.down, out boxHit, orientation, float.MaxValue, LayerMask.GetMask("Terrain")))
+                        {
+                            Transform placedObject = Instantiate(objectType, new Vector3(startPoint.x, hit.point.y + placeSettings.heightOffset, startPoint.z), orientation, transform);
+                            placedObject.transform.localScale *= Random.Range(placeSettings.sizeRange.x, placeSettings.sizeRange.y);
+                        }
+                        //Debug code. To use, uncomment the giant thingy below 
+                        //Debug.DrawRay(startPoint, Vector3.down * 10000, Color.blue);
+                        //DrawBoxCastBox(startPoint, TerrainController.PlaceableObjectSizes[prefabType], orientation, Vector3.down, 10000, Color.red);
+                        //UnityEditor.EditorApplication.isPaused = true;
+                    }
+                }
+            });
+        }
+        return true;
     }
 
-    private Vector3 RandomPointAboveTerrain() {
+
+
+
+    private Vector3 RandomPointAboveTerrain()
+    {
         return new Vector3(
             Random.Range(transform.position.x - TerrainController.TerrainSize.x / 2, transform.position.x + TerrainController.TerrainSize.x / 2),
             transform.position.y + TerrainController.TerrainSize.y * 2,
@@ -41,16 +94,18 @@ public class PlaceObjects : MonoBehaviour {
     }
 
     //code to help visualize the boxcast
-    //source: https://answers.unity.com/questions/1156087/how-can-you-visualize-a-boxcast-boxcheck-etc.html
-    /*
-    //Draws just the box at where it is currently hitting.
-    public static void DrawBoxCastOnHit(Vector3 origin, Vector3 halfExtents, Quaternion orientation, Vector3 direction, float hitInfoDistance, Color color) {
+    //source: https://answers.unity.com/questions/1156087/how-can-you-visualize-a-boxcast-boxcheck-etc.html 
+
+    //Draws just the box at where it is currently hitting. 
+    public static void DrawBoxCastOnHit(Vector3 origin, Vector3 halfExtents, Quaternion orientation, Vector3 direction, float hitInfoDistance, Color color)
+    {
         origin = CastCenterOnCollision(origin, direction, hitInfoDistance);
         DrawBox(origin, halfExtents, orientation, color);
     }
 
     //Draws the full box from start of cast to its end distance. Can also pass in hitInfoDistance instead of full distance
-    public static void DrawBoxCastBox(Vector3 origin, Vector3 halfExtents, Quaternion orientation, Vector3 direction, float distance, Color color) {
+    public static void DrawBoxCastBox(Vector3 origin, Vector3 halfExtents, Quaternion orientation, Vector3 direction, float distance, Color color)
+    {
         direction.Normalize();
         Box bottomBox = new Box(origin, halfExtents, orientation);
         Box topBox = new Box(origin + (direction * distance), halfExtents, orientation);
@@ -68,10 +123,12 @@ public class PlaceObjects : MonoBehaviour {
         DrawBox(topBox, color);
     }
 
-    public static void DrawBox(Vector3 origin, Vector3 halfExtents, Quaternion orientation, Color color) {
+    public static void DrawBox(Vector3 origin, Vector3 halfExtents, Quaternion orientation, Color color)
+    {
         DrawBox(new Box(origin, halfExtents, orientation), color);
     }
-    public static void DrawBox(Box box, Color color) {
+    public static void DrawBox(Box box, Color color)
+    {
         Debug.DrawLine(box.frontTopLeft, box.frontTopRight, color);
         Debug.DrawLine(box.frontTopRight, box.frontBottomRight, color);
         Debug.DrawLine(box.frontBottomRight, box.frontBottomLeft, color);
@@ -88,7 +145,8 @@ public class PlaceObjects : MonoBehaviour {
         Debug.DrawLine(box.frontBottomLeft, box.backBottomLeft, color);
     }
 
-    public struct Box {
+    public struct Box
+    {
         public Vector3 localFrontTopLeft { get; private set; }
         public Vector3 localFrontTopRight { get; private set; }
         public Vector3 localFrontBottomLeft { get; private set; }
@@ -109,10 +167,12 @@ public class PlaceObjects : MonoBehaviour {
 
         public Vector3 origin { get; private set; }
 
-        public Box(Vector3 origin, Vector3 halfExtents, Quaternion orientation) : this(origin, halfExtents) {
+        public Box(Vector3 origin, Vector3 halfExtents, Quaternion orientation) : this(origin, halfExtents)
+        {
             Rotate(orientation);
         }
-        public Box(Vector3 origin, Vector3 halfExtents) {
+        public Box(Vector3 origin, Vector3 halfExtents)
+        {
             this.localFrontTopLeft = new Vector3(-halfExtents.x, halfExtents.y, -halfExtents.z);
             this.localFrontTopRight = new Vector3(halfExtents.x, halfExtents.y, -halfExtents.z);
             this.localFrontBottomLeft = new Vector3(-halfExtents.x, -halfExtents.y, -halfExtents.z);
@@ -122,7 +182,8 @@ public class PlaceObjects : MonoBehaviour {
         }
 
 
-        public void Rotate(Quaternion orientation) {
+        public void Rotate(Quaternion orientation)
+        {
             localFrontTopLeft = RotatePointAroundPivot(localFrontTopLeft, Vector3.zero, orientation);
             localFrontTopRight = RotatePointAroundPivot(localFrontTopRight, Vector3.zero, orientation);
             localFrontBottomLeft = RotatePointAroundPivot(localFrontBottomLeft, Vector3.zero, orientation);
@@ -131,13 +192,14 @@ public class PlaceObjects : MonoBehaviour {
     }
 
     //This should work for all cast types
-    static Vector3 CastCenterOnCollision(Vector3 origin, Vector3 direction, float hitInfoDistance) {
+    static Vector3 CastCenterOnCollision(Vector3 origin, Vector3 direction, float hitInfoDistance)
+    {
         return origin + (direction.normalized * hitInfoDistance);
     }
 
-    static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Quaternion rotation) {
+    static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Quaternion rotation)
+    {
         Vector3 direction = point - pivot;
         return pivot + rotation * direction;
     }
-    */
 }

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5860195563d0eee4a866361242d0d5d8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 266407
+  packageName: Flora-Form
+  packageVersion: 1.0
+  assetPath: Assets/Flora-Form/Graphic-Settings/UniversalRenderPipelineAsset.asset
+  uploadId: 629321

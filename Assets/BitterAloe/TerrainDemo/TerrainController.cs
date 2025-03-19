@@ -9,7 +9,8 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Animations;
 
-public class TerrainController : MonoBehaviour {
+public class TerrainController : MonoBehaviour
+{
     private GlobalReferences gr;
     [SerializeField]
     private GameObject terrainTilePrefab = null;
@@ -26,17 +27,27 @@ public class TerrainController : MonoBehaviour {
     [SerializeField]
     private Transform playerContainer;
     [SerializeField]
+    private GameObject playerLoadingBox;
+
+
+    [SerializeField]
     private int seed;
+
     [SerializeField]
-    private GameObject[] placeableObjects;
-    public GameObject[] PlaceableObjects { get { return placeableObjects; } }
+    private GameObject rockObjectsPrefab, plantObjectsPrefab;
+    public GameObject RockObjects { get { return rockObjectsPrefab; } }
+    public GameObject PlantObjects { get { return plantObjectsPrefab; } }
+
     [SerializeField]
-    private Vector3[] placeableObjectSizes;//the sizes of placeableObjects, in matching order
-    public Vector3[] PlaceableObjectSizes { get { return placeableObjectSizes; } }
+    private Vector2Int rocksPerTileRange = new Vector2Int(0, 20);
+    public int MinRocksPerTile { get { return rocksPerTileRange.x; } }
+    public int MaxRocksPerTile { get { return rocksPerTileRange.y; } }
     [SerializeField]
-    private int minObjectsPerTile = 0, maxObjectsPerTile = 20;
-    public int MinObjectsPerTile { get { return minObjectsPerTile; } }
-    public int MaxObjectsPerTile { get { return maxObjectsPerTile; } }
+    private Vector2Int plantsPerTileRange = new Vector2Int(0, 20);
+    public int MinPlantsPerTile { get { return plantsPerTileRange.x; } }
+    public int MaxPlantsPerTile { get { return plantsPerTileRange.y; } }
+
+
     [SerializeField]
     private float destroyDistance = 200;
     [SerializeField]
@@ -58,7 +69,8 @@ public class TerrainController : MonoBehaviour {
     DateTime startTime;
     float frameBudget = 0.01f; // max amount of time to do work per frame
 
-    private void Awake() {
+    private void Awake()
+    {
         if (noise)
             noisePixels = GetGrayScalePixels(noise);
         GenerateMesh.UsePerlinNoise = usePerlinNoise;
@@ -66,12 +78,14 @@ public class TerrainController : MonoBehaviour {
         startOffset = new Vector2(256, 256);
     }
 
-    private void Start() {
+    private void Start()
+    {
         startTime = DateTime.Now;
         InitialLoad();
     }
 
-    public void InitialLoad() {
+    public void InitialLoad()
+    {
         gr = GameObject.FindWithTag("Reference").GetComponent<GlobalReferences>();
 
         DestroyTerrain();
@@ -97,7 +111,8 @@ public class TerrainController : MonoBehaviour {
         RandomizeInitState();
     }
 
-    private void Update() {
+    private void Update()
+    {
         if (gr.parq.df != null)
             LoadTileLoop().Forget();
     }
@@ -129,6 +144,7 @@ public class TerrainController : MonoBehaviour {
                         await UniTask.Yield();
                     }
             }
+
             //deactivate old tiles
             foreach (GameObject g in previousTileObjects)
                 if (!tileObjects.Contains(g))
@@ -156,25 +172,34 @@ public class TerrainController : MonoBehaviour {
 
     //Helper methods below
 
-    private async UniTaskVoid ActivateOrCreateTile(int xIndex, int yIndex, List<GameObject> tileObjects) {
-        if (!terrainTiles.ContainsKey(new Vector2(xIndex, yIndex))) {
+    private async UniTaskVoid ActivateOrCreateTile(int xIndex, int yIndex, List<GameObject> tileObjects)
+    {
+        if (!terrainTiles.ContainsKey(new Vector2(xIndex, yIndex)))
+        {
             tileObjects.Add(await CreateTile(xIndex, yIndex));
-        } else {
+            if (tileObjects.Count >= (radiusToRender + 1) * (radiusToRender + 1))
+            {
+                playerLoadingBox.SetActive(false);
+            }
+        }
+        else
+        {
             GameObject t = terrainTiles[new Vector2(xIndex, yIndex)];
             tileObjects.Add(t);
             if (!t.activeSelf)
                 t.SetActive(true);
         }
     }
-     
-    private async UniTask<GameObject> CreateTile(int xIndex, int yIndex) {
+
+    private async UniTask<GameObject> CreateTile(int xIndex, int yIndex)
+    {
         GameObject terrain = Instantiate(
             terrainTilePrefab,
             new Vector3(tileSize.x * xIndex, 0, tileSize.z * yIndex),
             Quaternion.identity,
             Level
         );
-       
+
         //had to move outside of instantiate because it's a local position
         //terrain.transform.localPosition = new Vector3(tileResolution.x * xIndex, tileResolution.y, tileResolution.z * yIndex);
         terrain.name = TrimEnd(terrain.name, "(Clone)") + " [" + xIndex + " , " + yIndex + "]";
@@ -193,21 +218,14 @@ public class TerrainController : MonoBehaviour {
         gm.CellSize = cellSize;
         gm.NoiseOffset = NoiseOffset(xIndex, yIndex);
         gm.TileIndex = new Vector2(xIndex, yIndex);
-        gm.Generate(); 
+        gm.Generate();
 
-        /*
-        PlaceObjects po = gm.GetComponent<PlaceObjects>();
-        po.TerrainController = this;
-        po.Place();
-        */
+
+
 
 
         UnityEngine.Random.InitState((int)(seed + (long)xIndex * 100 + yIndex));//so it doesn't form a (noticable) pattern of similar tiles
         RandomizeInitState();
-
-        //GameObject plantRenderer = new GameObject("Indirect Mesh Renderer"); 
-        //plantRenderer.transform.position = terrain.transform.position;
-        //plantRenderer.transform.SetParent(terrain.transform);
 
         SampleRenderMeshIndirect plantRenderer = terrain.AddComponent<SampleRenderMeshIndirect>();
         plantRenderer.td = terrain.GetComponent<TileData>();
@@ -217,11 +235,19 @@ public class TerrainController : MonoBehaviour {
         plantRenderer._receiveShadows = true;
 
         await plantRenderer.StartRender();
+
+        PlaceObjects po = gm.GetComponent<PlaceObjects>();
+        po.TerrainController = this;
+        await po.Place(PlantObjects);
+        await po.Place(RockObjects);
+
+
         return terrain;
     }
-   
-   
-    public Vector2 NoiseOffset(int xIndex, int yIndex) {
+
+
+    public Vector2 NoiseOffset(int xIndex, int yIndex)
+    {
         Vector2 noiseOffset = new Vector2(
             (xIndex * noiseScale + startOffset.x) % noiseRange.x,
             (yIndex * noiseScale + startOffset.y) % noiseRange.y
@@ -234,15 +260,18 @@ public class TerrainController : MonoBehaviour {
         return noiseOffset;
     }
 
-    private Vector2 TileFromPosition(Vector3 position) {
+    private Vector2 TileFromPosition(Vector3 position)
+    {
         return new Vector2(Mathf.FloorToInt(position.x / tileSize.x + .5f), Mathf.FloorToInt(position.z / tileSize.z + .5f));
     }
 
-    private void RandomizeInitState() {
+    private void RandomizeInitState()
+    {
         UnityEngine.Random.InitState((int)System.DateTime.UtcNow.Ticks);//casting a long to an int "loops" it (like modulo)
     }
 
-    private bool HaveTilesChanged(List<Vector2> centerTiles) {
+    private bool HaveTilesChanged(List<Vector2> centerTiles)
+    {
         if (previousCenterTiles.Length != centerTiles.Count)
             return true;
         for (int i = 0; i < previousCenterTiles.Length; i++)
@@ -251,7 +280,8 @@ public class TerrainController : MonoBehaviour {
         return false;
     }
 
-    public void DestroyTerrain() {
+    public void DestroyTerrain()
+    {
         //water.parent = null;
         //playerContainer.parent = null;
         foreach (Transform t in gameTransforms)
@@ -260,13 +290,15 @@ public class TerrainController : MonoBehaviour {
         terrainTiles.Clear();
     }
 
-    private static string TrimEnd(string str, string end) {
+    private static string TrimEnd(string str, string end)
+    {
         if (str.EndsWith(end))
             return str.Substring(0, str.LastIndexOf(end));
         return str;
     }
 
-    public static float[][] GetGrayScalePixels(Texture2D texture2D) {
+    public static float[][] GetGrayScalePixels(Texture2D texture2D)
+    {
         List<float> grayscale = texture2D.GetPixels().Select(c => c.grayscale).ToList();
 
         List<List<float>> grayscale2d = new List<List<float>>();

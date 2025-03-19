@@ -1,0 +1,28 @@
+fileFormatVersion: 2
+guid: 7dd76ac03e815b44ba255d2eee2305c8
+labels:
+- cave
+- cliff
+- details
+- environment
+- flowers
+- grass
+- nature
+- rocks
+- rockyhills
+- tress
+- twigs
+- wood
+timeCreated: 1518199943
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: materials
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 282901
+  packageName: The Toby Foliage Engine / Light
+  packageVersion: 1.0.1b
+  assetPath: Assets/Toby Fredson/The Toby Foliage Engine/(TTFE)_Demo/Materials/Materials_Helpers/Helper.mat
+  uploadId: 710499

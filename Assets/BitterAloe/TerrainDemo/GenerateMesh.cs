@@ -143,7 +143,7 @@ public class GenerateMesh : MonoBehaviour
                 if (z == 0 || z == borderedQuads - 1 || x == 0 || x == borderedQuads - 1)
                 {
                     // adjust negative indexes to correctly pull from the end of the vertex list
-                    Debug.Log($"vertex indices for quads: 00 = {vertexIndex00}, 01 = {vertexIndex01}, 10 = {vertexIndex10}, 11 = {vertexIndex11}");
+                    //Debug.Log($"vertex indices for quads: 00 = {vertexIndex00}, 01 = {vertexIndex01}, 10 = {vertexIndex10}, 11 = {vertexIndex11}");
                     if (vertexIndex00 < 0)
                         vertexIndex00 += draft.vertices.Count;
                     if (vertexIndex01 < 0)

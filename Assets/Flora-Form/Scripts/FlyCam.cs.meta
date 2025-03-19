@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 2bd2ac7e0ebdf144cb6e922b37d9b2f0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 266407
+  packageName: Flora-Form
+  packageVersion: 1.0
+  assetPath: Assets/Flora-Form/Scripts/FlyCam.cs
+  uploadId: 629321

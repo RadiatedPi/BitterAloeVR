@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8d2601415e6dc48448928f4839a1e2fa
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 266407
+  packageName: Flora-Form
+  packageVersion: 1.0
+  assetPath: Assets/Flora-Form/Demo/Animations/ShowCase-Camera.controller
+  uploadId: 629321

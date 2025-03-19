@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 5d6ff95c0a11bf344bfb016666876f82
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 8574412962073106934
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 282901
+  packageName: The Toby Foliage Engine / Light
+  packageVersion: 1.0.1b
+  assetPath: Assets/Toby Fredson/The Toby Foliage Engine/(TTFE)_Demo/Terrains/Trerrain
+    Layers/TTFE-LightScene_Demo_Layers/TSLightDemo Layer_3.terrainlayer
+  uploadId: 710499
