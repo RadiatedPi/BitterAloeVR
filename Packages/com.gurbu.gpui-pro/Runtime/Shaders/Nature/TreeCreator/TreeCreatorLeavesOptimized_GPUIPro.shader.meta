@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 63e02e5709495c34d9957069f8f488fc
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Shaders/Nature/TreeCreator/TreeCreatorLeavesOptimized_GPUIPro.shader
+  uploadId: 733257

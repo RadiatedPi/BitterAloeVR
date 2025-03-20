@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 6f53b8cb323b0614c82237d5b033019f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _WindNoise: {fileID: 2800000, guid: b77f7b8226e9ef748a6e3a9c7a1b77f6, type: 3}
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 282901
+  packageName: The Toby Foliage Engine / Light
+  packageVersion: 1.0.1b
+  assetPath: Assets/Toby Fredson/The Toby Foliage Engine/(TTFE)_Core/Shaders/Default/(TTFE)
+    Tree Foliage.shader
+  uploadId: 710499

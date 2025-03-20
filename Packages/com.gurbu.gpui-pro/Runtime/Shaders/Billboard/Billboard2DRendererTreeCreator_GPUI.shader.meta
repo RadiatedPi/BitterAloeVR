@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 18baa3e75f0b97a45b5addf5b249c07c
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Shaders/Billboard/Billboard2DRendererTreeCreator_GPUI.shader
+  uploadId: 733257

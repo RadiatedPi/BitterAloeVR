@@ -115,11 +115,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportObject: {fileID: 0}
   additionalTeleports: []
+  onlyUseTeleportPoints: 0
+  preventCapsuleOverlap: 1
   aimer: {fileID: 8344767237475176937}
   aimerSmoothingSpeed: 7
   layer:
     serializedVersion: 2
-    m_Bits: 291
+    m_Bits: 1
   maxSurfaceAngle: 45
   distanceMultiplyer: 1
   curveStrength: 1
@@ -215,6 +217,7 @@ LineRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -429,6 +432,7 @@ SpriteRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -515,6 +519,7 @@ SpriteRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

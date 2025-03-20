@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: b481a9e03e8cfd4478ca2524065dcabd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro.prefab/Runtime/Scripts/Helpers/GPUIMaterialVariationInstance.cs
+  uploadId: 733257

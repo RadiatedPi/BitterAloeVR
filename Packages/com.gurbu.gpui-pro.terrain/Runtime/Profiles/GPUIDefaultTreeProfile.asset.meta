@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1bbed77ce41b4754ba49432af2b6e07b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro.terrain/Runtime/Profiles/GPUIDefaultTreeProfile.asset
+  uploadId: 733257

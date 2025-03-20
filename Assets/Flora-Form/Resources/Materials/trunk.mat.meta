@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: a5626a1996c22254b9d43ca08196f67e
+timeCreated: 1494274271
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 266407
+  packageName: Flora-Form
+  packageVersion: 1.0
+  assetPath: Assets/Flora-Form/Resources/Materials/trunk.mat
+  uploadId: 629321

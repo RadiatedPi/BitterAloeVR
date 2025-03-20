@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: eab574812e0c7164081c13eaac445d26
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro.terrain/Runtime/Scripts/DemoComponents/GPUITreeChopper.cs
+  uploadId: 733257

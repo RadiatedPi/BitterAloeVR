@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 6b3afe4a1611b0d4194f22080d26d732
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 266407
+  packageName: Flora-Form
+  packageVersion: 1.0
+  assetPath: Assets/Flora-Form/Resources/Shaders/LitSSS_Cutout/Unity_2020/Lit_SSS_Cutout(2020).shadergraph
+  uploadId: 629321

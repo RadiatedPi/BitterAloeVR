@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: d4ec01ec6986bda4fa583ad1f366ad64
+timeCreated: 1494428671
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 266407
+  packageName: Flora-Form
+  packageVersion: 1.0
+  assetPath: Assets/Flora-Form/Resources/Materials/branches_NoMirrorBackface.mat
+  uploadId: 629321

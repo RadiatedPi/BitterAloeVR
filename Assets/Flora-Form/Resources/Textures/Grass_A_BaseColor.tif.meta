@@ -1,0 +1,913 @@
+fileFormatVersion: 2
+guid: 412b937bd5aa5024183fef71e9cf1042
+AssetOrigin:
+  serializedVersion: 1
+  productId: 266407
+  packageName: Flora-Form
+  packageVersion: 1.0
+  assetPath: Assets/Flora-Form/Resources/Textures/Grass_A_BaseColor.tif
+  uploadId: 629321
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2006851517158290450
+    second: Grass_A_BaseColor_0
+  - first:
+      213: 5095740021182896582
+    second: Grass_A_BaseColor_1
+  - first:
+      213: 3421005797303307629
+    second: Grass_A_BaseColor_2
+  - first:
+      213: -817007303925891070
+    second: Grass_A_BaseColor_3
+  - first:
+      213: -5876238312469005518
+    second: Grass_A_BaseColor_4
+  - first:
+      213: 1949120341308359860
+    second: Grass_A_BaseColor_5
+  - first:
+      213: -5747666331740077602
+    second: Grass_A_BaseColor_6
+  - first:
+      213: -8857477879308232692
+    second: Grass_A_BaseColor_7
+  - first:
+      213: -2256036906465935190
+    second: Grass_A_BaseColor_8
+  - first:
+      213: -2454009746995348869
+    second: Grass_A_BaseColor_9
+  - first:
+      213: -8310317518444193090
+    second: Grass_A_BaseColor_10
+  - first:
+      213: -1648394635537052088
+    second: Grass_A_BaseColor_11
+  - first:
+      213: -643547857649440583
+    second: Grass_A_BaseColor_12
+  - first:
+      213: -3795298181012753155
+    second: Grass_A_BaseColor_13
+  - first:
+      213: 5009799206852900311
+    second: Grass_A_BaseColor_14
+  - first:
+      213: 7182583120650997359
+    second: Grass_A_BaseColor_15
+  - first:
+      213: 6382875474882370317
+    second: Grass_A_BaseColor_16
+  - first:
+      213: -7735935948545124900
+    second: Grass_A_BaseColor_17
+  - first:
+      213: 7296493963473527657
+    second: Grass_A_BaseColor_18
+  - first:
+      213: 7579147801915924653
+    second: Grass_A_BaseColor_19
+  - first:
+      213: 1049098821620383739
+    second: Grass_A_BaseColor_20
+  - first:
+      213: 566005357406868479
+    second: Grass_A_BaseColor_21
+  - first:
+      213: -22049465502523183
+    second: Grass_A_BaseColor_22
+  - first:
+      213: 7592059993351130054
+    second: Grass_A_BaseColor_23
+  - first:
+      213: 3381731862491729699
+    second: Grass_A_BaseColor_24
+  - first:
+      213: -2284965080661932413
+    second: Grass_A_BaseColor_25
+  - first:
+      213: -5247596703989563239
+    second: Grass_A_BaseColor_26
+  - first:
+      213: 6582172225927587343
+    second: Grass_A_BaseColor_27
+  - first:
+      213: -5041297575738208191
+    second: Grass_A_BaseColor_28
+  - first:
+      213: 69420903210348940
+    second: Grass_A_BaseColor_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 1
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 1
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 537, y: 430, z: 272, w: 350}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 0
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 706
+        width: 155
+        height: 267
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eeb83da8d2b3624e0800000000000000
+      internalID: -2006851517158290450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_1
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 689
+        width: 190
+        height: 298
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c919560d84b7b640800000000000000
+      internalID: 5095740021182896582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_2
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 846
+        width: 112
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6dc0dab5aad97f20800000000000000
+      internalID: 3421005797303307629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_3
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 706
+        width: 198
+        height: 274
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 200099e8f2869a4f0800000000000000
+      internalID: -817007303925891070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_4
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 947
+        width: 10
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23b7eb17368637ea0800000000000000
+      internalID: -5876238312469005518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_5
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 639
+        width: 137
+        height: 358
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b44c20af9aac0b10800000000000000
+      internalID: 1949120341308359860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_6
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 679
+        width: 102
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed109297cef2c30b0800000000000000
+      internalID: -5747666331740077602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_7
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 599
+        width: 60
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c08d3f53ccae31580800000000000000
+      internalID: -8857477879308232692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_8
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 607
+        width: 134
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa04de5f262f0b0e0800000000000000
+      internalID: -2256036906465935190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_9
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 477
+        width: 105
+        height: 186
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7afef2132b91fdd0800000000000000
+      internalID: -2454009746995348869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_10
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 384
+        width: 99
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eba9d663f32dbac80800000000000000
+      internalID: -8310317518444193090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_11
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 439
+        width: 217
+        height: 239
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84e872300d9bf19e0800000000000000
+      internalID: -1648394635537052088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_12
+      rect:
+        serializedVersion: 2
+        x: 835
+        y: 384
+        width: 175
+        height: 249
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b867d412a8a117f0800000000000000
+      internalID: -643547857649440583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_13
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 522
+        width: 103
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df47c08a964645bc0800000000000000
+      internalID: -3795298181012753155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_14
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 359
+        width: 55
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d53088e5d1668540800000000000000
+      internalID: 5009799206852900311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_15
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 359
+        width: 33
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6e8e141b49ada360800000000000000
+      internalID: 7182583120650997359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_16
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 365
+        width: 50
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0b9aed2d67849850800000000000000
+      internalID: 6382875474882370317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_17
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 329
+        width: 75
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd51bc5dd3f64a490800000000000000
+      internalID: -7735935948545124900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_18
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 162
+        width: 194
+        height: 249
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9632f9ee99a524560800000000000000
+      internalID: 7296493963473527657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_19
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 267
+        width: 85
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da0a16115ca8e2960800000000000000
+      internalID: 7579147801915924653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_20
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 309
+        width: 4
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bffb6f4e1d52f8e00800000000000000
+      internalID: 1049098821620383739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_21
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 232
+        width: 146
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff3543dafdadad700800000000000000
+      internalID: 566005357406868479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_22
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 214
+        width: 147
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d02c31c02aa1bff0800000000000000
+      internalID: -22049465502523183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_23
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 0
+        width: 307
+        height: 299
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cb0629e65a6c5960800000000000000
+      internalID: 7592059993351130054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_24
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 28
+        width: 63
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32f807536335eee20800000000000000
+      internalID: 3381731862491729699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_25
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 162
+        width: 21
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38649fa8d5c2a40e0800000000000000
+      internalID: -2284965080661932413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_26
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 85
+        width: 51
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9900136c99acc27b0800000000000000
+      internalID: -5247596703989563239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_27
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 152
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f062bd004c2985b50800000000000000
+      internalID: 6582172225927587343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_28
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 6
+        width: 289
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14016179096b90ab0800000000000000
+      internalID: -5041297575738208191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_A_BaseColor_29
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 9
+        width: 133
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c81f6d391f1a6f000800000000000000
+      internalID: 69420903210348940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

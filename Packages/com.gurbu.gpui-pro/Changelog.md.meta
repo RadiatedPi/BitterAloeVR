@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 49ff1a34520ce144f97e6f30045ab5bf
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Changelog.md
+  uploadId: 733257

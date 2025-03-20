@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 951c13b4dce928945a2e8bd7f5fd7928
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Scripts/Data/GPUIRuntimeSettings.cs
+  uploadId: 733257

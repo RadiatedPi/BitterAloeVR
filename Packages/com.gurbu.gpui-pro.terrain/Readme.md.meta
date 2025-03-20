@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2669829673af11c49abbf588c8ff39e4
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro.terrain/Readme.md
+  uploadId: 733257

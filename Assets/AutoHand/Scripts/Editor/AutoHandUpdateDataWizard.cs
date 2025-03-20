@@ -1,4 +1,5 @@
 
+
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
@@ -52,6 +53,9 @@ namespace Autohand {
 
                 if(window.FindScenePoses() == 0 && (window.prefabPoses.Count) == 0)
                     window.Close();
+
+                // Mark as loaded so this auto-initialization only happens once.
+                loaded = true;
             }
         }
 

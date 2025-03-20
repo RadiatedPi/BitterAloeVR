@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 555144b1fcce91e4484c25fb0404a671
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Shaders/Internal-DepthNormalsTexture_GPUIPro.shader
+  uploadId: 733257

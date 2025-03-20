@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 4afb9bf56b9d0fa41a479d51ee978e89
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 13804, guid: 0000000000000000e000000000000000, type: 0}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Editor/UI/GPUILODGroupDataEditorUI.uxml
+  uploadId: 733257

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 65e114a21e63a094f943634865047fa0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro.terrain/Runtime/Scripts/Static/GPUITerrainAPI.cs
+  uploadId: 733257

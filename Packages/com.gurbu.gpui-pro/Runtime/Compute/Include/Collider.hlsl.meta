@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d4c622204899c4946b8a4986eb9e54ab
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Compute/Include/Collider.hlsl
+  uploadId: 733257

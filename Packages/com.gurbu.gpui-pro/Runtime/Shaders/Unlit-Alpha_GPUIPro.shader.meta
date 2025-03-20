@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 247d77e42f9ec844598f3b71b383ae83
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Shaders/Unlit-Alpha_GPUIPro.shader
+  uploadId: 733257

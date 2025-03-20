@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 40838531182d9ed4d8fea71b55a40e93
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Demos/DemosURPOverwrite/DemosURPOverwrite.unitypackage
+  uploadId: 733257

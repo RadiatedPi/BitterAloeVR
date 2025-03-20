@@ -1,7 +1,7 @@
 {
   "buildFiles": [
-    "D:\\GitHubRepos\\BitterAloeRevamp\\Library\\PramData\\AndroidApplicationController\\Cache\\com.unity.template.vr\\gradle-project\\unityLibrary\\src\\main\\cpp\\CMakeLists.txt",
-    "D:\\GitHubRepos\\BitterAloeRevamp\\Library\\PramData\\AndroidApplicationController\\Cache\\com.unity.template.vr\\gradle-project\\unityLibrary\\src\\main\\cpp\\GameActivity\\CMakeLists.txt"
+    "D:\\GitHubRepos\\BitterAloeRevamp\\Library\\Bee\\Android\\Prj\\IL2CPP\\Gradle\\unityLibrary\\src\\main\\cpp\\CMakeLists.txt",
+    "D:\\GitHubRepos\\BitterAloeRevamp\\Library\\Bee\\Android\\Prj\\IL2CPP\\Gradle\\unityLibrary\\src\\main\\cpp\\GameActivity\\CMakeLists.txt"
   ],
   "cleanCommandsComponents": [
     [
@@ -22,7 +22,7 @@
       "toolchain": "toolchain",
       "abi": "arm64-v8a",
       "artifactName": "game",
-      "output": "D:\\GitHubRepos\\BitterAloeRevamp\\Library\\PramData\\AndroidApplicationController\\Cache\\com.unity.template.vr\\gradle-project\\unityLibrary\\build\\intermediates\\cxx\\Debug\\1d547q6s\\obj\\arm64-v8a\\libgame.so",
+      "output": "D:\\GitHubRepos\\BitterAloeRevamp\\Library\\Bee\\Android\\Prj\\IL2CPP\\Gradle\\unityLibrary\\build\\intermediates\\cxx\\Debug\\1d547q6s\\obj\\arm64-v8a\\libgame.so",
       "runtimeFiles": []
     }
   },

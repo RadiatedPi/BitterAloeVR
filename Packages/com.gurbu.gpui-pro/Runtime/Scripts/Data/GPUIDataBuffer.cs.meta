@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3fe5e5bb56edfad479ab016fd6d4b6c1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Scripts/Data/GPUIDataBuffer.cs
+  uploadId: 733257

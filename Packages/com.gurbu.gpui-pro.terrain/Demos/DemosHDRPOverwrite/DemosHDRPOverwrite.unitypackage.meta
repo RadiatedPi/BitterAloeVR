@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2a1ace5b3193abd40be5b3dfaf67e2f7
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro.terrain/Demos/DemosHDRPOverwrite/DemosHDRPOverwrite.unitypackage
+  uploadId: 733257

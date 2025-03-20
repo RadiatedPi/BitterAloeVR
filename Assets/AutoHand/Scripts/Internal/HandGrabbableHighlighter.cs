@@ -19,6 +19,9 @@ namespace Autohand {
             "The forward direction should be facing away from the palm and the right direction should be pointing to the finger tips")]
         public float palmForwardRightDirection = 0.65f;
 
+        [Tooltip("Whether the highlighter should ignore or check for grabbabels that are using trigger colliders or just solid colliders - reocommend using collide for most cases.")]
+        public QueryTriggerInteraction highlightQuery = QueryTriggerInteraction.Collide;
+
 
         /// <summary>Called when highlighting starts</summary>
         public event HandGrabEvent OnHighlight;
@@ -91,7 +94,7 @@ namespace Autohand {
             if((overrideIgnoreHighlight || hand.usingHighlight) && hand.highlightLayers != 0 && (overrideIgnoreHighlight || hand.holdingObj == null && !hand.IsGrabbing())) {
                 int grabbingLayer = LayerMask.NameToLayer(Hand.grabbingLayerName);
                 int gabbingMask = LayerMask.GetMask(Hand.grabbingLayerName);
-                highlightColliderNonAllocCount = Physics.OverlapSphereNonAlloc(hand.palmTransform.position + hand.palmTransform.forward * hand.reachDistance / 3f, hand.reachDistance, highlightCollidersNonAlloc, hand.highlightLayers & ~(hand.ignoreGrabCheckLayers.value), QueryTriggerInteraction.Collide);
+                highlightColliderNonAllocCount = Physics.OverlapSphereNonAlloc(hand.palmTransform.position + hand.palmTransform.forward * hand.reachDistance / 3f, hand.reachDistance, highlightCollidersNonAlloc, hand.highlightLayers & ~(hand.ignoreGrabCheckLayers.value), highlightQuery);
                 foundHighlightGrabbables.Clear();
 
                 for(int i = 0; i < highlightColliderNonAllocCount; i++) {
@@ -185,7 +188,7 @@ namespace Autohand {
             closestGrabs.Clear();
             closestHits.Clear();
             var checkSphereRadius = hand.reachDistance * 1.35f;
-            int overlapCount = Physics.OverlapSphereNonAlloc(palmPosition + palmForward * (checkSphereRadius * 0.5f), checkSphereRadius, handHighlightNonAlloc, layerMask, QueryTriggerInteraction.Collide);
+            int overlapCount = Physics.OverlapSphereNonAlloc(palmPosition + palmForward * (checkSphereRadius * 0.5f), checkSphereRadius, handHighlightNonAlloc, layerMask, highlightQuery);
 
 
             for(int i = 0; i < overlapCount; i++) {
@@ -200,13 +203,8 @@ namespace Autohand {
 
                 ray.origin =hand.palmTransform.transform.position;
                 ray.origin = Vector3.MoveTowards(ray.origin, col.bounds.center, 0.001f);
-
-                var queryTriggerInteraction = QueryTriggerInteraction.Ignore;
-                if(col.isTrigger)
-                    queryTriggerInteraction = QueryTriggerInteraction.Collide;
-
-
-                if(ray.direction != Vector3.zero && Vector3.Angle(ray.direction,hand.palmTransform.forward) < 120 && Physics.Raycast(ray, out hit, checkSphereRadius*2, layerMask, queryTriggerInteraction)) {
+                
+                if(ray.direction != Vector3.zero && Vector3.Angle(ray.direction,hand.palmTransform.forward) < 120 && Physics.Raycast(ray, out hit, checkSphereRadius*2, layerMask, highlightQuery)) {
 
                     rayHitObject = hit.collider.gameObject;
                     if(closestGrabs.Count > 0)

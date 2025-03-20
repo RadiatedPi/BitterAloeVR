@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 7835c6b3cbd1dd24bb8cf791f83b3ec9
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Shaders/Standard_GPUIPro.shader
+  uploadId: 733257

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e90782b165e264840a2bc755d52e35d9
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro.prefab/Editor/UI/GPUIEditorText.txt
+  uploadId: 733257

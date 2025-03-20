@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 073e798ab05e006459e8e16bdc366072
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Compute/Include/PlatformDefinesHeavy.hlsl
+  uploadId: 733257

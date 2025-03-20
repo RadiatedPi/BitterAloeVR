@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 748e2f2bb951c5c45bcd5535b5751c18
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 266407
+  packageName: Flora-Form
+  packageVersion: 1.0
+  assetPath: Assets/Flora-Form/Resources/Materials/BushDry_Base.mat
+  uploadId: 629321

@@ -120,6 +120,20 @@ namespace Autohand {
             }
         }
 
+        [ContextMenu("LOAD SCRIPTABLE")]
+        public void LoadScriptable() {
+            if(poseScriptable != null) {
+                if(poseScriptable.leftSaved) {
+                    leftPose.CopyFromData(ref poseScriptable.leftPose);
+                    leftPoseSet = true;
+                }
+                if(poseScriptable.rightSaved) {
+                    rightPose.CopyFromData(ref poseScriptable.rightPose);
+                    rightPoseSet = true;
+                }
+            }
+        }
+
         public void EditorCreateHandCopyTool(Hand hand, Transform relativeTo) {
             Hand handCopy;
             if(hand.name != "HAND COPY DELETE")

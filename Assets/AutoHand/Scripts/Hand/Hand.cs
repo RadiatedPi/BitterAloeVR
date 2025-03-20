@@ -392,7 +392,7 @@ namespace Autohand {
                     holdingObj.OnUnsqueeze(this);
 
                 if(grabbing) {
-                    if (holdingObj.body != null){
+                    if (holdingObj.body != null && !holdingObj.body.isKinematic){
                         holdingObj.body.linearVelocity = Vector3.zero;
                         holdingObj.body.angularVelocity = Vector3.zero;
                     }

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a02f7fce3f785da49a113e8c3d48d946
+ComputeShaderImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Compute/Resources/GPUIHiZTextureCopyCS.compute
+  uploadId: 733257

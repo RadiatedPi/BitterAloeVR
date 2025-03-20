@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 056cb84483a25eb4c84a3e5c3337e8d1
+PackageManifestImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/package.json
+  uploadId: 733257

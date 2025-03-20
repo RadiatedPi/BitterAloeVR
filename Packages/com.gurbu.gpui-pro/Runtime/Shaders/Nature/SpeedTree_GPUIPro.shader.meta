@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 6c1813c07d8fab6439c021f020355dc3
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Shaders/Nature/SpeedTree_GPUIPro.shader
+  uploadId: 733257

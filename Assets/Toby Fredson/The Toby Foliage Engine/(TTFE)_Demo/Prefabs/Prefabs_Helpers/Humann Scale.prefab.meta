@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: fb7ca97db13172646aadd004dfe7b3e3
+labels:
+- prefabs
+timeCreated: 1566660288
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: prefabs
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 282901
+  packageName: The Toby Foliage Engine / Light
+  packageVersion: 1.0.1b
+  assetPath: Assets/Toby Fredson/The Toby Foliage Engine/(TTFE)_Demo/Prefabs/Prefabs_Helpers/Humann
+    Scale.prefab
+  uploadId: 710499

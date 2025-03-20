@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4f64864a268dcca4291e747f5a335914
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro.terrain/Runtime/GPUInstancerPro.TerrainModule.asmdef
+  uploadId: 733257

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d13663d6b6f8c3c4d8ca70360ac77e1a
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro.terrain/Runtime/Compute/Include/Terrain.hlsl
+  uploadId: 733257

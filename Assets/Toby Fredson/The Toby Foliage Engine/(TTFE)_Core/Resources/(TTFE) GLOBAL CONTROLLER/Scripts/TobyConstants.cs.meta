@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 6a7073d6a76b93b4b93cd0e2e702f0b4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 282901
+  packageName: The Toby Foliage Engine / Light
+  packageVersion: 1.0.1b
+  assetPath: Assets/Toby Fredson/The Toby Foliage Engine/(TTFE)_Core/Resources/(TTFE)
+    GLOBAL CONTROLLER/Scripts/TobyConstants.cs
+  uploadId: 710499

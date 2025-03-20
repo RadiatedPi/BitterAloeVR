@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 1b491366b4edbca4e966a91fe5c748e6
+timeCreated: 1496692958
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 266407
+  packageName: Flora-Form
+  packageVersion: 1.0
+  assetPath: Assets/Flora-Form/Resources/Materials/Juniper_Bush_01.mat
+  uploadId: 629321

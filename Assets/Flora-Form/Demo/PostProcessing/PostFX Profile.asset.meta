@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9172b8dc2734a814fa4194ad783809f1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 266407
+  packageName: Flora-Form
+  packageVersion: 1.0
+  assetPath: Assets/Flora-Form/Demo/PostProcessing/PostFX Profile.asset
+  uploadId: 629321
