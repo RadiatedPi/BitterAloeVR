@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4ca8b13bfdf5b9049a99fa16fbc6fc87
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Shaders/Include/FoliageMethods.hlsl
+  uploadId: 733257

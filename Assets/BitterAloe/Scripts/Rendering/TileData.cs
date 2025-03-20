@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class TileData : MonoBehaviour
 {
-    private GlobalReferences gr;
+    //private GlobalReferences gr;
+    private LevelData level;
 
     public Vector2 tileIndex;
 
@@ -20,7 +21,7 @@ public class TileData : MonoBehaviour
 
     public void Start()
     {
-        gr = GameObject.FindWithTag("Reference").GetComponent<GlobalReferences>();
+        level = transform.parent.GetComponent<LevelData>();
         grFound = true;
     }
 
@@ -30,22 +31,22 @@ public class TileData : MonoBehaviour
         {
             await UniTask.Yield(); 
         }
-        while (gr.parq.parquetRead == false)
+        while (level.parq.parquetRead == false)
         {
             await UniTask.Yield(); 
         }
-        Vector2 rangeMin = await gr.parq.GetCoordinateBoundMin(tileIndex, gr.parq.plantMapSampleScale);
-        Vector2 rangeMax = await gr.parq.GetCoordinateBoundMax(tileIndex, gr.parq.plantMapSampleScale);
-        df = await gr.parq.GetDataFrameWithinBounds(gr.parq.df, rangeMin, rangeMax);
+        Vector2 rangeMin = await level.parq.GetCoordinateBoundMin(tileIndex, level.parq.plantMapSampleScale);
+        Vector2 rangeMax = await level.parq.GetCoordinateBoundMax(tileIndex, level.parq.plantMapSampleScale);
+        df = await level.parq.GetDataFrameWithinBounds(level.parq.df, rangeMin, rangeMax);
         if (df.Rows.Count >= 1)
         {
-            globalCoordinates = await gr.parq.GetCoordinatesAsNativeArray(df);
-            globalCoordinates = await ScaleCoordinates(globalCoordinates, tileIndex, rangeMin, rangeMax, gr.tc.tileSize);
+            globalCoordinates = await level.parq.GetCoordinatesAsNativeArray(df);
+            globalCoordinates = await ScaleCoordinates(globalCoordinates, tileIndex, rangeMin, rangeMax, level.tc.tileSize);
             globalCoordinates = await GetPlantHeights(globalCoordinates);
              
             kdTree = await MakeKDTree(globalCoordinates);
 
-            coordinates = await LocalizeCoordinates(globalCoordinates, tileIndex, gr.tc.tileSize);
+            coordinates = await LocalizeCoordinates(globalCoordinates, tileIndex, level.tc.tileSize);
             coordinates = await DoubleArray(coordinates);
         } 
         return true;
@@ -107,23 +108,23 @@ public class TileData : MonoBehaviour
         for (int i = 0; i < coordinateArray.Length; i++) 
         {
             // adjusts for offset caused by the temporary terrain tile border quads generated to calculate normals
-            float quadLength = gr.tc.tileSize.x / Mathf.FloorToInt(gr.tc.tileSize.x / gr.tc.cellSize);
+            float quadLength = level.tc.tileSize.x / Mathf.FloorToInt(level.tc.tileSize.x / level.tc.cellSize);
             // +0.5f to compensate for terrain tile origins being at center
-            float noiseX = (coordinateArray[i].x + quadLength) / gr.tc.tileSize.x + 0.5f  + gr.tc.startOffset.x;
-            float noiseZ = (coordinateArray[i].z + quadLength) / gr.tc.tileSize.z + 0.5f + gr.tc.startOffset.y;
+            float noiseX = (coordinateArray[i].x + quadLength) / level.tc.tileSize.x + 0.5f  + level.tc.startOffset.x;
+            float noiseZ = (coordinateArray[i].z + quadLength) / level.tc.tileSize.z + 0.5f + level.tc.startOffset.y;
 
-            noiseX = (noiseX) % gr.tc.noiseRange.x;
-            noiseZ = (noiseZ) % gr.tc.noiseRange.y;
+            noiseX = (noiseX) % level.tc.noiseRange.x;
+            noiseZ = (noiseZ) % level.tc.noiseRange.y;
 
             //account for negatives (ex. -1 % 256 = -1, needs to loop around to 255)
             if (noiseX < 0)
-                noiseX = noiseX + gr.tc.noiseRange.x;
+                noiseX = noiseX + level.tc.noiseRange.x;
             if (noiseZ < 0)
-                noiseZ = noiseZ + gr.tc.noiseRange.y;
+                noiseZ = noiseZ + level.tc.noiseRange.y;
 
             float height = Mathf.PerlinNoise(noiseX, noiseZ);
 
-            coordinateArray[i] = new Vector3(coordinateArray[i].x, height * gr.tc.tileSize.y + 0.2f, coordinateArray[i].z);
+            coordinateArray[i] = new Vector3(coordinateArray[i].x, height * level.tc.tileSize.y + 0.2f, coordinateArray[i].z);
         }
 
         return coordinateArray;
@@ -137,7 +138,7 @@ public class TileData : MonoBehaviour
 
     private async UniTask<NativeArray<Vector3>> DoubleArray(NativeArray<Vector3> array)
     {
-        Debug.Log("Doubling the instance count of the coordinate array to render in both eyes in VR");
+        level.rdc.Log("Doubling the instance count of the coordinate array to render in both eyes in VR");
         NativeArray<Vector3> doubledArray = new NativeArray<Vector3>(array.Length * 2, Allocator.TempJob);
 
         for (int i = 0; i < array.Length * 2; i += 2)
@@ -145,7 +146,7 @@ public class TileData : MonoBehaviour
             doubledArray[i] = array[i / 2];
             doubledArray[i + 1] = array[i / 2];
         }
-        Debug.Log($"Returning doubled coordinate array of length {doubledArray.Length}");
+        level.rdc.Log($"Returning doubled coordinate array of length {doubledArray.Length}");
         return doubledArray;
     }
 }

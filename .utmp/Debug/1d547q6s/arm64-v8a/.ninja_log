@@ -1,10 +1,10 @@
 # ninja log v5
-7	1902	7535933048582176	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	86fb285ea07b6a4c
-1	2381	7535933048572119	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	b8a8c822d2a4adeb
-41	2382	7535933051399561	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	e2f601a75317bcef
-20	2382	7535933048572119	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	3ce6540391e1c3b9
-27	2383	7535933051389534	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	7c9942ed025e3900
-13	2384	7535933051434876	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	1570c8ebf3a92194
-52	2384	7535933052649645	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	b96a71cbce9ed65d
-33	2389	7535933051429847	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	e0d4083e1a50d99a
-2865	2961	7535933069529303	D:/GitHubRepos/BitterAloeRevamp/Library/PramData/AndroidApplicationController/Cache/com.unity.template.vr/gradle-project/unityLibrary/build/intermediates/cxx/Debug/1d547q6s/obj/arm64-v8a/libgame.so	da546129eadcb0be
+6	567	7641319760131551	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	a213afec9c9cbb13
+17	570	7641319760131551	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	3bad625260da2e4d
+29	590	7641319760343408	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	cba6219dc98fc643
+42	602	7641319760497129	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	29b26d3f6a666a4b
+36	619	7641319760665938	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	b6481d58d2c0f435
+0	624	7641319760752902	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	564ec0e002edf846
+23	678	7641319761277526	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	aaaa01d0931c8039
+11	696	7641319761464576	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	70081ecdacaae75e
+697	820	7641319762689712	D:/GitHubRepos/BitterAloeRevamp/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/1d547q6s/obj/arm64-v8a/libgame.so	d33dfa78969f05f2

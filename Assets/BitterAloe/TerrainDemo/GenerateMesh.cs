@@ -2,11 +2,7 @@
 using UnityEngine;
 using ProceduralToolkit;
 using System;
-using UnityEngine.Rendering;
-using ZstdSharp.Unsafe;
-using Unity.Android.Gradle.Manifest;
 using System.Linq;
-using static UnityEngine.Rendering.HableCurve;
 
 [RequireComponent(typeof(MeshFilter))]
 public class GenerateMesh : MonoBehaviour

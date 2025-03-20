@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: fd56d9d8b7774cb4ca0853a661903d79
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Editor/Extras/XR_Support_GPUIPro.unitypackage
+  uploadId: 733257

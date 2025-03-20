@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bca122eda27a83941b8b16fc197d6d63
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Compute/Include/Matrix.hlsl
+  uploadId: 733257

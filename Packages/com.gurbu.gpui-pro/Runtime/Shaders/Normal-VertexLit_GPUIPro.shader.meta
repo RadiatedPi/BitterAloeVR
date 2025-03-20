@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: e35296b33655a8f4bb3c71489862ea10
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Shaders/Normal-VertexLit_GPUIPro.shader
+  uploadId: 733257

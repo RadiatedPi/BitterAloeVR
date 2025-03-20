@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9ac57cb3c13b41d4aa10566486cf664a
+ComputeShaderImporter:
+  externalObjects: {}
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro.terrain/Runtime/Compute/Resources/GPUITerrainTreeGeneratorCS.compute
+  uploadId: 733257

@@ -51,6 +51,10 @@ namespace Autohand {
                 if(GUI.Button(rect, "Save Scriptable"))
                     handPoseContainer.SaveScriptable();
 
+                rect = EditorGUILayout.GetControlRect();
+                if(GUI.Button(rect, "Load Scriptable"))
+                    handPoseContainer.LoadScriptable();
+
                 EditorGUILayout.Space();
             }
             EditorGUILayout.Space();

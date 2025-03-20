@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a0116f28307a75a4691c67c4e4875654
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Editor/Extras/Shader_SpeedTree8_GPUIPro.unitypackage
+  uploadId: 733257

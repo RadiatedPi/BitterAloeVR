@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: ab6b91bddd3938547b24750a055293be
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Shaders/Nature/SoftOcclusion/TreeSoftOcclusionLeaves_GPUIPro.shader
+  uploadId: 733257

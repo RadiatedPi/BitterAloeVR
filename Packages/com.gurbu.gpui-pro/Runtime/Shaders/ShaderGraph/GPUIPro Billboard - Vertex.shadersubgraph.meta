@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: de4a43440c3fe1b4c86131e1005e7335
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 60072b568d64c40a485e0fc55012dc9f, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Shaders/ShaderGraph/GPUIPro Billboard
+    - Vertex.shadersubgraph
+  uploadId: 733257

@@ -1,3 +1,45 @@
+V4.0.4
+Improvements / New Features
+- Added new hand collider generator tool window in Window/Autohand/HandColliderEditor (Contribution from "Silk" in the discord)
+- Added new advanced settings to hand follow component for  "maxDistanceNoParentReleaseFrames" and "maxDistanceParentReleaseFrames" which will allow customization on how long it takes for the hand to release an object if it's stuck or not teleportable
+
+Bug Fixes
+- Fixed bug with hand tracking and controller swapping on MetaXR causing the hand posing to freeze
+- Fixed bug causing controller pose areas not to work when hand tracking swapping enabled
+- Fixed bug with teleport point spamming start and stop events
+- Fixed bug with objects dropping out of hand while using virtual desktop or moving hands extremely quickly
+- Fixed warning "Setting linear velocity of a kinematic body is not supported" when grabbing kinematic objects from place points
+- Fixed incorrect setting on the Teleporting prefab allowing default settings to teleport on the player
+
+
+V4.0.3
+Bug Fixes
+- Fixed bug with the hand tracking that causes them to jump to the floor when hand tracking is lost. Hand tracking should now freeze until tracking is regained or controllers are grabbed
+- Fixed missing reference in Meta XR package
+- Removed XRHands reference from MetaXR package that causes an error if the unrequired xr hands package is not installed
+- Adjusted some highlight materials for the Meta XR demos so they dont appear overly inflated in the android build
+
+
+V4.0.2
+Improvements / New Features
+- Added support for lastest Meta SDK package
+- Added handtracking demo for Meta SDK package
+- Added passthrough demo for Meta SDK package
+- Added Teleport Points
+- Added Teleport Point Animtion Component
+- Added Teleport Point only toggle to Teleporter
+- Added Smooth Stepping settings to Auto Hand Player
+- Added Trigger Query Setting to Hand Highlighter to allow togging for grabbing grabbable using trigger colliders
+
+Bug Fixes
+- Fixed issue with hand tracking not working properly through steamlink
+- FIxed issue where hand tracking stops working when taking the headset off and putting it back on
+- Fixed bug with Auto Hand Player SetPosition function not working properly when using a custom rotation input
+- Improved sweep test logic with Player SetPosition function to prevent hands from clipping into static colliders
+- Improved sweep test logic to teleporter to prevent hand clipping when teleporting into static colliders objects with hands
+- Teleporter now checks for the player capsule to prevent player from teleporting under objects it cannot fit
+
+
 V4.0.1
 Bug Fixes
 - Updated Auto Hand to work with Unity 6
@@ -29,8 +71,8 @@ Improvements:
 - New Auto Pinch Settings
 - Improved Hand Tracking 
 - Simple Desktop Player
-- Added OpenXR Hand Tracking component
-- Added OpenXR Hand Tracking Grabber component
+- Added MetaXR Hand Tracking component
+- Added MetaXR Hand Tracking Grabber component
 - Allow for grabbing to be triggered through grasping gesture settings
 - Allows for finger-tip touching grabbing settings
 - Supports held object finger movement
@@ -46,7 +88,7 @@ Bug Fixes:
 - Fixed bug with full-body hands sometimes separating from the grab target
 - The Auto Hand Player uses a new method to move the body to match the head as closely as possible within tracking movement; the previous method was unstable and sometimes jittery. The new method also properly “lifts” the feet to prevent unwanted activation
 - Fixed bug where the grounding system would return false negative when walking on a static mesh collider like a staircase and standing against a step that is just too high to step up
-- Added assembly definitions to root scripts of each input package (Autohand, Autohand.OpenXR, Autohand.XR, Autohand.SteamVR, Autohand.OculusIntergation)
+- Added assembly definitions to root scripts of each input package (Autohand, Autohand.MetaXR, Autohand.XR, Autohand.SteamVR, Autohand.OculusIntergation)
 - Head collision will now push the whole body back along the x-z axis instead of creating a sort of “movement debt” that was unrealistic and disorienting
 - Fixed possible phantom “flicker” that some people report when moving the player with thumbstick
 - Increased stability and snappiness of two-handed grabbing
@@ -106,7 +148,7 @@ Improvements
 - Added getters to the stabber for list of current stabbers and current stab joints
 
 Bug Fixes
-- Removed Script causing errors in OpenXR subpackage
+- Removed Script causing errors in MetaXR subpackage
 - Fixed bug with placepoints not resetting parenting properly on Remove()
 - Fixed parenting bug with stabbables [Stabbables can now stab multiple objects while maintaining proper parent/child logic regardless of how stabbers/stabbables are grabbed/released while maintaining proper stab connection]
 - Fixed logic with JointedGrabbables in general
@@ -199,7 +241,7 @@ Bug Fixes
 
 V3.1.3
 Bug Fixes
-- Haptics now supported on OpenXR
+- Haptics now supported on MetaXR
 - Fixed player sometimes flickering and getting thrown
 - Fixed hand projection/highlight not working in the demo scene
 - Fixed place point not accounting for pivot properly
@@ -213,7 +255,7 @@ V3.1.2
 Bug Fixes
 - Fixed broken prefab link in the Oculus Integration Hand Tracking package
 - Fixed bug with rotationg platforms
-- Fixed hand offsets for OpenXR demo
+- Fixed hand offsets for MetaXR demo
 
 V3.1.1
 Bug Fixes

@@ -6,4 +6,6 @@ public class GlobalReferences : MonoBehaviour
     // calling the listed components directly, causes errors
     public TerrainController tc;
     public ParquetParser parq;
+    public RuntimeDebugConsole rdc;
+    
 }

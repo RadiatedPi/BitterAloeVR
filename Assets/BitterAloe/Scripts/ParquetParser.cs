@@ -44,7 +44,7 @@ public class Testimony
 
 public class ParquetParser : MonoBehaviour
 {
-    public TextMeshPro textGUI;
+    private LevelData levelData;
     public string fileName = "trctestimonies.parquet";
 
     private string filePath;
@@ -52,23 +52,26 @@ public class ParquetParser : MonoBehaviour
     public DataFrame dfFiltered;
     public IList<Testimony> testimonies;
     public KDTree kdTree;
-    public Vector2 plantMapCenterOffset = new(5f, 5f);
-    public float plantMapSampleScale = 0.05f;
+    public Vector2 plantMapCenterOffset = new(5f, 5f); 
+    public float plantMapSampleScale = 0.1f;
 
     public bool parquetRead = false;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
+        levelData = GetComponent<LevelData>();
         GetParquetAsDataFrame(fileName);
     }
 
     public async void GetParquetAsDataFrame(string fileName)
     {
-        Debug.Log("Fetching parquet file");
+        levelData.rdc.Log("Fetching parquet file");
         string streamingFilePath = Path.Combine(Application.streamingAssetsPath, fileName);
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
-        Debug.Log("Detected platform: Windows/Editor");
+        levelData.rdc.Log("Detected platform: Windows/Editor");
         filePath = streamingFilePath;
 #elif UNITY_ANDROID
         Debug.Log("Detected platform: Android");
@@ -88,7 +91,7 @@ public class ParquetParser : MonoBehaviour
         kdTree = await CreateKDTree(df);
           
         parquetRead = true;
-        Debug.Log($"Parquet successfully read into DataFrame");
+        levelData.rdc.Log($"Parquet successfully read into DataFrame");
     } 
      
 
@@ -101,22 +104,22 @@ public class ParquetParser : MonoBehaviour
     // only used if running on android (meta quest)
     private async UniTask<string> CopyParquetToPersistentPath(string streamingFilePath)
     {
-        Debug.Log("Getting persistent asset path location for parquet");
+        levelData.rdc.Log("Getting persistent asset path location for parquet");
         string persistentFilePath = streamingFilePath.Replace(Application.streamingAssetsPath, Application.persistentDataPath);
 
         var persistentFileDirectory = Path.GetDirectoryName(persistentFilePath);
         if (!Directory.Exists(persistentFileDirectory))
         {
-            Debug.Log("Parquet persistent path directory does not exist, creating new directory");
+            levelData.rdc.Log("Parquet persistent path directory does not exist, creating new directory");
             Directory.CreateDirectory(persistentFileDirectory);
         }
 
         UnityWebRequest loader = UnityWebRequest.Get(streamingFilePath);
-        Debug.Log("Sending parquet web request...");
+        levelData.rdc.Log("Sending parquet web request...");
         await loader.SendWebRequest();
         if (loader.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log("Parquet web request succeeded, copying parquet to persistent asset path");
+            levelData.rdc.Log("Parquet web request succeeded, copying parquet to persistent asset path");
             File.WriteAllBytes(persistentFilePath, loader.downloadHandler.data);
         }
         else
@@ -130,18 +133,18 @@ public class ParquetParser : MonoBehaviour
     // this makes the dataset workable
     private async UniTask<DataFrame> ReadParquetIntoDataFrame(string filePath)
     {
-        Debug.Log($"Opening parquet file from {filePath}");
+        levelData.rdc.Log($"Opening parquet file from {filePath}");
 
         DataFrame df = new DataFrame();
         await UniTask.RunOnThreadPool(async () =>
         {
             using (var stream = File.OpenRead(filePath))
             {
-                Debug.Log($"Parquet file successfully opened. Converting parquet to DataFrame");
+                levelData.rdc.Log($"Parquet file successfully opened. Converting parquet to DataFrame");
                 df = await stream.ReadParquetAsDataFrameAsync();
             }
         });
-        Debug.Log($"DataFrame successfully made from Parquet");
+        levelData.rdc.Log($"DataFrame successfully made from Parquet");
         return df;
     }
 
@@ -156,7 +159,7 @@ public class ParquetParser : MonoBehaviour
         PrimitiveDataFrameColumn<int> indexCol = new("index", indexes);
         df.Columns.Add(indexCol);
 
-        Debug.Log($"Added index column to DataFrame");
+        levelData.rdc.Log($"Added index column to DataFrame");
 
         return df;
     }
@@ -165,7 +168,7 @@ public class ParquetParser : MonoBehaviour
     private async UniTask<KDTree> CreateKDTree(DataFrame df)
     {
         DateTime startTime = DateTime.Now;
-        float frameBudget = 0.01f; // max amount of time to do work per frame
+        float frameBudget = 0.05f; // max amount of time to do work per frame
 
         // for some reason the KDTree algorithm only accepts Vector3[] inputs
         var coordinateNativeArray = await GetCoordinatesAsNativeArray(df);
@@ -191,9 +194,9 @@ public class ParquetParser : MonoBehaviour
     public async UniTask<NativeArray<Vector3>> GetCoordinatesAsNativeArray(DataFrame df)
     {
         DateTime startTime = DateTime.Now;
-        float frameBudget = 0.01f; // max amount of time to do work per frame
+        float frameBudget = 0.05f; // max amount of time to do work per frame
 
-        Debug.Log("Converting coordinates from DataFrame into NativeArray");
+        levelData.rdc.Log("Converting coordinates from DataFrame into NativeArray");
         NativeArray<Vector3> array = new NativeArray<Vector3>((int)df.Rows.Count, Allocator.TempJob);
         // these index values are specific to the trctestimonies.parquet dataset
         // TODO: make these values less arbitrary somehow
@@ -217,7 +220,7 @@ public class ParquetParser : MonoBehaviour
             }
         }
 
-        Debug.Log($"Returning NativeArray of XYZ coordinates (y is still 0)");
+        levelData.rdc.Log($"Returning NativeArray of XYZ coordinates (y is still 0)");
         return array;
     }
 
@@ -246,7 +249,7 @@ public class ParquetParser : MonoBehaviour
     // filters DataFrame by given bounds to determine which plants are on a chunk
     public async UniTask<DataFrame> GetDataFrameWithinBounds(DataFrame df, Vector2 min, Vector2 max)
     {
-        Debug.Log($"Creating chunk-specific DataFrame");
+        levelData.rdc.Log($"Creating chunk-specific DataFrame");
 
         if (df.Rows.Count <= 0)
         {
@@ -268,7 +271,7 @@ public class ParquetParser : MonoBehaviour
         
 
 
-        Debug.Log("Chunk-specific DataFrame created");
+        levelData.rdc.Log("Chunk-specific DataFrame created");
         return tileDf;
     }
 
@@ -276,32 +279,32 @@ public class ParquetParser : MonoBehaviour
 
     public async void GetParquetAsIList(string fileName)
     {
-        Debug.Log("Fetching parquet file");
+        levelData.rdc.Log("Fetching parquet file");
         string streamingFilePath = Path.Combine(Application.streamingAssetsPath, fileName);
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
-        Debug.Log("Detected platform: Windows/Editor");
+        levelData.rdc.Log("Detected platform: Windows/Editor");
         filePath = streamingFilePath;
 #elif UNITY_ANDROID
-        Debug.Log("Detected platform: Android");
+        gr.rdc.Log("Detected platform: Android");
         filePath = await CopyParquetToPersistentPath(streamingFilePath);
 #endif
         testimonies = await ReadParquetIntoIList(filePath);
         //df = await AddIndexColumnToDataFrame(df);
         //kdTree = await CreateKDTree(df);
-        Debug.Log($"Parquet successfully read into IList");
+        levelData.rdc.Log($"Parquet successfully read into IList");
     }
 
     // this makes the dataset workable
     private async UniTask<IList<Testimony>> ReadParquetIntoIList(string filePath)
     {
-        Debug.Log($"Opening parquet file from {filePath}");
+        levelData.rdc.Log($"Opening parquet file from {filePath}");
 
         IList<Testimony> testimonies = new List<Testimony>();
         await UniTask.RunOnThreadPool(async () =>
         {
             using (var stream = File.OpenRead(filePath))
             {
-                Debug.Log($"Parquet file successfully opened. Converting parquet to IList");
+                levelData.rdc.Log($"Parquet file successfully opened. Converting parquet to IList");
                 //testimonies = await ParquetSerializer.DeserializeAsync<Testimony>(stream);
                 var reader = await ParquetReader.CreateAsync(stream);
                 List<DataField> readableFields = (from df in reader.Schema.Fields
@@ -335,7 +338,7 @@ public class ParquetParser : MonoBehaviour
 
             }
         });
-        Debug.Log($"IList successfully made from Parquet");
+        levelData.rdc.Log($"IList successfully made from Parquet");
 
         return testimonies;
     }
@@ -351,8 +354,8 @@ public class ParquetParser : MonoBehaviour
         PrimitiveDataFrameColumn<int> indexCol = new("index", indexes);
         df.Columns.Add(indexCol);
 
-        Debug.Log($"Added index column to DataFrame");
+        levelData.rdc.Log($"Added index column to DataFrame");
 
-        return df;
+        return df; 
     }
 }

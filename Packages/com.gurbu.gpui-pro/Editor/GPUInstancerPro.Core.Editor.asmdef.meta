@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5dffeef69173e0b4f889c9771b98dee7
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Editor/GPUInstancerPro.Core.Editor.asmdef
+  uploadId: 733257

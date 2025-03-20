@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: fa4d8bde77281a143b26449cbfc7a683
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Shaders/Billboard/Billboard2DRendererSoftOcclusion_GPUI.shader
+  uploadId: 733257

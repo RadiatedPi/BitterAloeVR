@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 0b747905e0d9e3046aa7d795746d7845
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Shaders/Nature/TreeCreator/TreeCreatorBark_GPUIPro.shader
+  uploadId: 733257

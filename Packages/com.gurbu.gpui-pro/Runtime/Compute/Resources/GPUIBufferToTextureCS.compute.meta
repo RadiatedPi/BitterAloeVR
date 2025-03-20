@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 97b6b04fd65702943b2296ec66659f2b
+ComputeShaderImporter:
+  externalObjects: {}
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Compute/Resources/GPUIBufferToTextureCS.compute
+  uploadId: 733257

@@ -1,0 +1,13 @@
+// Makes visibility calculations such as LOD and culling
+#pragma kernel CSCameraVisibilityXR
+
+#define GPUI_VR_CULLING
+
+#include_with_pragmas "Packages/com.gurbu.gpui-pro/Runtime/Compute/Include/PlatformDefinesHeavy.hlsl"
+#include_with_pragmas "Packages/com.gurbu.gpui-pro/Runtime/Compute/Include/CameraVisibility.hlsl"
+
+[numthreads(GPUI_THREADS_HEAVY, 1, 1)]
+void CSCameraVisibilityXR(uint3 id : SV_DispatchThreadID)
+{
+    CameraVisibility(id);
+}

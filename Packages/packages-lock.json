@@ -7,6 +7,32 @@
       "dependencies": {},
       "hash": "f9fd769be7c634610f2a61aa914a1a55f34740e1"
     },
+    "com.gurbu.gpui-pro": {
+      "version": "file:com.gurbu.gpui-pro",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.burst": "1.6.0",
+        "com.unity.collections": "1.2.0",
+        "com.unity.mathematics": "1.2.0"
+      }
+    },
+    "com.gurbu.gpui-pro.prefab": {
+      "version": "file:com.gurbu.gpui-pro.prefab",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.gurbu.gpui-pro": "0.9.18"
+      }
+    },
+    "com.gurbu.gpui-pro.terrain": {
+      "version": "file:com.gurbu.gpui-pro.terrain",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.gurbu.gpui-pro": "0.9.18"
+      }
+    },
     "com.gwiazdorrr.betterstreamingassets": {
       "version": "file:com.gwiazdorrr.betterstreamingassets",
       "depth": 0,
@@ -15,7 +41,7 @@
     },
     "com.unity.burst": {
       "version": "1.8.18",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
@@ -32,7 +58,7 @@
     },
     "com.unity.collections": {
       "version": "2.5.1",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.burst": "1.8.17",
@@ -123,7 +149,7 @@
     },
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.4",
-      "depth": 3,
+      "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -226,7 +252,7 @@
     },
     "com.unity.test-framework.performance": {
       "version": "3.0.3",
-      "depth": 3,
+      "depth": 2,
       "source": "registry",
       "dependencies": {
         "com.unity.test-framework": "1.1.31",

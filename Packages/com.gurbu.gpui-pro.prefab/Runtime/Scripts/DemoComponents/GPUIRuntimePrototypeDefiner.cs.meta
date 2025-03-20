@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 23b82b98c243dc84ebf8a859eacac4a2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro.prefab/Runtime/Scripts/DemoComponents/GPUIRuntimePrototypeDefiner.cs
+  uploadId: 733257

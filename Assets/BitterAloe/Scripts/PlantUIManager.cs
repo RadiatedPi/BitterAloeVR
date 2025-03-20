@@ -10,7 +10,8 @@ using UnityEngine.Rendering.Universal;
 
 public class PlantUIManager : MonoBehaviour
 {
-    public ParquetParser parquetParser;
+    public Transform level;
+    private GlobalReferences gr;
     public GameObject testimonyUIPrefab;
     public GameObject titleUIPrefab;
     public GameObject testimonyUIWindow;
@@ -43,23 +44,23 @@ public class PlantUIManager : MonoBehaviour
         //selectedPlant = parquetParser.df.Rows[plantIndex];
         //Debug.Log($"df length: {parquetParser.df["file_num"].Length}");
         //Debug.Log($"plantIndex: {plantIndex}");
-        int fileNum = Convert.ToInt32(parquetParser.df["file_num"][plantIndex]);
-        Debug.Log("filenum: " + fileNum);
+        int fileNum = Convert.ToInt32(gr.parq.df["file_num"][plantIndex]);
+        gr.rdc.Log("filenum: " + fileNum);
         Transcript transcript = new Transcript();
 
-        transcript.fileURL = (string)parquetParser.df["saha_page"][plantIndex];
-        transcript.hearingType = (string)parquetParser.df["hearing_type"][plantIndex];
-        transcript.location = (string)parquetParser.df["location"][plantIndex];
-        transcript.date = (string)parquetParser.df["date"][plantIndex];
+        transcript.fileURL = (string)gr.parq.df["saha_page"][plantIndex];
+        transcript.hearingType = (string)gr.parq.df["hearing_type"][plantIndex];
+        transcript.location = (string)gr.parq.df["location"][plantIndex];
+        transcript.date = (string)gr.parq.df["date"][plantIndex];
 
-        var fileDf = parquetParser.df.Filter(parquetParser.df["file_num"].ElementwiseEquals(fileNum));
+        var fileDf = gr.parq.df.Filter(gr.parq.df["file_num"].ElementwiseEquals(fileNum));
         fileDf = fileDf.Filter(fileDf["date"].ElementwiseEquals(transcript.date));
         //Debug.Log("fileDf length: " + fileDf.Rows.Count);
         fileDf = fileDf.OrderBy("file_index");
         for (int i = 0; i < fileDf.Rows.Count; i++)
         {
-            transcript.speaker.Add((string)parquetParser.df["speaker"][i]);
-            transcript.dialogue.Add((string)parquetParser.df["dialogue"][i]);
+            transcript.speaker.Add((string)gr.parq.df["speaker"][i]);
+            transcript.dialogue.Add((string)gr.parq.df["dialogue"][i]);
         }
         ts = transcript;
 

@@ -416,7 +416,7 @@ namespace Autohand {
 
 
         /// <summary>Resets the physics materials on all the colliders to the given physics material</summary>
-        public void SetPhysicsMaterial(PhysicsMaterial physMat) {
+        public void SetPhysicMaterial(PhysicsMaterial physMat) {
             foreach(var collider in grabColliders) {
                 collider.material = physMat;
             }

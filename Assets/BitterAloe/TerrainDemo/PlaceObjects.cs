@@ -1,42 +1,18 @@
 ﻿using Cysharp.Threading.Tasks;
-using Palmmedia.ReportGenerator.Core;
-using Parquet.Schema;
-using Unity.XR.CoreUtils;
 using UnityEngine;
 
 [RequireComponent(typeof(GenerateMesh))]
 public class PlaceObjects : MonoBehaviour
 {
+    private LevelData level;
+    //public TerrainController TerrainController { get; set; }
 
-    public TerrainController TerrainController { get; set; }
+    public void Start()
+    {
+        level = transform.parent.GetComponent<LevelData>();
+    }
 
-    //public void Place() {
-    //    Debug.Log($"Placing objects...");
-
-    //    int numObjects = Random.Range(TerrainController.MinObjectsPerTile, TerrainController.MaxObjectsPerTile);
-    //    for (int i = 0; i < numObjects; i++) {
-    //        int prefabType = Random.Range(0, TerrainController.PlaceableObjects.Length);
-    //        Vector3 startPoint = RandomPointAboveTerrain();
-
-    //        RaycastHit hit;
-    //        if (Physics.Raycast(startPoint, Vector3.down, out hit, float.MaxValue, LayerMask.GetMask("Terrain")) /*&& hit.point.y > TerrainController.Water.transform.position.y && hit.collider.CompareTag("Terrain")*/) {
-    //            Debug.Log($"Terrain hit");
-    //            Quaternion orientation = Quaternion.FromToRotation(Vector3.up, hit.normal) * Quaternion.Euler(Vector3.up * Random.Range(0f, 360f));
-    //            RaycastHit boxHit;
-    //            if (Physics.BoxCast(startPoint, TerrainController.PlaceableObjectSizes[prefabType], Vector3.down, out boxHit, orientation, float.MaxValue, LayerMask.GetMask("Terrain")) /*&& boxHit.collider.CompareTag("Terrain")*/) {
-    //                Instantiate(TerrainController.PlaceableObjects[prefabType], new Vector3(startPoint.x, hit.point.y, startPoint.z), orientation, transform);
-    //            }
-    //            //Debug code. To use, uncomment the giant thingy below
-    //            //Debug.DrawRay(startPoint, Vector3.down * 10000, Color.blue);
-    //            //DrawBoxCastBox(startPoint, TerrainController.PlaceableObjectSizes[prefabType], orientation, Vector3.down, 10000, Color.red);
-    //            //UnityEditor.EditorApplication.isPaused = true;
-    //        }
-
-    //    }   
-    //}
-
-
-    public async UniTask<bool> Place(GameObject objectsPrefab) 
+    public async UniTask<bool> Place(GameObject objectsPrefab)
     {
         //Debug.Log($"Placing objects...");
 
@@ -70,9 +46,10 @@ public class PlaceObjects : MonoBehaviour
                             Transform placedObject = Instantiate(objectType, new Vector3(startPoint.x, hit.point.y + placeSettings.heightOffset, startPoint.z), orientation, transform);
                             placedObject.transform.localScale *= Random.Range(placeSettings.sizeRange.x, placeSettings.sizeRange.y);
                         }
-                        //Debug code. To use, uncomment the giant thingy below 
+                        //Debug code. To use, uncomment the giant thingy below
+
                         //Debug.DrawRay(startPoint, Vector3.down * 10000, Color.blue);
-                        //DrawBoxCastBox(startPoint, TerrainController.PlaceableObjectSizes[prefabType], orientation, Vector3.down, 10000, Color.red);
+                        //DrawBoxCastBox(startPoint, Vector3.one, orientation, Vector3.down, 10000, Color.red);
                         //UnityEditor.EditorApplication.isPaused = true;
                     }
                 }
@@ -81,15 +58,12 @@ public class PlaceObjects : MonoBehaviour
         return true;
     }
 
-
-
-
     private Vector3 RandomPointAboveTerrain()
     {
         return new Vector3(
-            Random.Range(transform.position.x - TerrainController.TerrainSize.x / 2, transform.position.x + TerrainController.TerrainSize.x / 2),
-            transform.position.y + TerrainController.TerrainSize.y * 2,
-            Random.Range(transform.position.z - TerrainController.TerrainSize.z / 2, transform.position.z + TerrainController.TerrainSize.z / 2)
+            Random.Range(transform.position.x - level.tc.TerrainSize.x / 2, transform.position.x + level.tc.TerrainSize.x / 2),
+            transform.position.y + level.tc.TerrainSize.y * 2,
+            Random.Range(transform.position.z - level.tc.TerrainSize.z / 2, transform.position.z + level.tc.TerrainSize.z / 2)
         );
     }
 

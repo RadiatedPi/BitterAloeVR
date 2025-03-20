@@ -70,6 +70,10 @@ namespace Autohand {
         public float smoothTurnSpeed = 180f;
         public bool bodyFollowsHead = true;
         public float maxHeadDistance = 0.5f;
+        public bool useSmoothStep = false;
+        [ShowIf("useSmoothStep")]
+        [Tooltip("How quickly to smooth step up/down when stepping onto a surface.")]
+        public float stepSmoothSpeed = 6f;
 
 
 
@@ -224,7 +228,11 @@ namespace Autohand {
 
         float headHeightOffset;
         float highestPoint;
-        int handPlayerMask;
+
+        /// <summary>
+        /// The layermask the player can collide with
+        /// </summary>
+        public int handPlayerMask { get; private set; }
 
         public virtual void Awake() {
             if(_Instance == null) {
@@ -233,11 +241,11 @@ namespace Autohand {
             }
 
             lastUpdatePosition = transform.position;
-
+             
             gameObject.layer = LayerMask.NameToLayer(HandPlayerLayer);
 
             bodyCapsule = GetComponent<CapsuleCollider>();
-            bodyCapsule.material = Resources.Load<PhysicsMaterial>("NoFriction");
+            //bodyCapsule.material = Resources.Load<PhysicsMaterial>("NoFriction");
 
             body = GetComponent<Rigidbody>();
             body.interpolation = RigidbodyInterpolation.None;
@@ -810,7 +818,6 @@ namespace Autohand {
                 axisReset = true;
         }
 
-
         RaycastHit[] hitsNonAlloc = new RaycastHit[128];
         protected virtual void Ground() {
             isGrounded = false;
@@ -831,22 +838,21 @@ namespace Autohand {
                 var point1 = scale * bodyCapsule.center + transform.position + scale * bodyCapsule.height / 2f * -Vector3.up + (maxStepHeight + scale * bodyCapsule.radius * 2) * Vector3.up;
                 var point2 = scale * bodyCapsule.center + transform.position + (scale * bodyCapsule.height / 2f + groundingPenetrationOffset) * -Vector3.up;
 
-                var radius = scale*bodyCapsule.radius*2 + Physics.defaultContactOffset*2;
-                int hitCount = Physics.SphereCastNonAlloc(point1, radius, -Vector3.up, hitsNonAlloc, Vector3.Distance(point1, point2) + scale * bodyCapsule.radius*4, groundLayerMask, QueryTriggerInteraction.Ignore);
+                var radius = scale * bodyCapsule.radius * 2 + Physics.defaultContactOffset * 2;
+                int hitCount = Physics.SphereCastNonAlloc(point1, radius, -Vector3.up, hitsNonAlloc, Vector3.Distance(point1, point2) + scale * bodyCapsule.radius * 4, groundLayerMask, QueryTriggerInteraction.Ignore);
 
-                //Inital Grounding Check includes the body and the area right around it
+                // Initial Grounding Check includes the body and the area right around it
                 CheckGroundHits();
 
                 if(!isGrounded && hitCount > 0) {
-                    //If its hitting something but not valid ground, check the smaller area just below the feet.
-                    //This specifically fixes a bug where a mesh collider wont return a valid grounding hit when standing against a verticle step just above the max step height
-                    //This is because spherecast will only return the first highest valid hit per collider
-                    radius = scale*bodyCapsule.radius;
-                    hitCount = Physics.SphereCastNonAlloc(point1, radius, -Vector3.up, hitsNonAlloc, Vector3.Distance(point1, point2) + scale * bodyCapsule.radius*4, groundLayerMask, QueryTriggerInteraction.Ignore);
+                    // If it's hitting something but not valid ground, check the smaller area just below the feet.
+                    // This specifically fixes a bug where a mesh collider won't return a valid grounding hit when standing against a vertical step just above the max step height
+                    // This is because SphereCast will only return the first highest valid hit per collider
+                    radius = scale * bodyCapsule.radius;
+                    hitCount = Physics.SphereCastNonAlloc(point1, radius, -Vector3.up, hitsNonAlloc, Vector3.Distance(point1, point2) + scale * bodyCapsule.radius * 4, groundLayerMask, QueryTriggerInteraction.Ignore);
 
                     CheckGroundHits();
                 }
-
 
                 void CheckGroundHits() {
                     for(int i = 0; i < hitCount; i++) {
@@ -867,10 +873,21 @@ namespace Autohand {
                     }
                 }
 
-
                 if(isGrounded) {
+                    // Zero out vertical velocity since we're grounded.
                     body.linearVelocity = new Vector3(body.linearVelocity.x, 0, body.linearVelocity.z);
-                    body.position = new Vector3(body.position.x, lastGroundHit.point.y, body.position.z);
+
+                    // If smooth stepping is enabled, interpolate the Y-position.
+                    if(useSmoothStep) {
+                        float currentY = body.position.y;
+                        float targetY = lastGroundHit.point.y;
+                        float newY = Mathf.Lerp(currentY, targetY, Time.fixedDeltaTime * stepSmoothSpeed);
+                        body.position = new Vector3(body.position.x, newY, body.position.z);
+                    }
+                    else {
+                        // Otherwise, instantly snap to the step height.
+                        body.position = new Vector3(body.position.x, lastGroundHit.point.y, body.position.z);
+                    }
                     transform.position = body.position;
                 }
 
@@ -1160,33 +1177,45 @@ namespace Autohand {
         }
 
         public virtual void SetPosition(Vector3 position, Quaternion rotation) {
+            // Calculate and apply the positional delta.
             Vector3 deltaPos = position - transform.position;
-            transform.position += deltaPos; 
-            //This code will move the tracking objects to match the body collider position when moving
-            var targetPos = transform.position - headCamera.transform.position; targetPos.y = deltaPos.y;
+            transform.position += deltaPos;
+
+            // Adjust the tracking container's position.
+            var targetPos = transform.position - headCamera.transform.position;
+            targetPos.y = deltaPos.y;
             trackingContainer.position += targetPos;
+
+            // Update tracking positions.
             lastUpdatePosition = transform.position;
-            targetTrackedPos = new Vector3(trackingContainer.position.x, targetTrackedPos.y + deltaPos.y, trackingContainer.position.z);
+            targetTrackedPos = new Vector3(
+                trackingContainer.position.x,
+                targetTrackedPos.y + deltaPos.y,
+                trackingContainer.position.z
+            );
+
             targetPosOffset = Vector3.zero;
             body.position = transform.position;
+
+            // Update head physics follower if it exists.
             if(headPhysicsFollower != null) {
                 headPhysicsFollower.transform.position += targetPos;
                 headPhysicsFollower.body.position = headPhysicsFollower.transform.position;
             }
 
-            handRight.body.position = handRight.transform.position;
-            handLeft.body.position = handLeft.transform.position;
-            handRight.handFollow.SetHandLocation(handRight.transform.position);
-            handLeft.handFollow.SetHandLocation(handLeft.transform.position);
-
-            var deltaRot = rotation * Quaternion.Inverse(headCamera.transform.rotation);
-            trackingContainer.RotateAround(headCamera.transform.position, Vector3.up, deltaRot.eulerAngles.y);
-
-            if(deltaRot.eulerAngles.magnitude > 10f || deltaPos.magnitude > 0.5f)
-                OnTeleported?.Invoke(this);
-
             lastHeadPos = headCamera.transform.position;
+
+            SafeMoveHandToPosition(handRight, transform, handRight.transform.position);
+            SafeMoveHandToPosition(handLeft, transform, handLeft.transform.position);
+
+            AddRotation(rotation * Quaternion.Inverse(headCamera.transform.rotation));
+
+            OnTeleported?.Invoke(this);
         }
+
+
+
+
 
         public virtual void SetRotation(Quaternion rotation) {
             var targetPos = transform.position - headCamera.transform.position; targetPos.y = 0;
@@ -1204,8 +1233,13 @@ namespace Autohand {
             targetPosOffset = Vector3.zero;
             targetTrackedPos = new Vector3(trackingContainer.position.x, targetTrackedPos.y, trackingContainer.position.z);
 
+            SafeMoveHandToPosition(handRight, transform, handRight.transform.position);
+            SafeMoveHandToPosition(handLeft, transform, handLeft.transform.position);
+
             if(deltaRot.eulerAngles.magnitude > 10f)
                 OnTeleported?.Invoke(this);
+
+
         }
 
         public virtual void AddRotation(Quaternion addRotation) {
@@ -1223,8 +1257,38 @@ namespace Autohand {
             targetPosOffset = Vector3.zero;
             targetTrackedPos = new Vector3(trackingContainer.position.x, targetTrackedPos.y, trackingContainer.position.z);
 
+            SafeMoveHandToPosition(handRight, transform, handRight.transform.position);
+            SafeMoveHandToPosition(handLeft, transform, handLeft.transform.position);
+
             if(addRotation.eulerAngles.magnitude > 10f)
                 OnTeleported?.Invoke(this);
+        }
+
+
+
+        private void SafeMoveHandToPosition(Hand hand, Transform playerTransform, Vector3 desiredHandPosition) {
+            var handBody = hand.body;
+            Vector3 bodyXZCenter = new Vector3(
+                playerTransform.position.x,
+                handBody.position.y,
+                playerTransform.position.z
+            );
+
+            handBody.position = bodyXZCenter;
+            handBody.transform.position = bodyXZCenter;
+
+            Vector3 offset = desiredHandPosition - bodyXZCenter;
+            float distance = offset.magnitude;
+            if(distance < 0.0001f)
+                return;
+
+            Vector3 direction = offset.normalized;
+
+            if(handBody.SweepTest(direction, out var hit, distance))
+                hand.handFollow.SetHandLocation(bodyXZCenter + direction * hit.distance);
+            else
+                hand.handFollow.SetHandLocation(desiredHandPosition);
+
         }
 
         public virtual void Recenter() {

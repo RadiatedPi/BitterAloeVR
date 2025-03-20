@@ -1,2 +1,2 @@
-D:\GitHubRepos\BitterAloeRevamp\Library\PramData\AndroidApplicationController\Cache\com.unity.template.vr\gradle-project\unityLibrary\src\main\cpp\CMakeLists.txt
-D:\GitHubRepos\BitterAloeRevamp\Library\PramData\AndroidApplicationController\Cache\com.unity.template.vr\gradle-project\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt
+D:\GitHubRepos\BitterAloeRevamp\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+D:\GitHubRepos\BitterAloeRevamp\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

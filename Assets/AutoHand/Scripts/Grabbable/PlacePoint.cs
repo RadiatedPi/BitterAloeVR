@@ -246,6 +246,10 @@ namespace Autohand {
                 StopCoroutine(checkRoutine);
                 checkRoutine = null;
             }
+
+            if(!parentOnPlace)
+                Remove();
+
             StopHighlight();
         }
 

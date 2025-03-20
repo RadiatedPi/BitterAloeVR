@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 181266685d918f4469ba6a73a8688a7f
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro.terrain/Runtime/Compute/Include/GPUITerrainHeightmap.hlsl
+  uploadId: 733257

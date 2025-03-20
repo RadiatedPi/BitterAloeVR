@@ -24,12 +24,22 @@ namespace Autohand {
         public GrabbablePose toPose;
         [Tooltip("Additional animations to run alongside the given driver value (good for things like a gun trigger that is separate from the hand but still needs to move with the hand during the animation)")]
         public AutoAnimation[] additionalAnimations;
-        
+        [Space]
+        [Tooltip("The weight of the index finger in the animation - 0 means the finger will not animate, 1 means it will animate fully")]
         public float indexWeight = 1;
+        [Tooltip("The weight of the middle finger in the animation - 0 means the finger will not animate, 1 means it will animate fully")]
         public float middleWeight = 1;
+        [Tooltip("The weight of the ring finger in the animation - 0 means the finger will not animate, 1 means it will animate fully")]
         public float ringWeight = 1;
+        [Tooltip("The weight of the pinky finger in the animation - 0 means the finger will not animate, 1 means it will animate fully")]
         public float pinkyWeight = 1;
+        [Tooltip("The weight of the thumb finger in the animation - 0 means the finger will not animate, 1 means it will animate fully")]
         public float thumbWeight = 1;
+        [Space]
+        [Tooltip("The strength of the hand position lerping between the two poses")]
+        public float handPositionWeight = 0;
+        [Tooltip("The strength of the hand rotation lerping between the two poses")]
+        public float handRotationWeight = 0;
 
         [Space]
 
@@ -100,6 +110,12 @@ namespace Autohand {
                 currentAnimationPose.fingerPoses[fingerIndex].SetFingerPose(finger);
             }
 
+            if(handPositionWeight != 0 || handRotationWeight != 0) {
+                currentAnimationPose.handOffset = Vector3.Lerp(fromPoseData.handOffset, toPoseData.handOffset, animationValue * handPositionWeight);
+                currentAnimationPose.localQuaternionOffset = Quaternion.Lerp(fromPoseData.localQuaternionOffset, toPoseData.localQuaternionOffset, animationValue * handRotationWeight);
+                hand.handGrabPoint.localRotation = currentAnimationPose.localQuaternionOffset;
+                hand.handGrabPoint.localPosition = currentAnimationPose.handOffset;
+            }
 
             foreach(var autoAnim in additionalAnimations)
                 autoAnim.SetAnimation(animationCurve.Evaluate(animationValue));
@@ -121,6 +137,8 @@ namespace Autohand {
 
         public void Animate(Hand hand, float value) {
             HandPoseData.LerpPose(ref currentAnimationPose, ref fromPose.GetHandPoseData(hand), ref toPose.GetHandPoseData(hand), value);
+            currentAnimationPose.handOffset = Vector3.Lerp(fromPoseData.handOffset, toPoseData.handOffset, value);
+            currentAnimationPose.localQuaternionOffset = Quaternion.Lerp(fromPoseData.localQuaternionOffset, toPoseData.localQuaternionOffset, value);
             currentAnimationPose.SetPose(hand);
         }
     }

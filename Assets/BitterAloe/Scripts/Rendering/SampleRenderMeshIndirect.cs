@@ -31,7 +31,7 @@ public class SampleRenderMeshIndirect : MonoBehaviour
 
     public void Start()
     {
-        gr = GameObject.FindWithTag("Reference").GetComponent<GlobalReferences>();
+        gr = transform.parent.GetComponent<GlobalReferences>();
         //td = GetComponentInParent<TileData>();
         tdFound = true;
     }
@@ -66,7 +66,7 @@ public class SampleRenderMeshIndirect : MonoBehaviour
         while( tdFound == false )
             await UniTask.Yield();
 
-        Debug.Log("Starting terrain chunk plant rendering");
+        gr.rdc.Log("Starting terrain chunk plant rendering");
         //Debug.Log(td.coordinates.Length);
 
         _drawArgsBuffer = CreateDrawArgsBufferForRenderMeshIndirect(_mesh, td.coordinates.Length);

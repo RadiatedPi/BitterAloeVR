@@ -975,7 +975,7 @@ namespace Autohand {
 
                     if(heldNoFriction) {
                         var colliderMat = Resources.Load<PhysicsMaterial>("NoFriction");
-                        SetPhysicsMaterial(colliderMat);
+                        SetPhysicMaterial(colliderMat);
                     }
 
                 }

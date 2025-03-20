@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2de515da7f70eb34f997d83884a8c034
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Compute/Include/Random.hlsl
+  uploadId: 733257

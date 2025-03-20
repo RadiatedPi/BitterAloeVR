@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 24446f199b374994aba72650fce59387
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro.terrain/Demos/!!!How to import demos!!!.txt
+  uploadId: 733257

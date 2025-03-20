@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a0933b3e5dba4e740bebfc61b666f36a
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Shaders/Include/GPUIStandardInclude.hlsl
+  uploadId: 733257

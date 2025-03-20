@@ -58,6 +58,13 @@ namespace Autohand {
         public float angleMassDifference = 10f;
         public float angleMassMaxAngle = 45f;
 
+        [Header("Advanced Settings")]
+        [Tooltip("If the hand is holding an unparented grabbable (see gabbable.parentOnGrab) and hits its max distance it will drop the object if it cannot returm within the max distance after this many frames - this is a safety to prevent the hand from getting stuck of grabbing something it isnt supposed to")]
+        public int maxDistanceNoParentReleaseFrames = 1;
+
+        [Tooltip("If the hand is holding a parented grabbable (see gabbable.parentOnGrab) and hits its max distance it will drop the object if it cannot returm within the max distance after this many frames - this is a safety to prevent the hand from getting stuck of grabbing something it isnt supposed to")]
+        public int maxDistanceParentReleaseFrames = 5;
+
 
         public Vector3 lastAngularVelocity { get; protected set; }
         public Vector3 lastVelocity { get; protected set; }
@@ -428,12 +435,13 @@ namespace Autohand {
             //Returns if out of distance, if you aren't holding anything
             if(distance > maxFollowDistance) {
                 if(hand.holdingObj != null) {
-                    if(hand.holdingObj.parentOnGrab && tryMaxDistanceCount < 1) {
+                    if(((!hand.holdingObj.parentOnGrab && tryMaxDistanceCount < maxDistanceNoParentReleaseFrames) 
+                        || (hand.holdingObj.parentOnGrab && tryMaxDistanceCount < maxDistanceParentReleaseFrames))) {
                         SetHandLocation(targetMoveToPosition, hand.transform.rotation);
+                        //Adding two because we remove 1 at the end of the function
                         tryMaxDistanceCount += 2;
                     }
-                    //If the object is not parented and the hand cant teleport, release the it then teleport the hand
-                    else if(!hand.holdingObj.parentOnGrab || tryMaxDistanceCount >= 1) {
+                    else {
                         hand.holdingObj.ForceHandRelease(hand);
                         SetHandLocation(targetMoveToPosition, hand.transform.rotation);
                     }

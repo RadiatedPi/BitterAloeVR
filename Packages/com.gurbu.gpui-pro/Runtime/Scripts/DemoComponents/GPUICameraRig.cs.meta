@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a892d63b98f984045b43954814fbff25
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Runtime/Scripts/DemoComponents/GPUICameraRig.cs
+  uploadId: 733257

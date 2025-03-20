@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ad43c9ea7cc88db488b0cb019aa8b024
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Editor/InitialPackageHDRP.unitypackage
+  uploadId: 733257

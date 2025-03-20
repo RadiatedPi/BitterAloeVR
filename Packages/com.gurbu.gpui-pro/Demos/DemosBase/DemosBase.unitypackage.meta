@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7b9cbf0116d18cb4ea8431943cb81b1c
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290293
+  packageName: GPU Instancer Pro
+  packageVersion: 0.9.18
+  assetPath: Packages/com.gurbu.gpui-pro/Demos/DemosBase/DemosBase.unitypackage
+  uploadId: 733257
