@@ -205,10 +205,8 @@ public class ParquetParser : MonoBehaviour
         TimeSpan timeElapsed;
         for (int i = 0; i < df.Rows.Count; i++)
         {
-            // System.Convert.ToSingle firmly tells unity that this object var is in fact a float so it doesn't panic
-            //float x = System.Convert.ToSingle(df[i, xColumnIndex]);
-            //float z = System.Convert.ToSingle(df[i, zColumnIndex]);
             // "0f" is a placeholder for the y axis coordinate, which is calculated later
+            // System.Convert.ToSingle firmly tells unity that this object var is in fact a float so it doesn't panic
             array[i] = new Vector3(System.Convert.ToSingle(df[i, xColumnIndex]), 0f, System.Convert.ToSingle(df[i, zColumnIndex]));
 
             timeElapsed = DateTime.Now - startTime;

@@ -4788,7 +4788,8 @@ GameObject:
   - component: {fileID: 627113396}
   - component: {fileID: 627113398}
   - component: {fileID: 627113397}
-  - component: {fileID: 627113399}
+  - component: {fileID: 627113400}
+  - component: {fileID: 627113401}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -4826,6 +4827,7 @@ MonoBehaviour:
   tc: {fileID: 627113398}
   parq: {fileID: 627113397}
   rdc: {fileID: 1151087}
+  gpui: {fileID: 627113400}
 --- !u!114 &627113397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4857,10 +4859,10 @@ MonoBehaviour:
   terrainTilePrefab: {fileID: 1458032746511054, guid: 91e31214ea7fa1c47be1cb6cd78c5c53, type: 3}
   plantMesh: {fileID: -2191619054911159353, guid: a4c235f409299624796676d2e3bed6da, type: 3}
   material: {fileID: 2100000, guid: fa4641efdcc6aa441a3d36c714e5240b, type: 2}
-  tileSize: {x: 32, y: 8, z: 32}
+  tileSize: {x: 32, y: 4, z: 32}
   noiseScale: 1
-  cellSize: 4
-  radiusToRender: 2
+  cellSize: 8
+  radiusToRender: 3
   gameTransforms: []
   playerTransform: {fileID: 1837141637}
   playerContainer: {fileID: 1988096337}
@@ -4875,7 +4877,9 @@ MonoBehaviour:
   noise: {fileID: 0}
   startOffset: {x: 0, y: 0}
   noiseRange: {x: 0, y: 0}
---- !u!114 &627113399
+  aloePrefab: {fileID: 0}
+  aloeCoordinates: []
+--- !u!114 &627113400
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4884,12 +4888,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 627113394}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1eb95f9a47ce5246a0ed7b3c50aa4bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b3423ea0fdfd414da037b626151f9df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tc: {fileID: 627113398}
-  parq: {fileID: 627113397}
-  rdc: {fileID: 1151087}
+  level: {fileID: 627113396}
+  prefab: {fileID: 7065242849068401920, guid: a687bb84e2e504d4aa9e1f22bcb92697, type: 3}
+  activeTiles: []
+  renderCoordinates: []
+  gpuiPrefabManager: {fileID: 627113401}
+  instanceCount: 2000
+  previousPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &627113401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627113394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66990024f52df7d4e9864110ee1dddf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDontDestroyOnLoad: 0
+  _prototypes:
+  - prototypeType: 0
+    profile: {fileID: 11400000, guid: 5342085a5dd79b543ba8a11fb4a2a826, type: 2}
+    prefabObject: {fileID: 7065242849068401920, guid: a687bb84e2e504d4aa9e1f22bcb92697, type: 3}
+    gpuiLODGroupData: {fileID: 0}
+    prototypeMesh: {fileID: 0}
+    prototypeMaterials: []
+    layer: 0
+    isGenerateBillboard: 1
+    isBillboardReplaceLODCulled: 1
+    billboardDistance: 0.993
+    billboardAsset: {fileID: 11400000, guid: 989098d4dfb959048b7e9f8688268422, type: 2}
+    isEnabled: 1
+    name: BitterAloe
+  defaultProfile: {fileID: 11400000, guid: bd5ec071b54f10b4bb1ce68aa22775ef, type: 2}
+  isEnableDefaultRenderingWhenDisabled: 1
+  _disablePlayModeRendering: 0
+  editor_isRenderInEditMode: 1
+  editor_isTextMode: 0
+  editor_isRollbackRuntimeProfileChanges: 0
+  _prototypeDataArray:
+  - isAutoUpdateTransformData: 1
+    registeredInstances:
+      prefabInstances: []
+  isFindInstancesAtInitialization: 1
+  editor_isReadPrefabTransformsEveryUpdate: 1
+  editor_enableEditModeRendering: 1
 --- !u!1 &636160611
 GameObject:
   m_ObjectHideFlags: 0
@@ -23614,7 +23662,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7942002210973373747, guid: a5226a72c9553294abfe172a458b5805, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7942002210973373747, guid: a5226a72c9553294abfe172a458b5805, type: 3}
       propertyPath: m_LocalPosition.z
@@ -23626,15 +23674,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7942002210973373747, guid: a5226a72c9553294abfe172a458b5805, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7942002210973373747, guid: a5226a72c9553294abfe172a458b5805, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7942002210973373747, guid: a5226a72c9553294abfe172a458b5805, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7942002210973373747, guid: a5226a72c9553294abfe172a458b5805, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -26265,7 +26313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1f0e1a207c4c434f873543217122676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: {fileID: 627113395}
+  level: {fileID: 627113396}
   testimonyUIPrefab: {fileID: 1869332007501302503, guid: 19faa807c3c4b5a448ccc1311b5b53c4, type: 3}
   titleUIPrefab: {fileID: 319528153142026807, guid: d304f417e6464d74c9f5e1dbc76c58c6, type: 3}
   testimonyUIWindow: {fileID: 116725042}
@@ -27993,17 +28041,21 @@ ParentConstraint:
   m_Weight: 1
   m_TranslationAtRest: {x: 0, y: 0, z: 0}
   m_RotationAtRest: {x: 0, y: 0, z: 0}
-  m_TranslationOffsets: []
-  m_RotationOffsets: []
+  m_TranslationOffsets:
+  - {x: 0, y: 10, z: 0}
+  m_RotationOffsets:
+  - {x: 0, y: 0, z: 0}
   m_AffectTranslationX: 1
   m_AffectTranslationY: 1
   m_AffectTranslationZ: 1
   m_AffectRotationX: 1
   m_AffectRotationY: 1
   m_AffectRotationZ: 1
-  m_Active: 0
-  m_IsLocked: 0
-  m_Sources: []
+  m_Active: 1
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 627113395}
+    weight: 1
 --- !u!1 &2015106486
 GameObject:
   m_ObjectHideFlags: 0
@@ -30027,7 +30079,7 @@ SceneRoots:
   - {fileID: 562154458}
   - {fileID: 1093589334}
   - {fileID: 2131473716}
-  - {fileID: 1515036744}
   - {fileID: 627113395}
+  - {fileID: 1515036744}
   - {fileID: 1779925844}
   - {fileID: 1126933943}

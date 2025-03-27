@@ -8,6 +8,9 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Animations;
+using GPUInstancerPro;
+using GPUInstancerPro.PrefabModule;
+using GPUInstancerPro.TerrainModule;
 
 public class TerrainController : MonoBehaviour
 {
@@ -65,6 +68,8 @@ public class TerrainController : MonoBehaviour
     private Vector2[] previousCenterTiles;
     private List<GameObject> previousTileObjects = new List<GameObject>();
 
+    public GameObject aloePrefab;
+    public List<Vector3> aloeCoordinates;
 
 
     DateTime startTime;
@@ -88,17 +93,6 @@ public class TerrainController : MonoBehaviour
     public void InitialLoad()
     {
         level = GetComponent<LevelData>();
-
-        ConstraintSource constraintSource = new ConstraintSource();
-        constraintSource.sourceTransform = transform;
-        constraintSource.weight = 1;
-
-        playerContainer.GetComponent<ParentConstraint>().AddSource(constraintSource);
-        Vector3[] offset = new Vector3[1];
-        offset[0] = new Vector3(0, 10, 0);
-        playerContainer.GetComponent<ParentConstraint>().translationOffsets = offset;
-        playerContainer.GetComponent<ParentConstraint>().locked = true;
-        playerContainer.GetComponent<ParentConstraint>().constraintActive = true;
 
         foreach (Transform t in gameTransforms)
             t.parent = transform;
@@ -144,7 +138,10 @@ public class TerrainController : MonoBehaviour
             //deactivate old tiles
             foreach (GameObject g in previousTileObjects)
                 if (!tileObjects.Contains(g))
+                {
                     g.SetActive(false);
+                    //level.gpui.RemoveFromCoordinateList(g.GetComponent<TileData>().globalCoordinates);
+                }
 
             //destroy inactive tiles if they're too far away
             List<Vector2> keysToRemove = new List<Vector2>();//can't remove item when inside a foreach loop
@@ -153,13 +150,15 @@ public class TerrainController : MonoBehaviour
                 if (Vector3.Distance(playerTransform.position, kv.Value.transform.position) > destroyDistance && !kv.Value.activeSelf)
                 {
                     keysToRemove.Add(kv.Key);
-                    Destroy(kv.Value);
+                    Destroy(kv.Value); 
                 }
             }
             foreach (Vector2 key in keysToRemove)
                 terrainTiles.Remove(key);
 
             previousTileObjects = new List<GameObject>(tileObjects);
+
+            level.gpui.UpdatePlantTransforms();
         }
 
         previousCenterTiles = centerTiles.ToArray();
@@ -172,18 +171,24 @@ public class TerrainController : MonoBehaviour
     {
         if (!terrainTiles.ContainsKey(new Vector2(xIndex, yIndex)))
         {
-            tileObjects.Add(await CreateTile(xIndex, yIndex));
-            if (tileObjects.Count >= (radiusToRender + 1) * (radiusToRender + 1))
-            {
+            GameObject t = await CreateTile(xIndex, yIndex);
+            tileObjects.Add(t);
+
+            //level.gpui.AddToCoordinateList(t.GetComponent<TileData>().globalCoordinates);
+
+            // drops player into world once all initial tiles have been loaded
+            if (playerLoadingBox.activeSelf == true && tileObjects.Count >= (radiusToRender + 1) * (radiusToRender + 1))
                 playerLoadingBox.SetActive(false);
-            }
         }
         else
         {
             GameObject t = terrainTiles[new Vector2(xIndex, yIndex)];
             tileObjects.Add(t);
             if (!t.activeSelf)
+            {
                 t.SetActive(true);
+                //level.gpui.AddToCoordinateList(t.GetComponent<TileData>().globalCoordinates);
+            }
         }
     }
 
@@ -216,14 +221,18 @@ public class TerrainController : MonoBehaviour
         UnityEngine.Random.InitState((int)(seed + (long)xIndex * 100 + yIndex));//so it doesn't form a (noticable) pattern of similar tiles
         RandomizeInitState();
 
-        SampleRenderMeshIndirect plantRenderer = terrain.AddComponent<SampleRenderMeshIndirect>();
-        plantRenderer.td = terrain.GetComponent<TileData>();
-        plantRenderer._mesh = plantMesh;
-        plantRenderer._material = new Material(material);
-        plantRenderer._shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.TwoSided;
-        plantRenderer._receiveShadows = true;
 
-        await plantRenderer.StartRender();
+        //GPUIProfile gpuiProfile = new GPUIProfile();
+
+
+        // Pre GPUI plant rendering method:
+        //SampleRenderMeshIndirect plantRenderer = terrain.AddComponent<SampleRenderMeshIndirect>();
+        //plantRenderer.td = terrain.GetComponent<TileData>();
+        //plantRenderer._mesh = plantMesh;
+        //plantRenderer._material = new Material(material);
+        //plantRenderer._shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.TwoSided;
+        //plantRenderer._receiveShadows = true;
+        //await plantRenderer.StartRender();
 
         PlaceObjects po = terrain.GetComponent<PlaceObjects>();
         await po.Place(PlantObjects);
@@ -231,6 +240,11 @@ public class TerrainController : MonoBehaviour
 
         return terrain;
     }
+
+
+
+
+
 
 
     public Vector2 NoiseOffset(int xIndex, int yIndex)

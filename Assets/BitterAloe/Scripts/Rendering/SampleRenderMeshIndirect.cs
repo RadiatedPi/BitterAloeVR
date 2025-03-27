@@ -61,34 +61,34 @@ public class SampleRenderMeshIndirect : MonoBehaviour
         }
     }
 
-    public async UniTask<bool> StartRender()
-    {
-        while( tdFound == false )
-            await UniTask.Yield();
+    //public async UniTask<bool> StartRender()
+    //{
+    //    while( tdFound == false )
+    //        await UniTask.Yield();
 
-        gr.rdc.Log("Starting terrain chunk plant rendering");
-        //Debug.Log(td.coordinates.Length);
+    //    gr.rdc.Log("Starting terrain chunk plant rendering");
+    //    //Debug.Log(td.coordinates.Length);
 
-        _drawArgsBuffer = CreateDrawArgsBufferForRenderMeshIndirect(_mesh, td.coordinates.Length);
-        _dataBuffer = CreateDataBuffer<Matrix4x4>(td.coordinates.Length);
+    //    _drawArgsBuffer = CreateDrawArgsBufferForRenderMeshIndirect(_mesh, td.aloeCoordinates.Length);
+    //    _dataBuffer = CreateDataBuffer<Matrix4x4>(td.aloeCoordinates.Length);
 
-        var transformMatrixArray = TransformMatrixArrayFactory.Create(td.coordinates);
-        _dataBuffer.SetData(transformMatrixArray);
-        transformMatrixArray.Dispose();
-        _material.SetBuffer("_TransformMatrixArray", _dataBuffer);
+    //    var transformMatrixArray = TransformMatrixArrayFactory.Create(td.aloeCoordinates);
+    //    _dataBuffer.SetData(transformMatrixArray);
+    //    transformMatrixArray.Dispose();
+    //    _material.SetBuffer("_TransformMatrixArray", _dataBuffer);
 
-        //_material.SetVector("_BoundsOffset", new Vector3(td.tileIndex.x * gr.tc.tileSize.x, 0, td.tileIndex.y * gr.tc.tileSize.z));
-        //_material.SetVector("_BoundsOffset", new Vector3(
-        //                td.tileIndex.x * gr.tc.tileSize.x - gr.tc.Level.position.x,
-        //                0,
-        //                td.tileIndex.y * gr.tc.tileSize.z - gr.tc.Level.position.z));
-        _material.SetVector("_BoundsOffset", transform.position);
+    //    //_material.SetVector("_BoundsOffset", new Vector3(td.tileIndex.x * gr.tc.tileSize.x, 0, td.tileIndex.y * gr.tc.tileSize.z));
+    //    //_material.SetVector("_BoundsOffset", new Vector3(
+    //    //                td.tileIndex.x * gr.tc.tileSize.x - gr.tc.Level.position.x,
+    //    //                0,
+    //    //                td.tileIndex.y * gr.tc.tileSize.z - gr.tc.Level.position.z));
+    //    _material.SetVector("_BoundsOffset", transform.position);
          
 
-        renderStarted = true; 
+    //    renderStarted = true; 
 
-        return true;
-    }
+    //    return true;
+    //}
 
     private void OnDestroy()
     {  

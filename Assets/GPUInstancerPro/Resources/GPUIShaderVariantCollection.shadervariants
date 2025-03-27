@@ -8,6 +8,13 @@ ShaderVariantCollection:
   m_PrefabAsset: {fileID: 0}
   m_Name: GPUIShaderVariantCollection
   m_Shaders:
+  - first: {fileID: -6465566751694194690, guid: 4061145e244733a4d9e4bac2abbb417d, type: 3}
+    second:
+      variants:
+      - keywords: BILLBOARD_FACE_CAMERA_POS
+        passType: 0
+      - keywords: BILLBOARD_FACE_CAMERA_POS LOD_FADE_CROSSFADE
+        passType: 0
   - first: {fileID: 4800000, guid: 8478781d80234fa29651593b02782b9d, type: 3}
     second:
       variants:
@@ -17,4 +24,11 @@ ShaderVariantCollection:
     second:
       variants:
       - keywords: 
+        passType: 0
+  - first: {fileID: 4800000, guid: 9d1e81367de56bd40b53d5fbe4634a9e, type: 3}
+    second:
+      variants:
+      - keywords: LOD_FADE_CROSSFADE _NORMALMAP
+        passType: 0
+      - keywords: _NORMALMAP
         passType: 0

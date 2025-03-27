@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01694a6d0ad91f4985ea0689f262c1b, type: 3}
   m_Name: GPUIShaderBindings
   m_EditorClassIdentifier: 
-  shaderInstances: []
+  shaderInstances:
+  - shaderName: Universal Render Pipeline/Lit
+    replacementShaderName: GPUInstancerPro/Universal Render Pipeline/Lit
+    extensionCode: 
+    isUseOriginal: 0
+    modifiedDate: 03/20/2025 19:33:33.624
+  - shaderName: GPUInstancerPro/Billboard/BillboardURP_GPUIPro
+    replacementShaderName: GPUInstancerPro/Billboard/BillboardURP_GPUIPro
+    extensionCode: 
+    isUseOriginal: 0
+    modifiedDate: 03/25/2025 10:32:58.681
