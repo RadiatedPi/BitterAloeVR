@@ -70,6 +70,7 @@ public class TerrainController : MonoBehaviour
 
     public GameObject aloePrefab;
     public List<Vector3> aloeCoordinates;
+    private bool initLoadFinished = false;
 
 
     DateTime startTime;
@@ -140,7 +141,6 @@ public class TerrainController : MonoBehaviour
                 if (!tileObjects.Contains(g))
                 {
                     g.SetActive(false);
-                    //level.gpui.RemoveFromCoordinateList(g.GetComponent<TileData>().globalCoordinates);
                 }
 
             //destroy inactive tiles if they're too far away
@@ -158,7 +158,7 @@ public class TerrainController : MonoBehaviour
 
             previousTileObjects = new List<GameObject>(tileObjects);
 
-            level.gpui.UpdatePlantTransforms();
+            //await level.gpui.UpdatePlantTransforms();
         }
 
         previousCenterTiles = centerTiles.ToArray();
@@ -174,11 +174,16 @@ public class TerrainController : MonoBehaviour
             GameObject t = await CreateTile(xIndex, yIndex);
             tileObjects.Add(t);
 
-            //level.gpui.AddToCoordinateList(t.GetComponent<TileData>().globalCoordinates);
-
             // drops player into world once all initial tiles have been loaded
             if (playerLoadingBox.activeSelf == true && tileObjects.Count >= (radiusToRender + 1) * (radiusToRender + 1))
+            {
+                if (!initLoadFinished)
+                {
+                    await level.gpui.UpdateTransforms();
+                    initLoadFinished = true;
+                }
                 playerLoadingBox.SetActive(false);
+            }
         }
         else
         {
@@ -187,7 +192,6 @@ public class TerrainController : MonoBehaviour
             if (!t.activeSelf)
             {
                 t.SetActive(true);
-                //level.gpui.AddToCoordinateList(t.GetComponent<TileData>().globalCoordinates);
             }
         }
     }
@@ -206,7 +210,7 @@ public class TerrainController : MonoBehaviour
 
         terrainTiles.Add(new Vector2(xIndex, yIndex), terrain);
 
-        await terrain.GetComponent<TileData>().GetPlantData();
+        await terrain.GetComponent<TileData>().GetAloeData();
 
         terrain.transform.localPosition = new Vector3(tileSize.x * xIndex, 0, tileSize.z * yIndex);
 
@@ -221,22 +225,10 @@ public class TerrainController : MonoBehaviour
         UnityEngine.Random.InitState((int)(seed + (long)xIndex * 100 + yIndex));//so it doesn't form a (noticable) pattern of similar tiles
         RandomizeInitState();
 
-
-        //GPUIProfile gpuiProfile = new GPUIProfile();
-
-
-        // Pre GPUI plant rendering method:
-        //SampleRenderMeshIndirect plantRenderer = terrain.AddComponent<SampleRenderMeshIndirect>();
-        //plantRenderer.td = terrain.GetComponent<TileData>();
-        //plantRenderer._mesh = plantMesh;
-        //plantRenderer._material = new Material(material);
-        //plantRenderer._shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.TwoSided;
-        //plantRenderer._receiveShadows = true;
-        //await plantRenderer.StartRender();
-
-        PlaceObjects po = terrain.GetComponent<PlaceObjects>();
-        await po.Place(PlantObjects);
-        await po.Place(RockObjects);
+        //PlaceObjects po = terrain.GetComponent<PlaceObjects>();
+        //await po.Place(PlantObjects);
+        //await po.Place(RockObjects);
+        await terrain.GetComponent<TileData>().GetObjectData();
 
         return terrain;
     }

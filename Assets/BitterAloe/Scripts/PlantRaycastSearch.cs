@@ -147,7 +147,7 @@ public class PlantRaycastSearch : MonoBehaviour
             Debug.Log(datapoint[13]);
             plantUIManager.GetTranscript(Convert.ToInt32(datapoint[13]));
             plantUIManager.DisplayTranscriptPage(0);
-            plantUIManager.SpawnPlantUI(terrainTile.localPositions[terrainTile.kdTree.FindNearest(aimHit.point)]);
+            plantUIManager.SpawnPlantUI(terrainTile.aloePlants.transforms[terrainTile.kdTree.FindNearest(aimHit.point)].position);
 
             //Debug.Log($"DF index 0: ({parquetParser.df[0, 10]}, {parquetParser.df[0, 11]})");
             //Debug.Log($": ({parquetParser.df[0, 10]}, {parquetParser.df[0, 11]})");

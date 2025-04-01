@@ -4,6 +4,6 @@ public class LevelData : MonoBehaviour
 { 
     public TerrainController tc;
     public ParquetParser parq;
-    public RuntimeDebugConsole rdc;
+    public RuntimeDebugConsole debug;
     public GPUIHandler gpui;
 }

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473c488612f26a143832f1606af81e03, type: 3}
   m_Name: BitterAloe_Billboard
   m_EditorClassIdentifier: 
-  prefabObject: {fileID: 7065242849068401920, guid: a687bb84e2e504d4aa9e1f22bcb92697, type: 3}
+  prefabObject: {fileID: 7115375114513159200, guid: f68f76411174cbe47a54c3f450dbca3d, type: 3}
   atlasResolution: 2048
   frameCount: 8
   brightness: 0.5
   cutoffOverride: 0.5
-  normalStrength: 1
+  normalStrength: 0.891
   billboardShaderType: 0
-  quadSize: {x: 2.2363236, y: 1.5281123}
-  yPivotOffset: 0.6911148
+  quadSize: {x: 2.0942183, y: 1.7176843}
+  yPivotOffset: 0.66073805
   albedoAtlasTexture: {fileID: 2800000, guid: 3ab31dac40ade31439155052ee2a712e, type: 3}
   normalAtlasTexture: {fileID: 2800000, guid: d3739541f481e784385b134be1571a72, type: 3}

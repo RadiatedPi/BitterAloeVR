@@ -1,62 +1,92 @@
 ﻿using Cysharp.Threading.Tasks;
+using GPUInstancerPro;
+using GPUInstancerPro.PrefabModule;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(GenerateMesh))]
 public class PlaceObjects : MonoBehaviour
 {
     private LevelData level;
+    private GPUIPrefabManager gpuiPrefabManager;
+
+
+
     //public TerrainController TerrainController { get; set; }
 
     public void Start()
     {
         level = transform.parent.GetComponent<LevelData>();
+        gpuiPrefabManager = level.gpui.gpuiPrefabManager;
     }
 
-    public async UniTask<bool> Place(GameObject objectsPrefab)
-    {
-        //Debug.Log($"Placing objects...");
+    //public async UniTask<bool> Place(GameObject objectsPrefab)
+    //{
 
-        int prefabNum = objectsPrefab.transform.childCount;
+    //    for (int i = 0; i < gpuiPrefabManager.GetPrototypeCount(); i++)
+    //    {
+    //        GPUIPrototype prototype = gpuiPrefabManager.GetPrototype(i);
+    //        int key;
+    //        GPUICoreAPI.RegisterRenderer(this, prototype, out key);
 
-        if (prefabNum < 1)
-        {
-            return false;
-        }
+    //        level.debug.Log($"Prototype {i} name: {prototype.name}");
 
-        for (int i = 0; i < prefabNum; i++)
-        {
-            Transform objectType = objectsPrefab.transform.GetChild(i);
-            PlaceObjectSettings placeSettings = objectType.GetComponent<PlaceObjectSettings>();
+    //        if (prototype.name.Contains("Aloe"))
+    //            _aloeRendererKey = key;
+    //        else if (prototype.name.Contains("Rock"))
+    //        {
+    //            rockRendererKeys.Add(key);
+    //            rockPrototypes.Add(prototype);
+    //        }
+    //        else if (prototype.name.Contains("Foliage"))
+    //        {
+    //            foliageRendererKeys.Add(key);
+    //            foliagePrototypes.Add(prototype);
+    //        }
+    //    }
 
-            int numObjects = Random.Range(placeSettings.countPerTileRange.x, placeSettings.countPerTileRange.y);
-            await UniTask.RunOnThreadPool(async () =>
-            {
-                for (int j = 0; j < numObjects; j++)
-                {
-                    await UniTask.Yield();
-                    Vector3 startPoint = RandomPointAboveTerrain();
+    //    int prefabNum = objectsPrefab.transform.childCount;
 
-                    RaycastHit hit;
-                    if (Physics.Raycast(startPoint, Vector3.down, out hit, float.MaxValue, LayerMask.GetMask("Terrain")))
-                    {
-                        Quaternion orientation = Quaternion.FromToRotation(Vector3.up, hit.normal) * Quaternion.Euler(Vector3.up * Random.Range(0f, 360f));
-                        RaycastHit boxHit;
-                        if (Physics.BoxCast(startPoint, Vector3.one, Vector3.down, out boxHit, orientation, float.MaxValue, LayerMask.GetMask("Terrain")))
-                        {
-                            Transform placedObject = Instantiate(objectType, new Vector3(startPoint.x, hit.point.y + placeSettings.heightOffset, startPoint.z), orientation, transform);
-                            placedObject.transform.localScale *= Random.Range(placeSettings.sizeRange.x, placeSettings.sizeRange.y);
-                        }
-                        //Debug code. To use, uncomment the giant thingy below
+    //    if (prefabNum < 1)
+    //    {
+    //        return false;
+    //    }
 
-                        //Debug.DrawRay(startPoint, Vector3.down * 10000, Color.blue);
-                        //DrawBoxCastBox(startPoint, Vector3.one, orientation, Vector3.down, 10000, Color.red);
-                        //UnityEditor.EditorApplication.isPaused = true;
-                    }
-                }
-            });
-        }
-        return true;
-    }
+    //    for (int i = 0; i < prefabNum; i++)
+    //    {
+    //        Transform objectType = objectsPrefab.transform.GetChild(i);
+    //        PlaceObjectSettings placeSettings = objectType.GetComponent<PlaceObjectSettings>();
+
+    //        int numObjects = Random.Range(placeSettings.countPerTileRange.x, placeSettings.countPerTileRange.y);
+    //        await UniTask.RunOnThreadPool(async () =>
+    //        {
+    //            for (int j = 0; j < numObjects; j++)
+    //            {
+    //                await UniTask.Yield();
+    //                Vector3 startPoint = RandomPointAboveTerrain();
+
+    //                RaycastHit hit;
+    //                if (Physics.Raycast(startPoint, Vector3.down, out hit, float.MaxValue, LayerMask.GetMask("Terrain")))
+    //                {
+    //                    Quaternion orientation = Quaternion.FromToRotation(Vector3.up, hit.normal) * Quaternion.Euler(Vector3.up * Random.Range(0f, 360f));
+    //                    RaycastHit boxHit;
+    //                    if (Physics.BoxCast(startPoint, Vector3.one, Vector3.down, out boxHit, orientation, float.MaxValue, LayerMask.GetMask("Terrain")))
+    //                    {
+    //                        Transform placedObject = Instantiate(objectType, new Vector3(startPoint.x, hit.point.y + placeSettings.heightOffset, startPoint.z), orientation, transform);
+    //                        placedObject.transform.localScale *= Random.Range(placeSettings.sizeRange.x, placeSettings.sizeRange.y);
+    //                    }
+    //                    //Debug code. To use, uncomment the giant thingy below
+
+    //                    //Debug.DrawRay(startPoint, Vector3.down * 10000, Color.blue);
+    //                    //DrawBoxCastBox(startPoint, Vector3.one, orientation, Vector3.down, 10000, Color.red);
+    //                    //UnityEditor.EditorApplication.isPaused = true;
+    //                }
+    //            }
+    //        });
+    //    }
+    //    return true;
+    //}
 
     private Vector3 RandomPointAboveTerrain()
     {

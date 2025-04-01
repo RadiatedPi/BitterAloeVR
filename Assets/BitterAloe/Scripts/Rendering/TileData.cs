@@ -1,10 +1,14 @@
 using Cysharp.Threading.Tasks;
+using GPUInstancerPro;
 using Microsoft.Data.Analysis;
 using ProceduralToolkit;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
+
 
 public class TileData : MonoBehaviour
 {
@@ -13,7 +17,9 @@ public class TileData : MonoBehaviour
     public Vector2 tileIndex;
 
     private DataFrame df;
-    public NativeArray<Vector3> localPositions;
+    public RenderTransformList aloePlants = new RenderTransformList();
+    public List<RenderTransformList> objects = new List<RenderTransformList>();
+    //public List<Vector3> localAloePositions;
     public KDTree kdTree;
     private bool levelFound = false;
     public bool dataFound = false;
@@ -25,7 +31,7 @@ public class TileData : MonoBehaviour
         levelFound = true;
     }
 
-    public async UniTask<bool> GetPlantData()
+    public async UniTask<bool> GetAloeData()
     {
         while (levelFound == false || level.parq.parquetRead == false)
             await UniTask.Yield();
@@ -36,70 +42,120 @@ public class TileData : MonoBehaviour
         df = await level.parq.GetDataFrameWithinBounds(level.parq.df, rangeMin, rangeMax);
         if (df.Rows.Count >= 1)
         {
-            NativeArray<Vector3> positions = await level.parq.GetCoordinatesAsNativeArray(df);
-            positions = await ScalePositionsToLocal(positions, rangeMin, rangeMax);
-            positions = await GetPlantHeights(positions);
-            localPositions = positions;
+            List<Vector3> localPositions = (await level.parq.GetCoordinatesAsNativeArray(df)).ToList();
+            localPositions = await ScalePositionsToLocal(localPositions, rangeMin, rangeMax);
+            localPositions = await GetHeights(localPositions);
 
-            kdTree = await MakeKDTree(localPositions);
+            aloePlants.AddTransforms(tileIndex, localPositions);
 
+            kdTree = await MakeKDTree(aloePlants.GetPositions());
         }
         dataFound = true;
-        level.rdc.Log($"Tile {tileIndex}: Local coordinates calculated, {localPositions.Length} total.");
+        level.debug.Log($"Tile {tileIndex}: Local positions found, {aloePlants.transforms.Count} total.");
         return true;
     }
 
-    // converts localPositions from localspace to levelspace
-    public NativeArray<Vector3> GetLevelPositions(NativeArray<Vector3> localPositions)
+    public async UniTask<bool> GetObjectData()
     {
-        NativeArray<Vector3> levelPositions = new NativeArray<Vector3>(localPositions.Length, Allocator.TempJob);
+        for (int i = 0; i < level.gpui.objectRenderers.Count; i++)
+        {
+            PlaceObjectSettings placeSettings = level.gpui.objectRenderers[i].prototype.prefabObject.GetComponent<PlaceObjectSettings>();
+
+            int objectInstanceCount = UnityEngine.Random.Range(placeSettings.countPerTileRange.x, placeSettings.countPerTileRange.y);
+            await UniTask.RunOnThreadPool(async () =>
+            {
+                RenderTransformList renderTransformList = new RenderTransformList();
+                for (int j = 0; j < objectInstanceCount; j++)
+                {
+                    await UniTask.Yield();
+                    Vector3 startPoint = RandomPointAboveTerrain();
+
+                    RaycastHit hit;
+                    if (Physics.Raycast(startPoint, Vector3.down, out hit, float.MaxValue, LayerMask.GetMask("Terrain")))
+                    {
+                        Quaternion orientation = Quaternion.FromToRotation(Vector3.up, hit.normal) * Quaternion.Euler(Vector3.up * UnityEngine.Random.Range(0f, 360f));
+                        RaycastHit boxHit;
+                        if (Physics.BoxCast(startPoint, Vector3.one, Vector3.down, out boxHit, orientation, float.MaxValue, LayerMask.GetMask("Terrain")))
+                        {
+                            RenderTransform objectTransform = new RenderTransform(
+                                new Vector3(startPoint.x - transform.position.x, hit.point.y + placeSettings.heightOffset, startPoint.z - transform.position.z),
+                                orientation,
+                                UnityEngine.Random.Range(placeSettings.sizeRange.x, placeSettings.sizeRange.y)
+                            );
+                            renderTransformList.transforms.Add(objectTransform);
+                        }
+                    }
+                }
+                renderTransformList.tileIndex = tileIndex;
+                objects.Add(renderTransformList);
+            });
+
+        }
+        return true;
+    }
+
+    private Vector3 RandomPointAboveTerrain()
+    {
+        return new Vector3(
+            UnityEngine.Random.Range(transform.position.x - level.tc.TerrainSize.x / 2, transform.position.x + level.tc.TerrainSize.x / 2),
+            transform.position.y + level.tc.TerrainSize.y * 2,
+            UnityEngine.Random.Range(transform.position.z - level.tc.TerrainSize.z / 2, transform.position.z + level.tc.TerrainSize.z / 2)
+        );
+    }
+
+
+
+    //// converts localPositions from localspace to levelspace
+    public List<Vector3> GetLevelPositions(List<Vector3> localPositions)
+    {
+        List<Vector3> levelPositions = new List<Vector3>();
 
         Vector3 levelOffset = new Vector3(tileIndex.x * level.tc.tileSize.x, 0, tileIndex.y * level.tc.tileSize.z);
 
-        for (int i = 0; i < localPositions.Length; i++)
-            levelPositions[i] = localPositions[i] + levelOffset;
+        for (int i = 0; i < localPositions.Count; i++)
+            levelPositions.Add(localPositions[i] + levelOffset);
 
         return levelPositions;
     }
 
-    // converts localPositions from localspace to worldspace
-    public NativeArray<Vector3> GetGlobalPositions()
-    {
-        NativeArray<Vector3> globalPositions = new NativeArray<Vector3>(localPositions.Length, Allocator.TempJob);
+    //// converts localPositions from localspace to worldspace
+    //public List<Vector3> GetGlobalPositions()
+    //{
+    //    List<Vector3> globalPositions = new List<Vector3>();
 
-        for (int i = 0; i < localPositions.Length; i++)
-            globalPositions[i] = localPositions[i] + transform.position; 
+    //    for (int i = 0; i < aloePlants.transforms.Count; i++)
+    //        globalPositions[i] = aloePlants.transforms[i].position + aloePlants.tileTransform.position;
 
-        return globalPositions;
-    }
+    //    return globalPositions;
+    //}
 
     // converts raw data positions to localspace relative to tile
-    public async UniTask<NativeArray<Vector3>> ScalePositionsToLocal(NativeArray<Vector3> rawPositions, Vector2 min, Vector2 max)
+    public async UniTask<List<Vector3>> ScalePositionsToLocal(List<Vector3> rawPositions, Vector2 min, Vector2 max)
     {
-        NativeArray<Vector3> rescaledCoordinates = new NativeArray<Vector3>(rawPositions.Length, Allocator.TempJob);
+        List<Vector3> rescaledCoordinates = new List<Vector3>();
 
         await UniTask.RunOnThreadPool(() =>
         {
-            for (int i = 0; i < rawPositions.Length; i++)
+            for (int i = 0; i < rawPositions.Count; i++)
             {
                 // normalizes coordinates from 0 to 1
                 var xNorm = (rawPositions[i].x - min.x) / (max.x - min.x);
                 var zNorm = (rawPositions[i].z - min.y) / (max.y - min.y);
 
                 // scales up coordinates to match the size and position of the chunk
-                rescaledCoordinates[i] = new Vector3((xNorm - 0.5f) * level.tc.tileSize.x, rawPositions[i].y, (zNorm - 0.5f) * level.tc.tileSize.z);
+                rescaledCoordinates.Add(new Vector3((xNorm - 0.5f) * level.tc.tileSize.x, rawPositions[i].y, (zNorm - 0.5f) * level.tc.tileSize.z));
             }
         });
-        level.rdc.Log($"Tile {tileIndex}: Coordinates rescaled.");
+        level.debug.Log($"Tile {tileIndex}: Coordinates rescaled.");
         return rescaledCoordinates;
     }
 
 
-    private async UniTask<NativeArray<Vector3>> GetPlantHeights(NativeArray<Vector3> localPositions)
+    private async UniTask<List<Vector3>> GetHeights(List<Vector3> localPositions)
     {
-        NativeArray<Vector3> levelPositions = GetLevelPositions(localPositions);
+        List<Vector3> levelPositions = GetLevelPositions(localPositions);//aloePlants.GetLevelPositions(level.tc.tileSize.x);
 
-        for (int i = 0; i < levelPositions.Length; i++)
+        for (int i = 0; i < levelPositions.Count; i++)
         {
             // adjusts for offset caused by the temporary terrain tile border quads generated to calculate normals
             float quadLength = level.tc.tileSize.x / Mathf.FloorToInt(level.tc.tileSize.x / level.tc.cellSize);
@@ -119,10 +175,10 @@ public class TileData : MonoBehaviour
 
             float height = Mathf.PerlinNoise(noiseX, noiseZ);
 
-            localPositions[i] = new Vector3(localPositions[i].x, height * level.tc.tileSize.y + 0.2f, localPositions[i].z);
+            localPositions[i] = new Vector3(localPositions[i].x, height * level.tc.tileSize.y, localPositions[i].z);
         }
 
-        level.rdc.Log($"Tile {tileIndex}: Plant heights calculated.");
+        level.debug.Log($"Tile {tileIndex}: Plant heights calculated.");
         return localPositions;
     }
 
@@ -133,10 +189,10 @@ public class TileData : MonoBehaviour
         return df.Rows[chunkPlantIndex];
     }
 
-    private async UniTask<KDTree> MakeKDTree(NativeArray<Vector3> coordinates)
+    private async UniTask<KDTree> MakeKDTree(List<Vector3> coordinates)
     {
         var kdTree = KDTree.MakeFromPoints(coordinates.ToArray());
-        level.rdc.Log($"Tile {tileIndex}: KDTree created.");
+        level.debug.Log($"Tile {tileIndex}: KDTree created.");
         return kdTree;
     }
 

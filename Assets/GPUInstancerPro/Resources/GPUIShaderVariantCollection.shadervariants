@@ -28,6 +28,12 @@ ShaderVariantCollection:
   - first: {fileID: 4800000, guid: 9d1e81367de56bd40b53d5fbe4634a9e, type: 3}
     second:
       variants:
+      - keywords: LOD_FADE_CROSSFADE _ALPHATEST_ON _NORMALMAP
+        passType: 0
+      - keywords: LOD_FADE_CROSSFADE _ALPHATEST_ON _NORMALMAP _SPECULAR_SETUP
+        passType: 0
+      - keywords: LOD_FADE_CROSSFADE _METALLICSPECGLOSSMAP _NORMALMAP _SPECULAR_SETUP
+        passType: 0
       - keywords: LOD_FADE_CROSSFADE _NORMALMAP
         passType: 0
       - keywords: _NORMALMAP

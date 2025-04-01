@@ -44,7 +44,7 @@ public class PlantUIManager : MonoBehaviour
         //Debug.Log($"df length: {parquetParser.df["file_num"].Length}");
         //Debug.Log($"plantIndex: {plantIndex}");
         int fileNum = Convert.ToInt32(level.parq.df["file_num"][plantIndex]);
-        level.rdc.Log("filenum: " + fileNum);
+        level.debug.Log("filenum: " + fileNum);
         Transcript transcript = new Transcript();
 
         transcript.fileURL = (string)level.parq.df["saha_page"][plantIndex];
