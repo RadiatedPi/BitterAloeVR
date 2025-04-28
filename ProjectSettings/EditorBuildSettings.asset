@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/BitterAloe/DebugStart.unity
     guid: cfb3b0378f41af84f982b9925dbb610a
+  - enabled: 1
+    path: Assets/BitterAloe/StartSequence.unity
+    guid: 95f0c4ae3d06138479fc26b8c13bd4de
   - enabled: 1
     path: Assets/BitterAloe/Game.unity
     guid: 1f950a51b8267594b9a5b3524c25dfe7

@@ -31,7 +31,7 @@ public class TerrainController : MonoBehaviour
     [SerializeField]
     private Transform playerContainer;
     [SerializeField]
-    private GameObject playerLoadingBox;
+    private GameObject playerLoadingBox, screenFade;
 
 
     [SerializeField]
@@ -187,8 +187,10 @@ public class TerrainController : MonoBehaviour
                 {
                     await level.gpui.UpdateTransforms();
                     initLoadFinished = true;
+                    playerLoadingBox.SetActive(false);
+                    await UniTask.WaitForSeconds(3);
+                    await level.screen.FadeInScreen(5);
                 }
-                playerLoadingBox.SetActive(false);
             }
         }
         else

@@ -193,7 +193,7 @@ public class TileData : MonoBehaviour
             normalizedPositions.Add(new Vector3(xNorm, rawPositions[i].y, zNorm));
         }
         //});
-        level.debug.Log($"Tile {tileIndex}: Positions normalized.");
+        Debug.Log($"Tile {tileIndex}: Positions normalized.");
         return normalizedPositions;
     }
 
@@ -208,7 +208,7 @@ public class TileData : MonoBehaviour
                 scaledPositions.Add(new Vector3(normalizedPositions[i].x * scale, normalizedPositions[i].y, normalizedPositions[i].x * scale));
             }
         });
-        level.debug.Log($"Tile {tileIndex}: Positions rescaled by {scale}x.");
+        Debug.Log($"Tile {tileIndex}: Positions rescaled by {scale}x.");
         return scaledPositions;
     }
 

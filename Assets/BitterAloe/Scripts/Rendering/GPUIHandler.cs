@@ -207,7 +207,7 @@ public class GPUIHandler : MonoBehaviour
             GPUIPrototype prototype = gpuiPrefabManager.GetPrototype(i);
             GPUICoreAPI.RegisterRenderer(this, prototype, out int key);
 
-            level.debug.Log($"Prototype {i} name: {prototype.name}");
+            Debug.Log($"Prototype {i} name: {prototype.name}");
 
             if (prototype.name.Contains("Aloe"))
                 aloeRenderer.key = key;
@@ -237,7 +237,7 @@ public class GPUIHandler : MonoBehaviour
     {
         if (previousPosition != transform.position)
         {
-            level.debug.Log($"Level position recentered.");
+            Debug.Log($"Level position recentered.");
             UpdateTransforms();
             previousPosition = transform.position;
         }
@@ -253,7 +253,7 @@ public class GPUIHandler : MonoBehaviour
         }
 
         activeTiles.AddRange(GetComponentsInChildren<TileData>());
-        level.debug.Log($"{activeTiles.Count} active tiles found.");
+        Debug.Log($"{activeTiles.Count} active tiles found.");
         return true;
     }
 

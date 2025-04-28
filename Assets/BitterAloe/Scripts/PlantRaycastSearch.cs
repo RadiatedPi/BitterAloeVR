@@ -154,7 +154,7 @@ public class PlantRaycastSearch : MonoBehaviour
 
             Vector3 position = level.parq.testimonyLevelPositions[kdTreeIndex] + level.transform.position;
 
-            level.debug.Log($"Raycast hit {aimHit.point - level.transform.position}. Found plant at {position}");
+            Debug.Log($"Raycast hit {aimHit.point - level.transform.position}. Found plant at {position}");
             //Debug.Log(selectedDataRow[13]);
             plantUIManager.GetTranscript(level.parq.testimonyList[kdTreeIndex]);
             plantUIManager.DisplayTranscriptPage(plantUIManager.highlightPage);
