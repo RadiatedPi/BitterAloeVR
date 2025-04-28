@@ -36,5 +36,9 @@ ShaderVariantCollection:
         passType: 0
       - keywords: LOD_FADE_CROSSFADE _NORMALMAP
         passType: 0
+      - keywords: _ALPHATEST_ON _NORMALMAP _SPECULAR_SETUP
+        passType: 0
+      - keywords: _METALLICSPECGLOSSMAP _NORMALMAP _SPECULAR_SETUP
+        passType: 0
       - keywords: _NORMALMAP
         passType: 0

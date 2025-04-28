@@ -36,8 +36,8 @@ public class RuntimeDebugConsole : MonoBehaviour
 
     public void Log(string message)
     {
-        Debug.Log(message);
+        //Debug.Log(message);
 
-        consoleLog.Add(message);
+        //consoleLog.Add(message);
     }
 }

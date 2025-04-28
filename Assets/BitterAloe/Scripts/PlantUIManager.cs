@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Microsoft.Data.Analysis;
+using ProceduralToolkit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class PlantUIManager : MonoBehaviour
 {
@@ -16,101 +18,135 @@ public class PlantUIManager : MonoBehaviour
     public GameObject testimonyUIWindow;
     public Color selectedLineColor = Color.yellow;
     public TextMeshProUGUI pageNumberDisplay;
-    public int linesPerPage = 50;
+    public int linesPerPage = 25;
+    public Scrollbar scrollbar;
 
-    private DataFrameRow selectedPlant;
-    private Transcript ts;
-    private int pageCount = 0;
     private int currentPageIndex = 0;
 
-    public class Transcript
+    private GameObject titleUI;
+    private GameObject dateUI;
+    private GameObject locationUI;
+    private GameObject testimonyUI;
+
+    private List<string> dialoguePages = new List<string>();
+    private Testimony currentTestimony = new Testimony();
+    private int startHighlightIndex;
+    public int highlightPage;
+
+
+    public void Start()
     {
-        public List<string> speaker = new List<string>();
-        public List<string> dialogue = new List<string>();
-        public string fileURL = "";
-        public string hearingType = "";
-        public string location = "";
-        public string date = "";
+        titleUI = Instantiate(titleUIPrefab, testimonyUIWindow.transform);
+        dateUI = Instantiate(testimonyUIPrefab, testimonyUIWindow.transform);
+        locationUI = Instantiate(testimonyUIPrefab, testimonyUIWindow.transform);
+        testimonyUI = Instantiate(testimonyUIPrefab, testimonyUIWindow.transform);
     }
-   
-    public async UniTaskVoid SpawnPlantUI(Vector3 coordinates)
+
+
+    public void SpawnPlantUI(Vector3 coordinates)
     {
-        transform.position = coordinates + new Vector3(0, 1, 0);
+        transform.position = coordinates + Vector3.one.OnlyY();
     }
 
-    public async UniTaskVoid GetTranscript(int plantIndex)
+    public void GetTranscript(Testimony testimony)
     {
-        //selectedPlant = parquetParser.df.Rows[plantIndex];
-        //Debug.Log($"df length: {parquetParser.df["file_num"].Length}");
-        //Debug.Log($"plantIndex: {plantIndex}");
-        int fileNum = Convert.ToInt32(level.parq.df["file_num"][plantIndex]);
-        level.debug.Log("filenum: " + fileNum);
-        Transcript transcript = new Transcript();
+        dialoguePages.Clear();
+        currentTestimony = testimony;
 
-        transcript.fileURL = (string)level.parq.df["saha_page"][plantIndex];
-        transcript.hearingType = (string)level.parq.df["hearing_type"][plantIndex];
-        transcript.location = (string)level.parq.df["location"][plantIndex];
-        transcript.date = (string)level.parq.df["date"][plantIndex];
+        var fileTestimonies = level.parq.TestimonySearchByFile(level.parq.testimonies, (int)currentTestimony.file_num);
 
-        var fileDf = level.parq.df.Filter(level.parq.df["file_num"].ElementwiseEquals(fileNum));
-        fileDf = fileDf.Filter(fileDf["date"].ElementwiseEquals(transcript.date));
-        //Debug.Log("fileDf length: " + fileDf.Rows.Count);
-        fileDf = fileDf.OrderBy("file_index");
-        for (int i = 0; i < fileDf.Rows.Count; i++)
+        string pageText = string.Empty;
+        startHighlightIndex = 0;
+        for (int line = 0; line < fileTestimonies.Count; line++)
         {
-            transcript.speaker.Add((string)level.parq.df["speaker"][i]);
-            transcript.dialogue.Add((string)level.parq.df["dialogue"][i]);
-        }
-        ts = transcript;
+            bool highlight = false;
+            if (line == Convert.ToInt32(currentTestimony.file_index))
+                highlight = true;
 
-        pageCount = (int)Math.Ceiling((double)((ts.speaker.Count + 1) / linesPerPage));
-        //Debug.Log(ts);
+            if (highlight)
+            {
+                startHighlightIndex = pageText.Length;
+                highlightPage = dialoguePages.Count;
+                pageText += "<#FFFF00>";
+            }
+            pageText += $"<u>{fileTestimonies[line].speaker}:</u><space=1.5em>{fileTestimonies[line].dialogue}";
+            if (highlight)
+            {
+                pageText += "</color>";
+            }
+            pageText += "\n";
+
+            if (line != 0 && (line + 1) % linesPerPage == 0)
+            {
+                dialoguePages.Add(pageText);
+                pageText = string.Empty;
+            }
+
+            //dialoguePages[dialoguePages.Count-1] += $"<u>{fileTestimonies[line].speaker}:</u><space=1.5em>{fileTestimonies[line].dialogue}\n";
+        }
+
+        currentPageIndex = 0;
     }
 
     public void NextPage()
     {
-        if (currentPageIndex < pageCount - 1)
+        if (currentPageIndex < dialoguePages.Count - 1)
         {
-            currentPageIndex++;
-            DisplayTranscriptPage(currentPageIndex);
-            pageNumberDisplay.SetText($"{currentPageIndex}");
+            //currentPageIndex++;
+            DisplayTranscriptPage(currentPageIndex + 1);
+            pageNumberDisplay.SetText($"{currentPageIndex + 1} / {dialoguePages.Count}");
         }
     }
     public void PreviousPage()
     {
-        if (currentPageIndex >= 1)
+        if (currentPageIndex > 0)
         {
-            currentPageIndex--;
-            DisplayTranscriptPage(currentPageIndex);
-            pageNumberDisplay.SetText($"{currentPageIndex}");
+            //currentPageIndex--;
+            DisplayTranscriptPage(currentPageIndex - 1);
+            pageNumberDisplay.SetText($"{currentPageIndex + 1} / {dialoguePages.Count}");
         }
     }
 
-    public async UniTaskVoid DisplayTranscriptPage(int page)
+    public void DisplayTranscriptPage(int page)
     {
-        foreach (Transform child in testimonyUIWindow.transform)
-            Destroy(child.gameObject);
+        currentPageIndex = page;
+        pageNumberDisplay.SetText($"{currentPageIndex + 1} / {dialoguePages.Count}");
+        //foreach (Transform child in testimonyUIWindow.transform)
+        //    Destroy(child.gameObject);
 
-        if (currentPageIndex == 0)
+        if (page == 0)
         {
-            var titleUI = Instantiate(titleUIPrefab, testimonyUIWindow.transform);
-            titleUI.GetComponent<TextMeshProUGUI>().SetText($"<u>TRUTH AND RECONCILIATION COMMISSION\n{ts.hearingType}</u>");
-            var dateUI = Instantiate(testimonyUIPrefab, testimonyUIWindow.transform);
-            dateUI.GetComponent<TextMeshProUGUI>().SetText("<u>DATE:</u><space=1.5em>" + ts.date);
-            var locationUI = Instantiate(testimonyUIPrefab, testimonyUIWindow.transform);
-            locationUI.GetComponent<TextMeshProUGUI>().SetText("<u>PLACE:</u><space=1.5em>" + ts.location);
+            titleUI.SetActive(true);
+            dateUI.SetActive(true);
+            locationUI.SetActive(true);
+            titleUI.GetComponent<TextMeshProUGUI>().SetText($"<u>TRUTH AND RECONCILIATION COMMISSION\n{currentTestimony.hearing_type}</u>");
+            dateUI.GetComponent<TextMeshProUGUI>().SetText("<u>DATE:</u><space=1.5em>" + currentTestimony.date);
+            locationUI.GetComponent<TextMeshProUGUI>().SetText("<u>PLACE:</u><space=1.5em>" + currentTestimony.location);
+        }
+        else
+        {
+            titleUI.SetActive(false);
+            dateUI.SetActive(false);
+            locationUI.SetActive(false);
         }
 
-        string testimonyContents = "";
-        for (int pageIndex = currentPageIndex * pageCount, j = 0; pageIndex < ts.dialogue.Count & j < 50; pageIndex++, j++)
-        {
-            //if (pageIndex == Convert.ToInt32(selectedPlant[4])) testimonyContents += "<#FFFF00>";
-            testimonyContents += $"<u>{ts.speaker[pageIndex]}:</u><space=1.5em>{ts.dialogue[pageIndex]}";
-            //if (pageIndex == Convert.ToInt32(selectedPlant[4])) testimonyContents += "</color>";
-            testimonyContents += "\n";
-        }
-        var testimonyUI = Instantiate(testimonyUIPrefab, testimonyUIWindow.transform);
-        testimonyUI.GetComponent<TextMeshProUGUI>().SetText(testimonyContents);
-        testimonyUI.GetComponent<TextMeshProUGUI>().ForceMeshUpdate();
+        TextMeshProUGUI testimonyUIComponent = testimonyUI.GetComponent<TextMeshProUGUI>();
+
+        testimonyUIComponent.SetText(dialoguePages[page]);
+        testimonyUIComponent.ForceMeshUpdate();
+
+        //float height = 0;
+        //if (page == highlightPage)
+        //{
+        //    await UniTask.WaitForSeconds(0.5f);
+        //    // TODO: calculate what determines height offset to be 316
+        //    Debug.Log(testimonyUIComponent.text.IndexOf("</color>"));
+        //    int lineNum = testimonyUIComponent.textInfo.characterInfo[testimonyUIComponent.text.IndexOf("<#FFFF00>")].lineNumber;
+        //    height = testimonyUIComponent.textInfo.characterInfo[testimonyUIComponent.textInfo.lineInfo[lineNum].firstVisibleCharacterIndex].topLeft.y;
+        //    Debug.Log(height);
+        //}
+
+        scrollbar.value = 1f;
+        //testimonyUIWindow.transform.position = new Vector3(testimonyUIWindow.transform.position.x, height - 316, testimonyUIWindow.transform.position.z);
     }
 }

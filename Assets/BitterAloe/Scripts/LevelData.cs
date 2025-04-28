@@ -6,4 +6,5 @@ public class LevelData : MonoBehaviour
     public ParquetParser parq;
     public RuntimeDebugConsole debug;
     public GPUIHandler gpui;
+    public PlantUIManager uim;
 }

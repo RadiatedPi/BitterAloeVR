@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Unity.Collections;
-using Unity.PlasticSCM.Editor.UI;
 using UnityEngine;
 
 public class RenderTransform
@@ -42,7 +41,14 @@ public class RenderTransformList
     public List<RenderTransform> transforms = new List<RenderTransform>();
 
 
-
+    public void AddTransforms(List<Vector3> positions)
+    {
+        for (int i = 0; i < positions.Count; i++)
+        {
+            //Debug.Log($"{positions[i].y}");
+            transforms.Add(new RenderTransform(positions[i]));
+        }
+    }
     public void AddTransforms(Vector2 tileIndex, List<Vector3> localPositions)
     {
         this.tileIndex = tileIndex;
@@ -99,12 +105,12 @@ public class RenderTransformList
     public RenderTransformList GetGlobalTransforms(Vector3 levelPosition, Vector3 tileSize)
     {
         RenderTransformList renderTransformList = new RenderTransformList();
-        Vector3 levelOffset = new Vector3(tileIndex.x * tileSize.x, 0, tileIndex.y * tileSize.z);
 
         for (int i = 0; i < transforms.Count; i++)
         {
             renderTransformList.transforms.Add(new RenderTransform(
-                transforms[i].position + levelOffset - levelPosition,
+                GetGlobalPosition(transforms[i].position, levelPosition, tileSize),
+                //transforms[i].position + levelOffset + levelPosition,
                 transforms[i].orientation,
                 transforms[i].scale
             ));
@@ -112,6 +118,12 @@ public class RenderTransformList
 
 
         return renderTransformList;
+    }
+
+    public Vector3 GetGlobalPosition(Vector3 localPosition, Vector3 levelPosition, Vector3 tileSize)
+    {
+        Vector3 levelOffset = new Vector3(tileIndex.x * tileSize.x, 0, tileIndex.y * tileSize.z);
+        return localPosition + levelOffset + levelPosition;
     }
 }
 
@@ -207,6 +219,7 @@ public class GPUIHandler : MonoBehaviour
                 objectRenderers.Add(renderObject);
             }
         }
+
         WaitForLoad();
         UpdateTransforms();
     }
@@ -244,15 +257,15 @@ public class GPUIHandler : MonoBehaviour
         return true;
     }
 
-    public async UniTask<bool> UpdateTransforms()
+    public async UniTask UpdateTransforms()
     {
         await GetActiveTiles();
 
         RenderTransformList aloeTransforms = new RenderTransformList();
         for (int i = 0; i < activeTiles.Count; i++)//each (var tile in activeTiles)
         {
-            //aloeTransforms.AddTransforms(activeTiles[i].aloePlants.GetLocalToGlobalTransforms(activeTiles[i].transform));
-            aloeTransforms.AddTransforms(activeTiles[i].aloePlants.GetGlobalTransforms(transform.position, level.tc.tileSize));
+            //aloeTransforms.AddTransforms(activeTiles[i].aloePlants.GetGlobalTransforms(transform.position, level.tc.tileSize));
+            aloeTransforms.AddTransforms(level.parq.GetWorldPositionList(level.parq.GetTestimoniesInTile(activeTiles[i].tileIndex)));
         }
         GPUICoreAPI.SetTransformBufferData(aloeRenderer.key, GenerateMatrixArray(aloeTransforms, instanceCount));
 
@@ -271,36 +284,10 @@ public class GPUIHandler : MonoBehaviour
                 objectTransforms.AddTransforms(activeTiles[j].objects[i].GetGlobalTransforms(transform.position, level.tc.tileSize));
             }
             GPUICoreAPI.SetTransformBufferData(objectRenderers[i].key, GenerateMatrixArray(objectTransforms, instanceCount));
-
         }
 
-
-
-
-
-
-
-
-
-        //for (int i = 0; i < activeTiles.Count; i++)
-        //{
-        //    aloeTransforms.AddTransforms(activeTiles[i].aloePlants.GetLocalToGlobalTransforms(activeTiles[i].transform.position));
-
-        //    for (int j = 0; j < objectRenderers.Count; j++)
-        //    {
-        //        RenderTransformList renderTransformList = new RenderTransformList();
-        //        renderTransformList.AddTransforms(activeTiles[i].objects[j].GetLocalToGlobalTransforms(activeTiles[i].transform.position));
-        //        objectTransforms[j].AddTransforms(activeTiles[i].objects[j].GetLocalToGlobalTransforms(activeTiles[i].transform.position));
-        //    }
-        //}
-
-        //for (int i = 0; i < objectRenderers.Count; i++)
-        //{
-        //}
-
         //GPUIPrefabAPI.UpdateTransformData(gpuiPrefabManager);
-        level.debug.Log($"Updated transforms. {aloeTransforms.transforms.Count} aloe plants total.");
-        return true;
+        //level.debug.Log($"Updated transforms. {aloeTransforms.transforms.Count} aloe plants total.");
     }
 
     private Vector3 RandomPointAboveTerrain()

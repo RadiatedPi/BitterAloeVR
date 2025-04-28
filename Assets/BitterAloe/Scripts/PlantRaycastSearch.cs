@@ -1,5 +1,6 @@
 using Autohand;
 using Cysharp.Threading.Tasks;
+using Microsoft.Data.Analysis;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.Events;
 
 public class PlantRaycastSearch : MonoBehaviour
 {
-    public ParquetParser parquetParser;
+    public LevelData level;
     public PlantUIManager plantUIManager;
     public Transform aimer;
     public float aimerSmoothingSpeed = 5f;
@@ -130,7 +131,7 @@ public class PlantRaycastSearch : MonoBehaviour
         OnStopSelect?.Invoke();
     }
 
-    public async UniTaskVoid Select()
+    public void Select()
     {
         Queue<Vector3> fromPos = new Queue<Vector3>();
         foreach (var guard in selectGuards)
@@ -141,24 +142,25 @@ public class PlantRaycastSearch : MonoBehaviour
 
         if (hitting)
         {
-            var terrainTile = aimHit.transform.gameObject.GetComponentInParent<TileData>();
+            //TileData tile = aimHit.transform.gameObject.GetComponentInParent<TileData>();
 
-            var datapoint = await terrainTile.GetDatapointUsingKDTree(aimHit.point);
-            Debug.Log(datapoint[13]);
-            plantUIManager.GetTranscript(Convert.ToInt32(datapoint[13]));
-            plantUIManager.DisplayTranscriptPage(0);
-            plantUIManager.SpawnPlantUI(terrainTile.aloePlants.transforms[terrainTile.kdTree.FindNearest(aimHit.point)].position);
 
-            //Debug.Log($"DF index 0: ({parquetParser.df[0, 10]}, {parquetParser.df[0, 11]})");
-            //Debug.Log($": ({parquetParser.df[0, 10]}, {parquetParser.df[0, 11]})");
-            //Debug.Log($"Hit point: ({aimHit.point.x}, {aimHit.point.z})");
-            //Debug.Log($"Plant index found from hit: {selectedPlantIndex}");
-            //var selectedPlant = parquetParser.df.Rows[selectedPlantIndex];
-            //Debug.Log($"Selected datapoint coordinates: ({selectedPlant[10]}, {selectedPlant[11]})");
-            //Debug.Log($"Datapoint coordinates scaled to map: " +
-            //    $"({System.Convert.ToSingle(selectedPlant[10]) / parquetParser.plantMapScale}, " +
-            //    $"{System.Convert.ToSingle(selectedPlant[11]) / parquetParser.plantMapScale})");
-            //Debug.Log(selectedPlant);
+            //int selectedAloeIndex = tile.kdTree.FindNearest(aimHit.point - aimHit.transform.position);
+
+            //level.debug.Log($"Index of plant selected: {selectedAloeIndex}");
+
+            //Testimony selectedTestimony = tile.testimonies[selectedAloeIndex];
+            int kdTreeIndex = level.parq.FindNearestDatapointKDTreeIndex(aimHit.point - level.transform.position);
+
+            Vector3 position = level.parq.testimonyLevelPositions[kdTreeIndex] + level.transform.position;
+
+            level.debug.Log($"Raycast hit {aimHit.point - level.transform.position}. Found plant at {position}");
+            //Debug.Log(selectedDataRow[13]);
+            plantUIManager.GetTranscript(level.parq.testimonyList[kdTreeIndex]);
+            plantUIManager.DisplayTranscriptPage(plantUIManager.highlightPage);
+
+            //plantUIManager.SpawnPlantUI(tile.kdTreeAloePositions[selectedAloeIndex] + aimHit.transform.position);
+            plantUIManager.SpawnPlantUI(position);
 
             OnSelect?.Invoke();
 

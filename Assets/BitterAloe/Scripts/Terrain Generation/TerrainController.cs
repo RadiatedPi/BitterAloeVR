@@ -11,6 +11,7 @@ using UnityEngine.Animations;
 using GPUInstancerPro;
 using GPUInstancerPro.PrefabModule;
 using GPUInstancerPro.TerrainModule;
+using BitterAloe;
 
 public class TerrainController : MonoBehaviour
 {
@@ -104,20 +105,25 @@ public class TerrainController : MonoBehaviour
 
     private void Update()
     {
-        if (level.parq.df != null)
-            LoadTileLoop().Forget();
+        if (level.parq.testimonies != null)
+            LoadTileLoop();
     }
 
 
-    private async UniTaskVoid LoadTileLoop()
+    private async UniTask LoadTileLoop()
     {
+        LoadUtilities loadUtil = new LoadUtilities(0.05f);
+
         //save the tile the player is on
         Vector2 playerTile = TileFromPosition(playerTransform.position - transform.position);
         //save the tiles of all tracked objects in gameTransforms (including the player)
         List<Vector2> centerTiles = new List<Vector2>();
         centerTiles.Add(playerTile);
         foreach (Transform t in gameTransforms)
+        {
             centerTiles.Add(TileFromPosition(t.localPosition));
+            await loadUtil.YieldForFrameBudget();
+        }
 
         //if no tiles exist yet or tiles should change
         if (previousCenterTiles == null || HaveTilesChanged(centerTiles))
@@ -126,13 +132,13 @@ public class TerrainController : MonoBehaviour
             //activate new tiles
             foreach (Vector2 tile in centerTiles)
             {
+                await loadUtil.YieldForFrameBudget();
                 bool isPlayerTile = tile == playerTile;
                 int radius = isPlayerTile ? radiusToRender : 1;
                 for (int i = -radius; i <= radius; i++)
                     for (int j = -radius; j <= radius; j++)
                     {
-                        ActivateOrCreateTile((int)tile.x + i, (int)tile.y + j, tileObjects).Forget();
-                        await UniTask.Yield();
+                        await ActivateOrCreateTile((int)tile.x + i, (int)tile.y + j, tileObjects);
                     }
             }
 
@@ -150,7 +156,7 @@ public class TerrainController : MonoBehaviour
                 if (Vector3.Distance(playerTransform.position, kv.Value.transform.position) > destroyDistance && !kv.Value.activeSelf)
                 {
                     keysToRemove.Add(kv.Key);
-                    Destroy(kv.Value); 
+                    Destroy(kv.Value);
                 }
             }
             foreach (Vector2 key in keysToRemove)
@@ -167,7 +173,7 @@ public class TerrainController : MonoBehaviour
 
     //Helper methods below
 
-    private async UniTaskVoid ActivateOrCreateTile(int xIndex, int yIndex, List<GameObject> tileObjects)
+    private async UniTask ActivateOrCreateTile(int xIndex, int yIndex, List<GameObject> tileObjects)
     {
         if (!terrainTiles.ContainsKey(new Vector2(xIndex, yIndex)))
         {
@@ -210,8 +216,6 @@ public class TerrainController : MonoBehaviour
 
         terrainTiles.Add(new Vector2(xIndex, yIndex), terrain);
 
-        await terrain.GetComponent<TileData>().GetAloeData();
-
         terrain.transform.localPosition = new Vector3(tileSize.x * xIndex, 0, tileSize.z * yIndex);
 
         GenerateMesh gm = terrain.GetComponent<GenerateMesh>();
@@ -225,9 +229,6 @@ public class TerrainController : MonoBehaviour
         UnityEngine.Random.InitState((int)(seed + (long)xIndex * 100 + yIndex));//so it doesn't form a (noticable) pattern of similar tiles
         RandomizeInitState();
 
-        //PlaceObjects po = terrain.GetComponent<PlaceObjects>();
-        //await po.Place(PlantObjects);
-        //await po.Place(RockObjects);
         await terrain.GetComponent<TileData>().GetObjectData();
 
         return terrain;
