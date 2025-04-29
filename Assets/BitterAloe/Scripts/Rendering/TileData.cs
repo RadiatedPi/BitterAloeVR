@@ -22,10 +22,9 @@ public class TileData : MonoBehaviour
     //public List<Testimony> testimonies;
     //public List<Vector3> kdTreeAloePositions;
     //public RenderTransformList aloePlants = new RenderTransformList();
-    public List<RenderTransformList> objects = new List<RenderTransformList>();
+    public List<RenderTransformList> objectListsToRender = new List<RenderTransformList>();
     //public KDTreeOld kdTree;
     private bool levelFound = false;
-    public bool dataFound = false;
 
 
     public void Start()
@@ -71,38 +70,36 @@ public class TileData : MonoBehaviour
     //}
 
     //static readonly ProfilerMarker GetObjectDataProfiler = new ProfilerMarker("GetObjectData");
+
+    // object coordinates are in tile localspace
     public async UniTask GetObjectData()
     {
         //using (GetObjectDataProfiler.Auto())
         //{
         while (levelFound == false || level.parq.parquetRead == false)
             await UniTask.Yield();
-        //LoadUtilities loadUtil = new LoadUtilities(0.05f);
-        PlaceObjectSettings placeSettings;
-        RenderTransformList renderTransformList = new RenderTransformList();
-        RaycastHit hit;
-        Quaternion orientation;
-        RaycastHit boxHit;
-        RenderTransform objectTransform;
+
+        objectListsToRender = new List<RenderTransformList>(level.gpui.objectRenderers.Count);
         for (int i = 0; i < level.gpui.objectRenderers.Count; i++)
         {
-            //await loadUtil.YieldForFrameBudget();
-            placeSettings = level.gpui.objectRenderers[i].prototype.prefabObject.GetComponent<PlaceObjectSettings>();
+            PlaceObjectSettings placeSettings = level.gpui.objectRenderers[i].prototype.prefabObject.GetComponent<PlaceObjectSettings>();
 
             int objectInstanceCount = UnityEngine.Random.Range(placeSettings.countPerTileRange.x, placeSettings.countPerTileRange.y);
-            //await UniTask.RunOnThreadPool(async () =>
-            //{
-            renderTransformList.transforms.Clear();
+
+            RenderTransformList renderTransformList = new RenderTransformList(objectInstanceCount);
+            //objectListsToRender.Add(new RenderTransformList(objectInstanceCount));
+
             for (int j = 0; j < objectInstanceCount; j++)
             {
-                //await loadUtil.YieldForFrameBudget();
                 Vector3 startPoint = RandomPointAboveTerrain();
+                RaycastHit hit;
                 if (Physics.Raycast(startPoint, Vector3.down, out hit, float.MaxValue, LayerMask.GetMask("Terrain")))
                 {
-                    orientation = Quaternion.FromToRotation(Vector3.up, hit.normal) * Quaternion.Euler(Vector3.up * UnityEngine.Random.Range(0f, 360f));
+                    Quaternion orientation = Quaternion.FromToRotation(Vector3.up, hit.normal) * Quaternion.Euler(Vector3.up * UnityEngine.Random.Range(0f, 360f));
+                    RaycastHit boxHit;
                     if (Physics.BoxCast(startPoint, Vector3.one, Vector3.down, out boxHit, orientation, float.MaxValue, LayerMask.GetMask("Terrain")))
                     {
-                        objectTransform = new RenderTransform(
+                        RenderTransform objectTransform = new RenderTransform(
                             new Vector3(startPoint.x - transform.position.x, hit.point.y + placeSettings.heightOffset, startPoint.z - transform.position.z),
                             orientation,
                             UnityEngine.Random.Range(placeSettings.sizeRange.x, placeSettings.sizeRange.y)
@@ -111,11 +108,12 @@ public class TileData : MonoBehaviour
                     }
                 }
             }
-            renderTransformList.tileIndex = tileIndex;
-            objects.Add(renderTransformList);
-            //});
+            //Debug.Log(renderTransformList.transforms.Count);
+            objectListsToRender.Add(renderTransformList);
+            objectListsToRender[i].tileIndex = tileIndex;
+
         }
-        //}
+
     }
 
     private Vector3 RandomPointAboveTerrain()

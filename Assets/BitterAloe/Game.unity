@@ -4588,10 +4588,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 82db669f63169424eb0ed888cd33ebf1, type: 2}
     isEnabled: 1
     name: AR01
   - prototypeType: 0
@@ -4601,10 +4601,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: dbcb7c081c53a8d4f987b40384ce5e77, type: 2}
     isEnabled: 1
     name: AR02
   - prototypeType: 0
@@ -4614,10 +4614,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: fd6d271c2a09e824bb6a49be359fa480, type: 2}
     isEnabled: 1
     name: AR03
   - prototypeType: 0
@@ -4627,10 +4627,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 4a7bb757e3796164882d42c23d18dff9, type: 2}
     isEnabled: 1
     name: AR05
   - prototypeType: 0
@@ -4640,10 +4640,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 1b7f4c40aa458f84c8bfffe29c90a34b, type: 2}
     isEnabled: 1
     name: AR06
   - prototypeType: 0
@@ -4653,10 +4653,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: c401c2f70ade8614498f465fdbfa49ec, type: 2}
     isEnabled: 1
     name: AR07
   - prototypeType: 0
@@ -4666,10 +4666,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 1cb384cc8dadc6b4d9e81c2e5b80bc97, type: 2}
     isEnabled: 1
     name: AR08
   - prototypeType: 0
@@ -4679,10 +4679,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 660da54f2bfc9234eb67ae5340ed0dc6, type: 2}
     isEnabled: 1
     name: AR09
   - prototypeType: 0
@@ -4692,10 +4692,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 9f1b100daf833f444a1d1607eb4968b4, type: 2}
     isEnabled: 1
     name: AR10
   - prototypeType: 0
@@ -4705,10 +4705,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 6d7e505c4d9d27f4dab6849e11e98a08, type: 2}
     isEnabled: 1
     name: AR11
   - prototypeType: 0
@@ -4718,10 +4718,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 4496cad840db4fb4483c281c63c1baf2, type: 2}
     isEnabled: 1
     name: AR12
   - prototypeType: 0
@@ -4731,10 +4731,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 0d66e3ace3aae284dae70f97b898917e, type: 2}
     isEnabled: 1
     name: AR13
   - prototypeType: 0
@@ -4744,10 +4744,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: ea57f65fa435b594b8437ce7b698cc2f, type: 2}
     isEnabled: 1
     name: AR14
   - prototypeType: 0
@@ -4757,10 +4757,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 7c496ff8da8ee02409c255a674976204, type: 2}
     isEnabled: 1
     name: AR15
   - prototypeType: 0
@@ -4770,10 +4770,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: cd7e3b255092bf541b97118b7b5fb39f, type: 2}
     isEnabled: 1
     name: AR16
   - prototypeType: 0
@@ -4783,10 +4783,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 48867eef97d2edc4980b2c46fc7807eb, type: 2}
     isEnabled: 1
     name: AR17
   - prototypeType: 0
@@ -4796,10 +4796,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 49f879d4914bccb4396cd8e34a0091d9, type: 2}
     isEnabled: 1
     name: AR18
   - prototypeType: 0
@@ -4809,10 +4809,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 277b12607be27bd42bb80ab9a10c928f, type: 2}
     isEnabled: 1
     name: AR19
   - prototypeType: 0
@@ -4822,10 +4822,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: b0635ff908639144a96867f7acfc5d3c, type: 2}
     isEnabled: 1
     name: AR20
   - prototypeType: 0
@@ -4835,10 +4835,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 43038e8d05f94a648b8cd67d04dd777f, type: 2}
     isEnabled: 1
     name: AR21
   - prototypeType: 0
@@ -4848,10 +4848,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 35283d652fa0cd845a3ae32a8ea82c5e, type: 2}
     isEnabled: 1
     name: AR22
   - prototypeType: 0
@@ -4861,10 +4861,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: b8edad1b5ca873b4f80a2996a77865f3, type: 2}
     isEnabled: 1
     name: AR23
   - prototypeType: 0
@@ -4874,10 +4874,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: c4ada6f494346c748b9befa0e4d4788e, type: 2}
     isEnabled: 1
     name: AR24
   - prototypeType: 0
@@ -4887,10 +4887,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 65a6b2dc3f194964a91c47e194dab7f3, type: 2}
     isEnabled: 1
     name: AR25
   - prototypeType: 0
@@ -4900,10 +4900,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 4dcd259a2f2ceb04eb5e8d2480ce183b, type: 2}
     isEnabled: 1
     name: AR26
   - prototypeType: 0
@@ -4913,10 +4913,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 07e08e2ef3db5d7479427700316e7d5b, type: 2}
     isEnabled: 1
     name: AR27
   - prototypeType: 0
@@ -4926,10 +4926,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 19da685479174c54f8431e94134aadd0, type: 2}
     isEnabled: 1
     name: AR28
   - prototypeType: 0
@@ -4939,10 +4939,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: a37ead6c02055f545b890f0e967dfa99, type: 2}
     isEnabled: 1
     name: AR29
   - prototypeType: 0
@@ -4952,10 +4952,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 0f97c9e671ba6e349bb7d67d3936e2e1, type: 2}
     isEnabled: 1
     name: AR30
   - prototypeType: 0
@@ -4965,10 +4965,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 2d2efd92fd8ea9d49817984ba0f6dbb2, type: 2}
     isEnabled: 1
     name: AR31
   - prototypeType: 0
@@ -4978,10 +4978,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: e451fa59f6c316041bb419623b43e2f3, type: 2}
     isEnabled: 1
     name: AR32
   - prototypeType: 0
@@ -4991,10 +4991,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: bd936d3589774cd4586bd75c37996909, type: 2}
     isEnabled: 1
     name: Foliage_Bush_A
   - prototypeType: 0
@@ -5004,10 +5004,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 2804241e15c0cf5479d5fe640339b639, type: 2}
     isEnabled: 1
     name: Foliage_Bush_B
   - prototypeType: 0
@@ -5017,10 +5017,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 591677097eb7b5245acbd7aa725db721, type: 2}
     isEnabled: 1
     name: Foliage_Bush_Red
   - prototypeType: 0
@@ -5030,10 +5030,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 3dae217f9959a2f46832d3f6e72ff502, type: 2}
     isEnabled: 1
     name: Foliage_Bush_Twig
   - prototypeType: 0
@@ -5043,10 +5043,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 4434ce346247807409da77be611585f2, type: 2}
     isEnabled: 1
     name: Foliage_BushDry_A
   - prototypeType: 0
@@ -5056,10 +5056,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 695fa4134e212b148ac6d4715183cfd2, type: 2}
     isEnabled: 1
     name: Foliage_BushDry_B
   - prototypeType: 0
@@ -5069,10 +5069,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: 6d197980a5a28244098504ac65e1535e, type: 2}
     isEnabled: 1
     name: Foliage_Grass_A
   - prototypeType: 0
@@ -5082,10 +5082,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: ea172e5a484985c4c853006aed8139b5, type: 2}
     isEnabled: 1
     name: Foliage_Grass_B
   - prototypeType: 0
@@ -5095,10 +5095,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: b28638e711b408e4b8558fb4596f3930, type: 2}
     isEnabled: 1
     name: Foliage_GrassDry_A
   - prototypeType: 0
@@ -5108,10 +5108,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: df3057ba0fea4594faf91592d2545a1d, type: 2}
     isEnabled: 1
     name: Foliage_GrassDry_B
   - prototypeType: 0
@@ -5121,10 +5121,10 @@ MonoBehaviour:
     prototypeMesh: {fileID: 0}
     prototypeMaterials: []
     layer: 0
-    isGenerateBillboard: 0
+    isGenerateBillboard: 1
     isBillboardReplaceLODCulled: 1
-    billboardDistance: 0.9
-    billboardAsset: {fileID: 0}
+    billboardDistance: 0.98
+    billboardAsset: {fileID: 11400000, guid: ec7f8674973bec84ebfd21cc12a2b494, type: 2}
     isEnabled: 1
     name: AR04
   defaultProfile: {fileID: 11400000, guid: 5342085a5dd79b543ba8a11fb4a2a826, type: 2}
@@ -26301,7 +26301,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3887185075125053422, guid: c6984c48aed9a154294088f4265d8478, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: c6984c48aed9a154294088f4265d8478, type: 3}
@@ -26311,12 +26312,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1465734403}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6984c48aed9a154294088f4265d8478, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1779925851}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6984c48aed9a154294088f4265d8478, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1779925850}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6984c48aed9a154294088f4265d8478, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1779925848}
@@ -26346,7 +26341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a2d7d89889b4d94fa1f8d6fe49788e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Target: {fileID: 1837141637}
+  m_Target: {fileID: 1374101938}
   m_TargetOffset: {x: 0, y: 0, z: 0}
   m_FollowInLocalSpace: 0
   m_ApplyTargetInLocalSpace: 0
@@ -26361,54 +26356,6 @@ MonoBehaviour:
   m_MinAngleAllowed: 0.1
   m_MaxAngleAllowed: 5
   m_TimeUntilThresholdReachesMaxAngle: 3
---- !u!65 &1779925850
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1779925845}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3, y: 0.6, z: 0.10000006}
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.000000009313229}
---- !u!54 &1779925851
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1779925845}
-  serializedVersion: 4
-  m_Mass: 10
-  m_Drag: 10
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!114 &1779925852
 MonoBehaviour:
   m_ObjectHideFlags: 0

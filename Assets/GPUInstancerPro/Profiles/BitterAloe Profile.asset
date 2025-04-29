@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: BitterAloe Profile
   m_EditorClassIdentifier: 
   isShadowCasting: 1
-  isDistanceCulling: 0
-  isFrustumCulling: 0
-  isOcclusionCulling: 0
-  isShadowFrustumCulling: 0
+  isDistanceCulling: 1
+  isFrustumCulling: 1
+  isOcclusionCulling: 1
+  isShadowFrustumCulling: 1
   isShadowOcclusionCulling: 1
-  isShadowDistanceCulling: 0
+  isShadowDistanceCulling: 1
   isLODCrossFade: 0
   isAnimateCrossFade: 0
   minCullingDistance: 0
   minShadowCullingDistance: 0
-  minMaxDistance: {x: 0, y: 1000}
+  minMaxDistance: {x: 0, y: 100}
   frustumOffset: 0.01
   occlusionOffset: 0.0001
   occlusionOffsetSizeMultiplier: 0

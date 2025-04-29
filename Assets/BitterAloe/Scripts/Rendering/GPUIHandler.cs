@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RenderTransform
 {
@@ -37,27 +38,36 @@ public class RenderTransform
 
 public class RenderTransformList
 {
-    public Vector2 tileIndex;
+    public Vector2 tileIndex = new Vector2(int.MaxValue, int.MaxValue);
     public List<RenderTransform> transforms = new List<RenderTransform>();
 
+    public RenderTransformList()
+    {
+        transforms = new List<RenderTransform>();
+    }
+
+    public RenderTransformList(int listLength)
+    {
+        transforms = new List<RenderTransform>(listLength);
+    }
 
     public void AddTransforms(List<Vector3> positions)
     {
         for (int i = 0; i < positions.Count; i++)
-        {
-            //Debug.Log($"{positions[i].y}");
             transforms.Add(new RenderTransform(positions[i]));
-        }
     }
-    public void AddTransforms(Vector2 tileIndex, List<Vector3> localPositions)
+    public void AddTransforms(Vector2 tileIndex, List<Vector3> positions)
     {
         this.tileIndex = tileIndex;
-        for (int i = 0; i < localPositions.Count; i++)
-            transforms.Add(new RenderTransform(localPositions[i]));
+        for (int i = 0; i < positions.Count; i++)
+            transforms.Add(new RenderTransform(positions[i]));
     }
-    public void AddTransforms(RenderTransformList transformList)
+    public void AddTransforms(Vector2 tileIndex, RenderTransformList transformList)
     {
-        this.transforms.AddRange(transformList.transforms);
+        this.tileIndex = tileIndex;
+        transforms.AddRange(transformList.transforms);
+        //for (int i = 0; i < transformList.transforms.Count; i++)
+        //    transforms.Add(transformList.transforms[i]);
     }
 
     public List<Vector3> GetPositions()
@@ -70,17 +80,6 @@ public class RenderTransformList
         return localPositions;
     }
 
-    //public List<Vector3> GetLevelPositions(float tileSize)
-    //{
-    //    Vector3 levelOffset = new Vector3(tileIndex.x * tileSize, 0, tileIndex.y * tileSize);
-    //    List<Vector3> levelPositions = new List<Vector3>();
-
-    //    for (int i = 0; i < transforms.Count; i++)
-    //        levelPositions.Add(transforms[i].position + levelOffset);
-
-    //    return levelPositions;
-    //}
-
     public RenderTransformList GetLocalToGlobalTransforms(Transform tileTransform)
     {
         RenderTransformList globalTransforms = this;
@@ -91,39 +90,28 @@ public class RenderTransformList
         return globalTransforms;
     }
 
-    //public List<Vector3> GetGlobalPositions()
-    //{
-    //    List<Vector3> globalPositions = new List<Vector3>();
-
-    //    for (int i = 0; i < transforms.Count; i++)
-    //        globalPositions.Add(transforms[i].position + tileTransform.position);
-
-    //    return globalPositions;
-    //}
-
-
     public RenderTransformList GetGlobalTransforms(Vector3 levelPosition, Vector3 tileSize)
     {
         RenderTransformList renderTransformList = new RenderTransformList();
 
         for (int i = 0; i < transforms.Count; i++)
         {
+            //renderTransformList.transforms.Add(transforms[i]);
+            //renderTransformList.transforms[i].position = GetGlobalPosition(transforms[i].position, levelPosition, tileSize);
+
             renderTransformList.transforms.Add(new RenderTransform(
                 GetGlobalPosition(transforms[i].position, levelPosition, tileSize),
-                //transforms[i].position + levelOffset + levelPosition,
                 transforms[i].orientation,
                 transforms[i].scale
             ));
         }
-
-
         return renderTransformList;
     }
 
     public Vector3 GetGlobalPosition(Vector3 localPosition, Vector3 levelPosition, Vector3 tileSize)
     {
-        Vector3 levelOffset = new Vector3(tileIndex.x * tileSize.x, 0, tileIndex.y * tileSize.z);
-        return localPosition + levelOffset + levelPosition;
+        Vector3 tileOffset = new Vector3(tileIndex.x * tileSize.x, 0, tileIndex.y * tileSize.z);
+        return localPosition + tileOffset + levelPosition;
     }
 }
 
@@ -265,7 +253,7 @@ public class GPUIHandler : MonoBehaviour
         for (int i = 0; i < activeTiles.Count; i++)//each (var tile in activeTiles)
         {
             //aloeTransforms.AddTransforms(activeTiles[i].aloePlants.GetGlobalTransforms(transform.position, level.tc.tileSize));
-            aloeTransforms.AddTransforms(level.parq.GetWorldPositionList(level.parq.GetTestimoniesInTile(activeTiles[i].tileIndex)));
+            aloeTransforms.AddTransforms(activeTiles[i].tileIndex, level.parq.GetWorldPositionList(level.parq.GetTestimoniesInTile(activeTiles[i].tileIndex)));
         }
         GPUICoreAPI.SetTransformBufferData(aloeRenderer.key, GenerateMatrixArray(aloeTransforms, instanceCount));
 
@@ -276,13 +264,16 @@ public class GPUIHandler : MonoBehaviour
             RenderTransformList objectTransforms = new RenderTransformList();
             for (int j = 0; j < activeTiles.Count; j++)//each (var tile in activeTiles)
             {
-                while (activeTiles[j].objects.Count < objectRenderers.Count)
+                while (activeTiles[j].objectListsToRender.Count < objectRenderers.Count || activeTiles[j].objectListsToRender[i].tileIndex == new Vector2(int.MaxValue, int.MaxValue))
                 {
                     await UniTask.Yield();
                 }
+                //Debug.Log($"{activeTiles[j].objectListsToRender[i].transforms.Count}, {activeTiles[j].objectListsToRender[i].tileIndex}");
+                //Debug.Log($"Adding objects to renderer {j} from tile {activeTiles[j].tileIndex}");
                 //objectTransforms.AddTransforms(activeTiles[j].objects[i].GetLocalToGlobalTransforms(activeTiles[j].transform));
-                objectTransforms.AddTransforms(activeTiles[j].objects[i].GetGlobalTransforms(transform.position, level.tc.tileSize));
+                objectTransforms.AddTransforms(activeTiles[j].tileIndex, activeTiles[j].objectListsToRender[i].GetGlobalTransforms(transform.position, level.tc.tileSize));
             }
+            //Debug.Log($"Length of objectTransform array for object {i}: {objectTransforms.transforms.Count}");
             GPUICoreAPI.SetTransformBufferData(objectRenderers[i].key, GenerateMatrixArray(objectTransforms, instanceCount));
         }
 

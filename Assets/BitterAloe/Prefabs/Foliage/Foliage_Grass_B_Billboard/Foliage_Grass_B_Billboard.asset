@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473c488612f26a143832f1606af81e03, type: 3}
+  m_Name: Foliage_Grass_B_Billboard
+  m_EditorClassIdentifier: 
+  prefabObject: {fileID: 4126960229627409182, guid: c8aaf1c1cedd4b147a578bff4c43e688, type: 3}
+  atlasResolution: 2048
+  frameCount: 8
+  brightness: 0.5
+  cutoffOverride: 0.5
+  normalStrength: 1
+  billboardShaderType: 0
+  quadSize: {x: 1.417289, y: 0.3901711}
+  yPivotOffset: 0.04355882
+  albedoAtlasTexture: {fileID: 2800000, guid: c01f087a70563ef45aba8cee3b5aac93, type: 3}
+  normalAtlasTexture: {fileID: 2800000, guid: 7553ad089c3378746b871ffe7e4fdeca, type: 3}

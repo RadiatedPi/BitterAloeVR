@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473c488612f26a143832f1606af81e03, type: 3}
+  m_Name: Foliage_Bush_Twig_Billboard
+  m_EditorClassIdentifier: 
+  prefabObject: {fileID: 5112762823705795019, guid: 97790f11f06f0094ea64939bb7636dcb, type: 3}
+  atlasResolution: 2048
+  frameCount: 8
+  brightness: 0.5
+  cutoffOverride: 0.5
+  normalStrength: 1
+  billboardShaderType: 0
+  quadSize: {x: 1.2657418, y: 0.5180635}
+  yPivotOffset: 0.009658709
+  albedoAtlasTexture: {fileID: 2800000, guid: b83229bddd2b4b346825f3c7dd8cb70b, type: 3}
+  normalAtlasTexture: {fileID: 2800000, guid: 4bf31df21fd1f91428aac0c748072174, type: 3}

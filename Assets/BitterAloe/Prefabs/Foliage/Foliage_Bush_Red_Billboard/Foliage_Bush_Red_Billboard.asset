@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473c488612f26a143832f1606af81e03, type: 3}
+  m_Name: Foliage_Bush_Red_Billboard
+  m_EditorClassIdentifier: 
+  prefabObject: {fileID: 4878982052771099511, guid: 513f9e67829d7ec4ba7b7a703d3dde98, type: 3}
+  atlasResolution: 2048
+  frameCount: 8
+  brightness: 0.5
+  cutoffOverride: 0.5
+  normalStrength: 1
+  billboardShaderType: 0
+  quadSize: {x: 5.6684027, y: 2.2290473}
+  yPivotOffset: 0.09686673
+  albedoAtlasTexture: {fileID: 2800000, guid: b287c2a1ca7763746880d292e13de673, type: 3}
+  normalAtlasTexture: {fileID: 2800000, guid: 87fbaac448376684eab814de7f2bf4f1, type: 3}

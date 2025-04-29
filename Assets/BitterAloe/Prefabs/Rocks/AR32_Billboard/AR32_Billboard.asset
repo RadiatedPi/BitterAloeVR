@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473c488612f26a143832f1606af81e03, type: 3}
+  m_Name: AR32_Billboard
+  m_EditorClassIdentifier: 
+  prefabObject: {fileID: 7062247158065476384, guid: 54e2a87ee27a4de4aa4143f25dfd6664, type: 3}
+  atlasResolution: 2048
+  frameCount: 8
+  brightness: 0.5
+  cutoffOverride: 0.5
+  normalStrength: 1
+  billboardShaderType: 0
+  quadSize: {x: 1.4560069, y: 0.3176362}
+  yPivotOffset: 0.012182981
+  albedoAtlasTexture: {fileID: 2800000, guid: 19a5417436fd43042b3455ab4b3fd450, type: 3}
+  normalAtlasTexture: {fileID: 2800000, guid: 66c057401e497dd45aaa4f901c18d45f, type: 3}
